@@ -13,7 +13,7 @@ class FilesGetResponse extends JsonSerializableType
      * @var ?FilesGetResponseMeta $meta
      */
     #[JsonProperty('meta')]
-    public ?FilesGetResponseMeta $meta;
+    private ?FilesGetResponseMeta $meta;
 
     /**
      * @var (
@@ -22,13 +22,13 @@ class FilesGetResponse extends JsonSerializableType
      * )|null $data
      */
     #[JsonProperty('data'), Union(File::class, FilesGetResponseDataAnalysis::class, 'null')]
-    public File|FilesGetResponseDataAnalysis|null $data;
+    private File|FilesGetResponseDataAnalysis|null $data;
 
     /**
      * @var ?FilesGetResponseLinks $links
      */
     #[JsonProperty('links')]
-    public ?FilesGetResponseLinks $links;
+    private ?FilesGetResponseLinks $links;
 
     /**
      * @param array{
@@ -46,6 +46,63 @@ class FilesGetResponse extends JsonSerializableType
         $this->meta = $values['meta'] ?? null;
         $this->data = $values['data'] ?? null;
         $this->links = $values['links'] ?? null;
+    }
+
+    /**
+     * @return ?FilesGetResponseMeta
+     */
+    public function getMeta(): ?FilesGetResponseMeta
+    {
+        return $this->meta;
+    }
+
+    /**
+     * @param ?FilesGetResponseMeta $value
+     */
+    public function setMeta(?FilesGetResponseMeta $value = null): self
+    {
+        $this->meta = $value;
+        return $this;
+    }
+
+    /**
+     * @return (
+     *    File
+     *   |FilesGetResponseDataAnalysis
+     * )|null
+     */
+    public function getData(): File|FilesGetResponseDataAnalysis|null
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param (
+     *    File
+     *   |FilesGetResponseDataAnalysis
+     * )|null $value
+     */
+    public function setData(File|FilesGetResponseDataAnalysis|null $value = null): self
+    {
+        $this->data = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?FilesGetResponseLinks
+     */
+    public function getLinks(): ?FilesGetResponseLinks
+    {
+        return $this->links;
+    }
+
+    /**
+     * @param ?FilesGetResponseLinks $value
+     */
+    public function setLinks(?FilesGetResponseLinks $value = null): self
+    {
+        $this->links = $value;
+        return $this;
     }
 
     /**

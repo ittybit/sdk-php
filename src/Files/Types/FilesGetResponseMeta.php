@@ -13,55 +13,55 @@ class FilesGetResponseMeta extends JsonSerializableType
      * @var ?string $id
      */
     #[JsonProperty('id')]
-    public ?string $id;
+    private ?string $id;
 
     /**
      * @var ?string $method
      */
     #[JsonProperty('method')]
-    public ?string $method;
+    private ?string $method;
 
     /**
      * @var ?string $url
      */
     #[JsonProperty('url')]
-    public ?string $url;
+    private ?string $url;
 
     /**
      * @var ?string $version
      */
     #[JsonProperty('version')]
-    public ?string $version;
+    private ?string $version;
 
     /**
      * @var ?int $status
      */
     #[JsonProperty('status')]
-    public ?int $status;
+    private ?int $status;
 
     /**
      * @var ?string $orgId
      */
     #[JsonProperty('org_id')]
-    public ?string $orgId;
+    private ?string $orgId;
 
     /**
      * @var ?string $projectId
      */
     #[JsonProperty('project_id')]
-    public ?string $projectId;
+    private ?string $projectId;
 
     /**
      * @var ?string $object
      */
     #[JsonProperty('object')]
-    public ?string $object;
+    private ?string $object;
 
     /**
      * @var ?DateTime $created
      */
     #[JsonProperty('created'), Date(Date::TYPE_DATETIME)]
-    public ?DateTime $created;
+    private ?DateTime $created;
 
     /**
      * @param array{
@@ -88,6 +88,159 @@ class FilesGetResponseMeta extends JsonSerializableType
         $this->projectId = $values['projectId'] ?? null;
         $this->object = $values['object'] ?? null;
         $this->created = $values['created'] ?? null;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setId(?string $value = null): self
+    {
+        $this->id = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getMethod(): ?string
+    {
+        return $this->method;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setMethod(?string $value = null): self
+    {
+        $this->method = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setUrl(?string $value = null): self
+    {
+        $this->url = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getVersion(): ?string
+    {
+        return $this->version;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setVersion(?string $value = null): self
+    {
+        $this->version = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param ?int $value
+     */
+    public function setStatus(?int $value = null): self
+    {
+        $this->status = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getOrgId(): ?string
+    {
+        return $this->orgId;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setOrgId(?string $value = null): self
+    {
+        $this->orgId = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getProjectId(): ?string
+    {
+        return $this->projectId;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setProjectId(?string $value = null): self
+    {
+        $this->projectId = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getObject(): ?string
+    {
+        return $this->object;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setObject(?string $value = null): self
+    {
+        $this->object = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?DateTime
+     */
+    public function getCreated(): ?DateTime
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param ?DateTime $value
+     */
+    public function setCreated(?DateTime $value = null): self
+    {
+        $this->created = $value;
+        return $this;
     }
 
     /**

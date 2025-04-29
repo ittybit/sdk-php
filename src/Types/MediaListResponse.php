@@ -18,7 +18,7 @@ class MediaListResponse extends JsonSerializableType
      * @var ?array<Media> $data
      */
     #[JsonProperty('data'), ArrayType([Media::class])]
-    public ?array $data;
+    private ?array $data;
 
     /**
      * @param array{
@@ -33,6 +33,23 @@ class MediaListResponse extends JsonSerializableType
         $this->meta = $values['meta'] ?? null;
         $this->links = $values['links'] ?? null;
         $this->data = $values['data'] ?? null;
+    }
+
+    /**
+     * @return ?array<Media>
+     */
+    public function getData(): ?array
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param ?array<Media> $value
+     */
+    public function setData(?array $value = null): self
+    {
+        $this->data = $value;
+        return $this;
     }
 
     /**

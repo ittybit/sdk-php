@@ -11,7 +11,7 @@ class MediaGetResponseLinks extends JsonSerializableType
      * @var ?string $self
      */
     #[JsonProperty('self')]
-    public ?string $self;
+    private ?string $self;
 
     /**
      * @param array{
@@ -22,6 +22,23 @@ class MediaGetResponseLinks extends JsonSerializableType
         array $values = [],
     ) {
         $this->self = $values['self'] ?? null;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getSelf(): ?string
+    {
+        return $this->self;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setSelf(?string $value = null): self
+    {
+        $this->self = $value;
+        return $this;
     }
 
     /**

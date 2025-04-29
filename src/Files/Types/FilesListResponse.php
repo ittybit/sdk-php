@@ -17,7 +17,7 @@ class FilesListResponse extends JsonSerializableType
      * @var ?array<mixed> $data List of file objects
      */
     #[JsonProperty('data'), ArrayType(['mixed'])]
-    public ?array $data;
+    private ?array $data;
 
     /**
      * @param array{
@@ -32,6 +32,23 @@ class FilesListResponse extends JsonSerializableType
         $this->meta = $values['meta'] ?? null;
         $this->links = $values['links'] ?? null;
         $this->data = $values['data'] ?? null;
+    }
+
+    /**
+     * @return ?array<mixed>
+     */
+    public function getData(): ?array
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param ?array<mixed> $value
+     */
+    public function setData(?array $value = null): self
+    {
+        $this->data = $value;
+        return $this;
     }
 
     /**

@@ -18,7 +18,7 @@ class TaskListResponse extends JsonSerializableType
      * @var ?array<Task> $data
      */
     #[JsonProperty('data'), ArrayType([Task::class])]
-    public ?array $data;
+    private ?array $data;
 
     /**
      * @param array{
@@ -33,6 +33,23 @@ class TaskListResponse extends JsonSerializableType
         $this->meta = $values['meta'] ?? null;
         $this->links = $values['links'] ?? null;
         $this->data = $values['data'] ?? null;
+    }
+
+    /**
+     * @return ?array<Task>
+     */
+    public function getData(): ?array
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param ?array<Task> $value
+     */
+    public function setData(?array $value = null): self
+    {
+        $this->data = $value;
+        return $this;
     }
 
     /**

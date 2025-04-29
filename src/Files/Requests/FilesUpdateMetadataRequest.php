@@ -12,19 +12,19 @@ class FilesUpdateMetadataRequest extends JsonSerializableType
      * @var ?array<string, mixed> $metadata An object containing key-value pairs to set or update. Set a key to null to remove it.
      */
     #[JsonProperty('metadata'), ArrayType(['string' => 'mixed'])]
-    public ?array $metadata;
+    private ?array $metadata;
 
     /**
      * @var ?string $filename New filename for the file.
      */
     #[JsonProperty('filename')]
-    public ?string $filename;
+    private ?string $filename;
 
     /**
      * @var ?string $folder New folder path for the file.
      */
     #[JsonProperty('folder')]
-    public ?string $folder;
+    private ?string $folder;
 
     /**
      * @param array{
@@ -39,5 +39,56 @@ class FilesUpdateMetadataRequest extends JsonSerializableType
         $this->metadata = $values['metadata'] ?? null;
         $this->filename = $values['filename'] ?? null;
         $this->folder = $values['folder'] ?? null;
+    }
+
+    /**
+     * @return ?array<string, mixed>
+     */
+    public function getMetadata(): ?array
+    {
+        return $this->metadata;
+    }
+
+    /**
+     * @param ?array<string, mixed> $value
+     */
+    public function setMetadata(?array $value = null): self
+    {
+        $this->metadata = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setFilename(?string $value = null): self
+    {
+        $this->filename = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getFolder(): ?string
+    {
+        return $this->folder;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setFolder(?string $value = null): self
+    {
+        $this->folder = $value;
+        return $this;
     }
 }
