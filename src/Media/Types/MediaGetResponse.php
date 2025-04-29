@@ -12,19 +12,19 @@ class MediaGetResponse extends JsonSerializableType
      * @var ?MediaGetResponseMeta $meta
      */
     #[JsonProperty('meta')]
-    public ?MediaGetResponseMeta $meta;
+    private ?MediaGetResponseMeta $meta;
 
     /**
      * @var ?Media $data
      */
     #[JsonProperty('data')]
-    public ?Media $data;
+    private ?Media $data;
 
     /**
      * @var ?MediaGetResponseLinks $links
      */
     #[JsonProperty('links')]
-    public ?MediaGetResponseLinks $links;
+    private ?MediaGetResponseLinks $links;
 
     /**
      * @param array{
@@ -39,6 +39,57 @@ class MediaGetResponse extends JsonSerializableType
         $this->meta = $values['meta'] ?? null;
         $this->data = $values['data'] ?? null;
         $this->links = $values['links'] ?? null;
+    }
+
+    /**
+     * @return ?MediaGetResponseMeta
+     */
+    public function getMeta(): ?MediaGetResponseMeta
+    {
+        return $this->meta;
+    }
+
+    /**
+     * @param ?MediaGetResponseMeta $value
+     */
+    public function setMeta(?MediaGetResponseMeta $value = null): self
+    {
+        $this->meta = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?Media
+     */
+    public function getData(): ?Media
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param ?Media $value
+     */
+    public function setData(?Media $value = null): self
+    {
+        $this->data = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?MediaGetResponseLinks
+     */
+    public function getLinks(): ?MediaGetResponseLinks
+    {
+        return $this->links;
+    }
+
+    /**
+     * @param ?MediaGetResponseLinks $value
+     */
+    public function setLinks(?MediaGetResponseLinks $value = null): self
+    {
+        $this->links = $value;
+        return $this;
     }
 
     /**

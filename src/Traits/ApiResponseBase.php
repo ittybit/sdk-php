@@ -18,11 +18,45 @@ trait ApiResponseBase
      * @var ?Meta $meta
      */
     #[JsonProperty('meta')]
-    public ?Meta $meta;
+    private ?Meta $meta;
 
     /**
      * @var ?Links $links
      */
     #[JsonProperty('links')]
-    public ?Links $links;
+    private ?Links $links;
+
+    /**
+     * @return ?Meta
+     */
+    public function getMeta(): ?Meta
+    {
+        return $this->meta;
+    }
+
+    /**
+     * @param ?Meta $value
+     */
+    public function setMeta(?Meta $value = null): self
+    {
+        $this->meta = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?Links
+     */
+    public function getLinks(): ?Links
+    {
+        return $this->links;
+    }
+
+    /**
+     * @param ?Links $value
+     */
+    public function setLinks(?Links $value = null): self
+    {
+        $this->links = $value;
+        return $this;
+    }
 }

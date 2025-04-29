@@ -14,43 +14,43 @@ class WorkflowTaskStep extends JsonSerializableType
      * @var value-of<WorkflowTaskStepKind> $kind The type of operation the task performs.
      */
     #[JsonProperty('kind')]
-    public string $kind;
+    private string $kind;
 
     /**
      * @var ?string $label Optional label for the output of this step.
      */
     #[JsonProperty('label')]
-    public ?string $label;
+    private ?string $label;
 
     /**
      * @var ?string $format Output format (e.g., mp4, jpg)
      */
     #[JsonProperty('format')]
-    public ?string $format;
+    private ?string $format;
 
     /**
      * @var ?int $width Output width
      */
     #[JsonProperty('width')]
-    public ?int $width;
+    private ?int $width;
 
     /**
      * @var ?int $height Output height
      */
     #[JsonProperty('height')]
-    public ?int $height;
+    private ?int $height;
 
     /**
      * @var ?string $resize Resize mode
      */
     #[JsonProperty('resize')]
-    public ?string $resize;
+    private ?string $resize;
 
     /**
      * @var ?int $quality Quality setting
      */
     #[JsonProperty('quality')]
-    public ?int $quality;
+    private ?int $quality;
 
     /**
      * @param array{
@@ -73,6 +73,125 @@ class WorkflowTaskStep extends JsonSerializableType
         $this->height = $values['height'] ?? null;
         $this->resize = $values['resize'] ?? null;
         $this->quality = $values['quality'] ?? null;
+    }
+
+    /**
+     * @return value-of<WorkflowTaskStepKind>
+     */
+    public function getKind(): string
+    {
+        return $this->kind;
+    }
+
+    /**
+     * @param value-of<WorkflowTaskStepKind> $value
+     */
+    public function setKind(string $value): self
+    {
+        $this->kind = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getLabel(): ?string
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setLabel(?string $value = null): self
+    {
+        $this->label = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getFormat(): ?string
+    {
+        return $this->format;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setFormat(?string $value = null): self
+    {
+        $this->format = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getWidth(): ?int
+    {
+        return $this->width;
+    }
+
+    /**
+     * @param ?int $value
+     */
+    public function setWidth(?int $value = null): self
+    {
+        $this->width = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getHeight(): ?int
+    {
+        return $this->height;
+    }
+
+    /**
+     * @param ?int $value
+     */
+    public function setHeight(?int $value = null): self
+    {
+        $this->height = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getResize(): ?string
+    {
+        return $this->resize;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setResize(?string $value = null): self
+    {
+        $this->resize = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getQuality(): ?int
+    {
+        return $this->quality;
+    }
+
+    /**
+     * @param ?int $value
+     */
+    public function setQuality(?int $value = null): self
+    {
+        $this->quality = $value;
+        return $this;
     }
 
     /**
