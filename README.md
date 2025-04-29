@@ -1,1 +1,0 @@
-# ittybit-php-sdk

@@ -1,0 +1,44 @@
+<?php
+
+namespace Ittybit\Types;
+
+use Ittybit\Core\Json\JsonSerializableType;
+use Ittybit\Traits\ApiResponseBase;
+use Ittybit\Core\Json\JsonProperty;
+
+/**
+ * Standard wrapper for single File responses.
+ */
+class FileResponse extends JsonSerializableType
+{
+    use ApiResponseBase;
+
+    /**
+     * @var ?File $data
+     */
+    #[JsonProperty('data')]
+    public ?File $data;
+
+    /**
+     * @param array{
+     *   meta?: ?Meta,
+     *   links?: ?Links,
+     *   data?: ?File,
+     * } $values
+     */
+    public function __construct(
+        array $values = [],
+    ) {
+        $this->meta = $values['meta'] ?? null;
+        $this->links = $values['links'] ?? null;
+        $this->data = $values['data'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
+}
