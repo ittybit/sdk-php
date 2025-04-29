@@ -15,13 +15,13 @@ class AutomationTrigger extends JsonSerializableType
      * @var string $event The event that triggers the automation
      */
     #[JsonProperty('event')]
-    public string $event;
+    private string $event;
 
     /**
      * @var ?array<AutomationTriggerConditionsItem> $conditions Conditions that must be met for the trigger to activate.
      */
     #[JsonProperty('conditions'), ArrayType([AutomationTriggerConditionsItem::class])]
-    public ?array $conditions;
+    private ?array $conditions;
 
     /**
      * @param array{
@@ -34,6 +34,40 @@ class AutomationTrigger extends JsonSerializableType
     ) {
         $this->event = $values['event'];
         $this->conditions = $values['conditions'] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEvent(): string
+    {
+        return $this->event;
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setEvent(string $value): self
+    {
+        $this->event = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?array<AutomationTriggerConditionsItem>
+     */
+    public function getConditions(): ?array
+    {
+        return $this->conditions;
+    }
+
+    /**
+     * @param ?array<AutomationTriggerConditionsItem> $value
+     */
+    public function setConditions(?array $value = null): self
+    {
+        $this->conditions = $value;
+        return $this;
     }
 
     /**

@@ -17,7 +17,7 @@ class AutomationResponse extends JsonSerializableType
      * @var ?Automation $data
      */
     #[JsonProperty('data')]
-    public ?Automation $data;
+    private ?Automation $data;
 
     /**
      * @param array{
@@ -32,6 +32,23 @@ class AutomationResponse extends JsonSerializableType
         $this->meta = $values['meta'] ?? null;
         $this->links = $values['links'] ?? null;
         $this->data = $values['data'] ?? null;
+    }
+
+    /**
+     * @return ?Automation
+     */
+    public function getData(): ?Automation
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param ?Automation $value
+     */
+    public function setData(?Automation $value = null): self
+    {
+        $this->data = $value;
+        return $this;
     }
 
     /**

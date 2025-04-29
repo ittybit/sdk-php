@@ -14,7 +14,7 @@ class FilesDeleteResponseData extends JsonSerializableType
      * @var ?string $message Confirmation message
      */
     #[JsonProperty('message')]
-    public ?string $message;
+    private ?string $message;
 
     /**
      * @param array{
@@ -25,6 +25,23 @@ class FilesDeleteResponseData extends JsonSerializableType
         array $values = [],
     ) {
         $this->message = $values['message'] ?? null;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getMessage(): ?string
+    {
+        return $this->message;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setMessage(?string $value = null): self
+    {
+        $this->message = $value;
+        return $this;
     }
 
     /**

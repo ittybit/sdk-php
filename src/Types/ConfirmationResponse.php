@@ -17,7 +17,7 @@ class ConfirmationResponse extends JsonSerializableType
      * @var ?ConfirmationResponseData $data
      */
     #[JsonProperty('data')]
-    public ?ConfirmationResponseData $data;
+    private ?ConfirmationResponseData $data;
 
     /**
      * @param array{
@@ -32,6 +32,23 @@ class ConfirmationResponse extends JsonSerializableType
         $this->meta = $values['meta'] ?? null;
         $this->links = $values['links'] ?? null;
         $this->data = $values['data'] ?? null;
+    }
+
+    /**
+     * @return ?ConfirmationResponseData
+     */
+    public function getData(): ?ConfirmationResponseData
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param ?ConfirmationResponseData $value
+     */
+    public function setData(?ConfirmationResponseData $value = null): self
+    {
+        $this->data = $value;
+        return $this;
     }
 
     /**
