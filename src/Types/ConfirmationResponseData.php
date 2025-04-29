@@ -11,7 +11,7 @@ class ConfirmationResponseData extends JsonSerializableType
      * @var string $message
      */
     #[JsonProperty('message')]
-    public string $message;
+    private string $message;
 
     /**
      * @param array{
@@ -22,6 +22,23 @@ class ConfirmationResponseData extends JsonSerializableType
         array $values,
     ) {
         $this->message = $values['message'];
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage(): string
+    {
+        return $this->message;
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setMessage(string $value): self
+    {
+        $this->message = $value;
+        return $this;
     }
 
     /**

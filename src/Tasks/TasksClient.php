@@ -73,17 +73,17 @@ class TasksClient
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
-        if ($request->page != null) {
-            $query['page'] = $request->page;
+        if ($request->getPage() != null) {
+            $query['page'] = $request->getPage();
         }
-        if ($request->limit != null) {
-            $query['limit'] = $request->limit;
+        if ($request->getLimit() != null) {
+            $query['limit'] = $request->getLimit();
         }
-        if ($request->status != null) {
-            $query['status'] = $request->status;
+        if ($request->getStatus() != null) {
+            $query['status'] = $request->getStatus();
         }
-        if ($request->kind != null) {
-            $query['kind'] = $request->kind;
+        if ($request->getKind() != null) {
+            $query['kind'] = $request->getKind();
         }
         try {
             $response = $this->client->sendRequest(

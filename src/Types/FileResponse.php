@@ -17,7 +17,7 @@ class FileResponse extends JsonSerializableType
      * @var ?File $data
      */
     #[JsonProperty('data')]
-    public ?File $data;
+    private ?File $data;
 
     /**
      * @param array{
@@ -32,6 +32,23 @@ class FileResponse extends JsonSerializableType
         $this->meta = $values['meta'] ?? null;
         $this->links = $values['links'] ?? null;
         $this->data = $values['data'] ?? null;
+    }
+
+    /**
+     * @return ?File
+     */
+    public function getData(): ?File
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param ?File $value
+     */
+    public function setData(?File $value = null): self
+    {
+        $this->data = $value;
+        return $this;
     }
 
     /**

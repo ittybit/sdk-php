@@ -16,7 +16,7 @@ class FilesDeleteResponse extends JsonSerializableType
      * @var ?FilesDeleteResponseData $data Contains a confirmation message
      */
     #[JsonProperty('data')]
-    public ?FilesDeleteResponseData $data;
+    private ?FilesDeleteResponseData $data;
 
     /**
      * @param array{
@@ -31,6 +31,23 @@ class FilesDeleteResponse extends JsonSerializableType
         $this->meta = $values['meta'] ?? null;
         $this->links = $values['links'] ?? null;
         $this->data = $values['data'] ?? null;
+    }
+
+    /**
+     * @return ?FilesDeleteResponseData
+     */
+    public function getData(): ?FilesDeleteResponseData
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param ?FilesDeleteResponseData $value
+     */
+    public function setData(?FilesDeleteResponseData $value = null): self
+    {
+        $this->data = $value;
+        return $this;
     }
 
     /**

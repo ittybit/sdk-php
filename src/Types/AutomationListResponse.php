@@ -18,7 +18,7 @@ class AutomationListResponse extends JsonSerializableType
      * @var ?array<Automation> $data
      */
     #[JsonProperty('data'), ArrayType([Automation::class])]
-    public ?array $data;
+    private ?array $data;
 
     /**
      * @param array{
@@ -33,6 +33,23 @@ class AutomationListResponse extends JsonSerializableType
         $this->meta = $values['meta'] ?? null;
         $this->links = $values['links'] ?? null;
         $this->data = $values['data'] ?? null;
+    }
+
+    /**
+     * @return ?array<Automation>
+     */
+    public function getData(): ?array
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param ?array<Automation> $value
+     */
+    public function setData(?array $value = null): self
+    {
+        $this->data = $value;
+        return $this;
     }
 
     /**

@@ -12,19 +12,19 @@ class TaskResults extends JsonSerializableType
      * @var ?array<array<string, mixed>> $passed
      */
     #[JsonProperty('passed'), ArrayType([['string' => 'mixed']])]
-    public ?array $passed;
+    private ?array $passed;
 
     /**
      * @var ?array<array<string, mixed>> $failed
      */
     #[JsonProperty('failed'), ArrayType([['string' => 'mixed']])]
-    public ?array $failed;
+    private ?array $failed;
 
     /**
      * @var ?bool $continue
      */
     #[JsonProperty('continue')]
-    public ?bool $continue;
+    private ?bool $continue;
 
     /**
      * @param array{
@@ -39,6 +39,57 @@ class TaskResults extends JsonSerializableType
         $this->passed = $values['passed'] ?? null;
         $this->failed = $values['failed'] ?? null;
         $this->continue = $values['continue'] ?? null;
+    }
+
+    /**
+     * @return ?array<array<string, mixed>>
+     */
+    public function getPassed(): ?array
+    {
+        return $this->passed;
+    }
+
+    /**
+     * @param ?array<array<string, mixed>> $value
+     */
+    public function setPassed(?array $value = null): self
+    {
+        $this->passed = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?array<array<string, mixed>>
+     */
+    public function getFailed(): ?array
+    {
+        return $this->failed;
+    }
+
+    /**
+     * @param ?array<array<string, mixed>> $value
+     */
+    public function setFailed(?array $value = null): self
+    {
+        $this->failed = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?bool
+     */
+    public function getContinue(): ?bool
+    {
+        return $this->continue;
+    }
+
+    /**
+     * @param ?bool $value
+     */
+    public function setContinue(?bool $value = null): self
+    {
+        $this->continue = $value;
+        return $this;
     }
 
     /**
