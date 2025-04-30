@@ -87,7 +87,27 @@ When the API returns a non-success status code (4xx or 5xx response), an excepti
 
 ```php
 try {
-    $client->automations->create();
+    $client->automations->create([
+        'name' => 'Test Automation',
+        'description' => 'Test Description',
+        'trigger' => [
+            'event' => 'upload.completed',
+            'conditions' => [
+                'prop' => 'file.type',
+                'value' => 'video/*'
+            ]
+        ],
+        'workflow' => [
+            [
+                'kind' => 'video',
+                'format' => 'mp4',
+                'resize' => 'fit',
+                'width' => 1920,
+                'height' => 1080,
+                'label' => 'web_1080p_mp4'
+            ]
+        ]
+    ]);
 } catch (\Exception $e) {
     echo 'Error: ' . $e->getMessage() . "\n";
     // Handle the error appropriately
