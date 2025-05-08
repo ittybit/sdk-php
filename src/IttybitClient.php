@@ -71,8 +71,8 @@ class IttybitClient
             'Authorization' => "Bearer $token",
             'X-Fern-Language' => 'PHP',
             'X-Fern-SDK-Name' => 'Ittybit',
-            'X-Fern-SDK-Version' => '0.7.0',
-            'User-Agent' => 'ittybit/ittybit/0.7.0',
+            'X-Fern-SDK-Version' => '0.7.1',
+            'User-Agent' => 'ittybit/sdk/0.7.1',
         ];
 
         $this->options = $options ?? [];
