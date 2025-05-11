@@ -4,26 +4,25 @@ namespace Ittybit\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
-use Ittybit\Core\Types\ArrayType;
 
 class BadRequestErrorBody extends JsonSerializableType
 {
     /**
-     * @var ?array<string, mixed> $meta
+     * @var ?BadRequestErrorBodyMeta $meta
      */
-    #[JsonProperty('meta'), ArrayType(['string' => 'mixed'])]
-    private ?array $meta;
+    #[JsonProperty('meta')]
+    private ?BadRequestErrorBodyMeta $meta;
 
     /**
-     * @var ?string $error
+     * @var ?BadRequestErrorBodyError $error
      */
     #[JsonProperty('error')]
-    private ?string $error;
+    private ?BadRequestErrorBodyError $error;
 
     /**
      * @param array{
-     *   meta?: ?array<string, mixed>,
-     *   error?: ?string,
+     *   meta?: ?BadRequestErrorBodyMeta,
+     *   error?: ?BadRequestErrorBodyError,
      * } $values
      */
     public function __construct(
@@ -34,34 +33,34 @@ class BadRequestErrorBody extends JsonSerializableType
     }
 
     /**
-     * @return ?array<string, mixed>
+     * @return ?BadRequestErrorBodyMeta
      */
-    public function getMeta(): ?array
+    public function getMeta(): ?BadRequestErrorBodyMeta
     {
         return $this->meta;
     }
 
     /**
-     * @param ?array<string, mixed> $value
+     * @param ?BadRequestErrorBodyMeta $value
      */
-    public function setMeta(?array $value = null): self
+    public function setMeta(?BadRequestErrorBodyMeta $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?string
+     * @return ?BadRequestErrorBodyError
      */
-    public function getError(): ?string
+    public function getError(): ?BadRequestErrorBodyError
     {
         return $this->error;
     }
 
     /**
-     * @param ?string $value
+     * @param ?BadRequestErrorBodyError $value
      */
-    public function setError(?string $value = null): self
+    public function setError(?BadRequestErrorBodyError $value = null): self
     {
         $this->error = $value;
         return $this;

@@ -3,40 +3,63 @@
 namespace Ittybit\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
-use Ittybit\Traits\ApiResponseBase;
 use Ittybit\Core\Json\JsonProperty;
 use Ittybit\Core\Types\ArrayType;
 
-/**
- * Standard wrapper for File list responses.
- */
 class FileListResponse extends JsonSerializableType
 {
-    use ApiResponseBase;
+    /**
+     * @var ?FileListResponseMeta $meta
+     */
+    #[JsonProperty('meta')]
+    private ?FileListResponseMeta $meta;
 
     /**
-     * @var ?array<File> $data
+     * @var ?array<FileListResponseDataItem> $data
      */
-    #[JsonProperty('data'), ArrayType([File::class])]
+    #[JsonProperty('data'), ArrayType([FileListResponseDataItem::class])]
     private ?array $data;
 
     /**
+     * @var ?FileListResponseLinks $links
+     */
+    #[JsonProperty('links')]
+    private ?FileListResponseLinks $links;
+
+    /**
      * @param array{
-     *   meta?: ?Meta,
-     *   links?: ?Links,
-     *   data?: ?array<File>,
+     *   meta?: ?FileListResponseMeta,
+     *   data?: ?array<FileListResponseDataItem>,
+     *   links?: ?FileListResponseLinks,
      * } $values
      */
     public function __construct(
         array $values = [],
     ) {
         $this->meta = $values['meta'] ?? null;
-        $this->links = $values['links'] ?? null;
         $this->data = $values['data'] ?? null;
+        $this->links = $values['links'] ?? null;
     }
 
     /**
-     * @return ?array<File>
+     * @return ?FileListResponseMeta
+     */
+    public function getMeta(): ?FileListResponseMeta
+    {
+        return $this->meta;
+    }
+
+    /**
+     * @param ?FileListResponseMeta $value
+     */
+    public function setMeta(?FileListResponseMeta $value = null): self
+    {
+        $this->meta = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?array<FileListResponseDataItem>
      */
     public function getData(): ?array
     {
@@ -44,11 +67,28 @@ class FileListResponse extends JsonSerializableType
     }
 
     /**
-     * @param ?array<File> $value
+     * @param ?array<FileListResponseDataItem> $value
      */
     public function setData(?array $value = null): self
     {
         $this->data = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?FileListResponseLinks
+     */
+    public function getLinks(): ?FileListResponseLinks
+    {
+        return $this->links;
+    }
+
+    /**
+     * @param ?FileListResponseLinks $value
+     */
+    public function setLinks(?FileListResponseLinks $value = null): self
+    {
+        $this->links = $value;
         return $this;
     }
 

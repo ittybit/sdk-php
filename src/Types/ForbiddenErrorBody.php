@@ -8,21 +8,21 @@ use Ittybit\Core\Json\JsonProperty;
 class ForbiddenErrorBody extends JsonSerializableType
 {
     /**
-     * @var ?Meta $meta
+     * @var ?ForbiddenErrorBodyMeta $meta
      */
     #[JsonProperty('meta')]
-    private ?Meta $meta;
+    private ?ForbiddenErrorBodyMeta $meta;
 
     /**
-     * @var ?string $error Error message
+     * @var ?ForbiddenErrorBodyError $error
      */
     #[JsonProperty('error')]
-    private ?string $error;
+    private ?ForbiddenErrorBodyError $error;
 
     /**
      * @param array{
-     *   meta?: ?Meta,
-     *   error?: ?string,
+     *   meta?: ?ForbiddenErrorBodyMeta,
+     *   error?: ?ForbiddenErrorBodyError,
      * } $values
      */
     public function __construct(
@@ -33,34 +33,34 @@ class ForbiddenErrorBody extends JsonSerializableType
     }
 
     /**
-     * @return ?Meta
+     * @return ?ForbiddenErrorBodyMeta
      */
-    public function getMeta(): ?Meta
+    public function getMeta(): ?ForbiddenErrorBodyMeta
     {
         return $this->meta;
     }
 
     /**
-     * @param ?Meta $value
+     * @param ?ForbiddenErrorBodyMeta $value
      */
-    public function setMeta(?Meta $value = null): self
+    public function setMeta(?ForbiddenErrorBodyMeta $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?string
+     * @return ?ForbiddenErrorBodyError
      */
-    public function getError(): ?string
+    public function getError(): ?ForbiddenErrorBodyError
     {
         return $this->error;
     }
 
     /**
-     * @param ?string $value
+     * @param ?ForbiddenErrorBodyError $value
      */
-    public function setError(?string $value = null): self
+    public function setError(?ForbiddenErrorBodyError $value = null): self
     {
         $this->error = $value;
         return $this;

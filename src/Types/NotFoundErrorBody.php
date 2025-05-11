@@ -8,21 +8,21 @@ use Ittybit\Core\Json\JsonProperty;
 class NotFoundErrorBody extends JsonSerializableType
 {
     /**
-     * @var ?Meta $meta
+     * @var ?NotFoundErrorBodyMeta $meta
      */
     #[JsonProperty('meta')]
-    private ?Meta $meta;
+    private ?NotFoundErrorBodyMeta $meta;
 
     /**
-     * @var ?string $error Error message
+     * @var ?NotFoundErrorBodyError $error
      */
     #[JsonProperty('error')]
-    private ?string $error;
+    private ?NotFoundErrorBodyError $error;
 
     /**
      * @param array{
-     *   meta?: ?Meta,
-     *   error?: ?string,
+     *   meta?: ?NotFoundErrorBodyMeta,
+     *   error?: ?NotFoundErrorBodyError,
      * } $values
      */
     public function __construct(
@@ -33,34 +33,34 @@ class NotFoundErrorBody extends JsonSerializableType
     }
 
     /**
-     * @return ?Meta
+     * @return ?NotFoundErrorBodyMeta
      */
-    public function getMeta(): ?Meta
+    public function getMeta(): ?NotFoundErrorBodyMeta
     {
         return $this->meta;
     }
 
     /**
-     * @param ?Meta $value
+     * @param ?NotFoundErrorBodyMeta $value
      */
-    public function setMeta(?Meta $value = null): self
+    public function setMeta(?NotFoundErrorBodyMeta $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?string
+     * @return ?NotFoundErrorBodyError
      */
-    public function getError(): ?string
+    public function getError(): ?NotFoundErrorBodyError
     {
         return $this->error;
     }
 
     /**
-     * @param ?string $value
+     * @param ?NotFoundErrorBodyError $value
      */
-    public function setError(?string $value = null): self
+    public function setError(?NotFoundErrorBodyError $value = null): self
     {
         $this->error = $value;
         return $this;

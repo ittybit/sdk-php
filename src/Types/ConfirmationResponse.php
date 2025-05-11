@@ -3,15 +3,15 @@
 namespace Ittybit\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
-use Ittybit\Traits\ApiResponseBase;
 use Ittybit\Core\Json\JsonProperty;
 
-/**
- * Standard wrapper for confirmation message responses.
- */
 class ConfirmationResponse extends JsonSerializableType
 {
-    use ApiResponseBase;
+    /**
+     * @var ?ConfirmationResponseMeta $meta
+     */
+    #[JsonProperty('meta')]
+    private ?ConfirmationResponseMeta $meta;
 
     /**
      * @var ?ConfirmationResponseData $data
@@ -20,18 +20,41 @@ class ConfirmationResponse extends JsonSerializableType
     private ?ConfirmationResponseData $data;
 
     /**
+     * @var ?ConfirmationResponseLinks $links
+     */
+    #[JsonProperty('links')]
+    private ?ConfirmationResponseLinks $links;
+
+    /**
      * @param array{
-     *   meta?: ?Meta,
-     *   links?: ?Links,
+     *   meta?: ?ConfirmationResponseMeta,
      *   data?: ?ConfirmationResponseData,
+     *   links?: ?ConfirmationResponseLinks,
      * } $values
      */
     public function __construct(
         array $values = [],
     ) {
         $this->meta = $values['meta'] ?? null;
-        $this->links = $values['links'] ?? null;
         $this->data = $values['data'] ?? null;
+        $this->links = $values['links'] ?? null;
+    }
+
+    /**
+     * @return ?ConfirmationResponseMeta
+     */
+    public function getMeta(): ?ConfirmationResponseMeta
+    {
+        return $this->meta;
+    }
+
+    /**
+     * @param ?ConfirmationResponseMeta $value
+     */
+    public function setMeta(?ConfirmationResponseMeta $value = null): self
+    {
+        $this->meta = $value;
+        return $this;
     }
 
     /**
@@ -48,6 +71,23 @@ class ConfirmationResponse extends JsonSerializableType
     public function setData(?ConfirmationResponseData $value = null): self
     {
         $this->data = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?ConfirmationResponseLinks
+     */
+    public function getLinks(): ?ConfirmationResponseLinks
+    {
+        return $this->links;
+    }
+
+    /**
+     * @param ?ConfirmationResponseLinks $value
+     */
+    public function setLinks(?ConfirmationResponseLinks $value = null): self
+    {
+        $this->links = $value;
         return $this;
     }
 

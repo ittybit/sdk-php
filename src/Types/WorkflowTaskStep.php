@@ -5,9 +5,6 @@ namespace Ittybit\Types;
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
 
-/**
- * A single task step definition within an automation workflow.
- */
 class WorkflowTaskStep extends JsonSerializableType
 {
     /**

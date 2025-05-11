@@ -5,9 +5,6 @@ namespace Ittybit\Types;
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
 
-/**
- * Standard pagination and self links for API responses.
- */
 class Links extends JsonSerializableType
 {
     /**

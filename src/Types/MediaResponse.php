@@ -3,51 +3,91 @@
 namespace Ittybit\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
-use Ittybit\Traits\ApiResponseBase;
 use Ittybit\Core\Json\JsonProperty;
 
-/**
- * Standard wrapper for single Media responses.
- */
 class MediaResponse extends JsonSerializableType
 {
-    use ApiResponseBase;
+    /**
+     * @var ?MediaResponseMeta $meta
+     */
+    #[JsonProperty('meta')]
+    private ?MediaResponseMeta $meta;
 
     /**
-     * @var ?Media $data
+     * @var ?MediaResponseData $data
      */
     #[JsonProperty('data')]
-    private ?Media $data;
+    private ?MediaResponseData $data;
+
+    /**
+     * @var ?MediaResponseLinks $links
+     */
+    #[JsonProperty('links')]
+    private ?MediaResponseLinks $links;
 
     /**
      * @param array{
-     *   meta?: ?Meta,
-     *   links?: ?Links,
-     *   data?: ?Media,
+     *   meta?: ?MediaResponseMeta,
+     *   data?: ?MediaResponseData,
+     *   links?: ?MediaResponseLinks,
      * } $values
      */
     public function __construct(
         array $values = [],
     ) {
         $this->meta = $values['meta'] ?? null;
-        $this->links = $values['links'] ?? null;
         $this->data = $values['data'] ?? null;
+        $this->links = $values['links'] ?? null;
     }
 
     /**
-     * @return ?Media
+     * @return ?MediaResponseMeta
      */
-    public function getData(): ?Media
+    public function getMeta(): ?MediaResponseMeta
+    {
+        return $this->meta;
+    }
+
+    /**
+     * @param ?MediaResponseMeta $value
+     */
+    public function setMeta(?MediaResponseMeta $value = null): self
+    {
+        $this->meta = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?MediaResponseData
+     */
+    public function getData(): ?MediaResponseData
     {
         return $this->data;
     }
 
     /**
-     * @param ?Media $value
+     * @param ?MediaResponseData $value
      */
-    public function setData(?Media $value = null): self
+    public function setData(?MediaResponseData $value = null): self
     {
         $this->data = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?MediaResponseLinks
+     */
+    public function getLinks(): ?MediaResponseLinks
+    {
+        return $this->links;
+    }
+
+    /**
+     * @param ?MediaResponseLinks $value
+     */
+    public function setLinks(?MediaResponseLinks $value = null): self
+    {
+        $this->links = $value;
         return $this;
     }
 

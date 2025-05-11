@@ -3,40 +3,63 @@
 namespace Ittybit\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
-use Ittybit\Traits\ApiResponseBase;
 use Ittybit\Core\Json\JsonProperty;
 use Ittybit\Core\Types\ArrayType;
 
-/**
- * Standard wrapper for Task list responses.
- */
 class TaskListResponse extends JsonSerializableType
 {
-    use ApiResponseBase;
+    /**
+     * @var ?TaskListResponseMeta $meta
+     */
+    #[JsonProperty('meta')]
+    private ?TaskListResponseMeta $meta;
 
     /**
-     * @var ?array<Task> $data
+     * @var ?array<TaskListResponseDataItem> $data
      */
-    #[JsonProperty('data'), ArrayType([Task::class])]
+    #[JsonProperty('data'), ArrayType([TaskListResponseDataItem::class])]
     private ?array $data;
 
     /**
+     * @var ?TaskListResponseLinks $links
+     */
+    #[JsonProperty('links')]
+    private ?TaskListResponseLinks $links;
+
+    /**
      * @param array{
-     *   meta?: ?Meta,
-     *   links?: ?Links,
-     *   data?: ?array<Task>,
+     *   meta?: ?TaskListResponseMeta,
+     *   data?: ?array<TaskListResponseDataItem>,
+     *   links?: ?TaskListResponseLinks,
      * } $values
      */
     public function __construct(
         array $values = [],
     ) {
         $this->meta = $values['meta'] ?? null;
-        $this->links = $values['links'] ?? null;
         $this->data = $values['data'] ?? null;
+        $this->links = $values['links'] ?? null;
     }
 
     /**
-     * @return ?array<Task>
+     * @return ?TaskListResponseMeta
+     */
+    public function getMeta(): ?TaskListResponseMeta
+    {
+        return $this->meta;
+    }
+
+    /**
+     * @param ?TaskListResponseMeta $value
+     */
+    public function setMeta(?TaskListResponseMeta $value = null): self
+    {
+        $this->meta = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?array<TaskListResponseDataItem>
      */
     public function getData(): ?array
     {
@@ -44,11 +67,28 @@ class TaskListResponse extends JsonSerializableType
     }
 
     /**
-     * @param ?array<Task> $value
+     * @param ?array<TaskListResponseDataItem> $value
      */
     public function setData(?array $value = null): self
     {
         $this->data = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?TaskListResponseLinks
+     */
+    public function getLinks(): ?TaskListResponseLinks
+    {
+        return $this->links;
+    }
+
+    /**
+     * @param ?TaskListResponseLinks $value
+     */
+    public function setLinks(?TaskListResponseLinks $value = null): self
+    {
+        $this->links = $value;
         return $this;
     }
 

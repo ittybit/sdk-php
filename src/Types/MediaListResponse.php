@@ -3,40 +3,63 @@
 namespace Ittybit\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
-use Ittybit\Traits\ApiResponseBase;
 use Ittybit\Core\Json\JsonProperty;
 use Ittybit\Core\Types\ArrayType;
 
-/**
- * Standard wrapper for Media list responses.
- */
 class MediaListResponse extends JsonSerializableType
 {
-    use ApiResponseBase;
+    /**
+     * @var ?MediaListResponseMeta $meta
+     */
+    #[JsonProperty('meta')]
+    private ?MediaListResponseMeta $meta;
 
     /**
-     * @var ?array<Media> $data
+     * @var ?array<MediaListResponseDataItem> $data
      */
-    #[JsonProperty('data'), ArrayType([Media::class])]
+    #[JsonProperty('data'), ArrayType([MediaListResponseDataItem::class])]
     private ?array $data;
 
     /**
+     * @var ?MediaListResponseLinks $links
+     */
+    #[JsonProperty('links')]
+    private ?MediaListResponseLinks $links;
+
+    /**
      * @param array{
-     *   meta?: ?Meta,
-     *   links?: ?Links,
-     *   data?: ?array<Media>,
+     *   meta?: ?MediaListResponseMeta,
+     *   data?: ?array<MediaListResponseDataItem>,
+     *   links?: ?MediaListResponseLinks,
      * } $values
      */
     public function __construct(
         array $values = [],
     ) {
         $this->meta = $values['meta'] ?? null;
-        $this->links = $values['links'] ?? null;
         $this->data = $values['data'] ?? null;
+        $this->links = $values['links'] ?? null;
     }
 
     /**
-     * @return ?array<Media>
+     * @return ?MediaListResponseMeta
+     */
+    public function getMeta(): ?MediaListResponseMeta
+    {
+        return $this->meta;
+    }
+
+    /**
+     * @param ?MediaListResponseMeta $value
+     */
+    public function setMeta(?MediaListResponseMeta $value = null): self
+    {
+        $this->meta = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?array<MediaListResponseDataItem>
      */
     public function getData(): ?array
     {
@@ -44,11 +67,28 @@ class MediaListResponse extends JsonSerializableType
     }
 
     /**
-     * @param ?array<Media> $value
+     * @param ?array<MediaListResponseDataItem> $value
      */
     public function setData(?array $value = null): self
     {
         $this->data = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?MediaListResponseLinks
+     */
+    public function getLinks(): ?MediaListResponseLinks
+    {
+        return $this->links;
+    }
+
+    /**
+     * @param ?MediaListResponseLinks $value
+     */
+    public function setLinks(?MediaListResponseLinks $value = null): self
+    {
+        $this->links = $value;
         return $this;
     }
 

@@ -4,8 +4,6 @@ namespace Ittybit\Files\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
-use Ittybit\Types\File;
-use Ittybit\Core\Types\Union;
 
 class FilesGetResponse extends JsonSerializableType
 {
@@ -16,13 +14,10 @@ class FilesGetResponse extends JsonSerializableType
     private ?FilesGetResponseMeta $meta;
 
     /**
-     * @var (
-     *    File
-     *   |FilesGetResponseDataAnalysis
-     * )|null $data
+     * @var ?FilesGetResponseData $data
      */
-    #[JsonProperty('data'), Union(File::class, FilesGetResponseDataAnalysis::class, 'null')]
-    private File|FilesGetResponseDataAnalysis|null $data;
+    #[JsonProperty('data')]
+    private ?FilesGetResponseData $data;
 
     /**
      * @var ?FilesGetResponseLinks $links
@@ -33,10 +28,7 @@ class FilesGetResponse extends JsonSerializableType
     /**
      * @param array{
      *   meta?: ?FilesGetResponseMeta,
-     *   data?: (
-     *    File
-     *   |FilesGetResponseDataAnalysis
-     * )|null,
+     *   data?: ?FilesGetResponseData,
      *   links?: ?FilesGetResponseLinks,
      * } $values
      */
@@ -66,23 +58,17 @@ class FilesGetResponse extends JsonSerializableType
     }
 
     /**
-     * @return (
-     *    File
-     *   |FilesGetResponseDataAnalysis
-     * )|null
+     * @return ?FilesGetResponseData
      */
-    public function getData(): File|FilesGetResponseDataAnalysis|null
+    public function getData(): ?FilesGetResponseData
     {
         return $this->data;
     }
 
     /**
-     * @param (
-     *    File
-     *   |FilesGetResponseDataAnalysis
-     * )|null $value
+     * @param ?FilesGetResponseData $value
      */
-    public function setData(File|FilesGetResponseDataAnalysis|null $value = null): self
+    public function setData(?FilesGetResponseData $value = null): self
     {
         $this->data = $value;
         return $this;

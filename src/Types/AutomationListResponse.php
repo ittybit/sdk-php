@@ -3,40 +3,63 @@
 namespace Ittybit\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
-use Ittybit\Traits\ApiResponseBase;
 use Ittybit\Core\Json\JsonProperty;
 use Ittybit\Core\Types\ArrayType;
 
-/**
- * Standard wrapper for Automation list responses.
- */
 class AutomationListResponse extends JsonSerializableType
 {
-    use ApiResponseBase;
+    /**
+     * @var ?AutomationListResponseMeta $meta
+     */
+    #[JsonProperty('meta')]
+    private ?AutomationListResponseMeta $meta;
 
     /**
-     * @var ?array<Automation> $data
+     * @var ?array<AutomationListResponseDataItem> $data
      */
-    #[JsonProperty('data'), ArrayType([Automation::class])]
+    #[JsonProperty('data'), ArrayType([AutomationListResponseDataItem::class])]
     private ?array $data;
 
     /**
+     * @var ?AutomationListResponseLinks $links
+     */
+    #[JsonProperty('links')]
+    private ?AutomationListResponseLinks $links;
+
+    /**
      * @param array{
-     *   meta?: ?Meta,
-     *   links?: ?Links,
-     *   data?: ?array<Automation>,
+     *   meta?: ?AutomationListResponseMeta,
+     *   data?: ?array<AutomationListResponseDataItem>,
+     *   links?: ?AutomationListResponseLinks,
      * } $values
      */
     public function __construct(
         array $values = [],
     ) {
         $this->meta = $values['meta'] ?? null;
-        $this->links = $values['links'] ?? null;
         $this->data = $values['data'] ?? null;
+        $this->links = $values['links'] ?? null;
     }
 
     /**
-     * @return ?array<Automation>
+     * @return ?AutomationListResponseMeta
+     */
+    public function getMeta(): ?AutomationListResponseMeta
+    {
+        return $this->meta;
+    }
+
+    /**
+     * @param ?AutomationListResponseMeta $value
+     */
+    public function setMeta(?AutomationListResponseMeta $value = null): self
+    {
+        $this->meta = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?array<AutomationListResponseDataItem>
      */
     public function getData(): ?array
     {
@@ -44,11 +67,28 @@ class AutomationListResponse extends JsonSerializableType
     }
 
     /**
-     * @param ?array<Automation> $value
+     * @param ?array<AutomationListResponseDataItem> $value
      */
     public function setData(?array $value = null): self
     {
         $this->data = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?AutomationListResponseLinks
+     */
+    public function getLinks(): ?AutomationListResponseLinks
+    {
+        return $this->links;
+    }
+
+    /**
+     * @param ?AutomationListResponseLinks $value
+     */
+    public function setLinks(?AutomationListResponseLinks $value = null): self
+    {
+        $this->links = $value;
         return $this;
     }
 

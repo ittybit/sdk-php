@@ -4,242 +4,165 @@ namespace Ittybit\Media\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
-use DateTime;
-use Ittybit\Core\Types\Date;
 
 class MediaGetResponseMeta extends JsonSerializableType
 {
     /**
-     * @var ?string $id
+     * @var ?string $requestId Request ID
      */
-    #[JsonProperty('id')]
-    private ?string $id;
+    #[JsonProperty('request_id')]
+    private ?string $requestId;
 
     /**
-     * @var ?string $method
+     * @var ?string $type Type of the primary data object in the response (e.g., list, object)
      */
-    #[JsonProperty('method')]
-    private ?string $method;
+    #[JsonProperty('type')]
+    private ?string $type;
 
     /**
-     * @var ?string $url
+     * @var ?int $limit Number of items per page.
      */
-    #[JsonProperty('url')]
-    private ?string $url;
+    #[JsonProperty('limit')]
+    private ?int $limit;
 
     /**
-     * @var ?string $version
+     * @var ?int $total Total number of items matching the query.
      */
-    #[JsonProperty('version')]
-    private ?string $version;
+    #[JsonProperty('total')]
+    private ?int $total;
 
     /**
-     * @var ?int $status
+     * @var ?int $page Current page number.
      */
-    #[JsonProperty('status')]
-    private ?int $status;
+    #[JsonProperty('page')]
+    private ?int $page;
 
     /**
-     * @var ?string $orgId
+     * @var ?int $pages Total number of pages.
      */
-    #[JsonProperty('org_id')]
-    private ?string $orgId;
-
-    /**
-     * @var ?string $projectId
-     */
-    #[JsonProperty('project_id')]
-    private ?string $projectId;
-
-    /**
-     * @var ?string $object
-     */
-    #[JsonProperty('object')]
-    private ?string $object;
-
-    /**
-     * @var ?DateTime $created
-     */
-    #[JsonProperty('created'), Date(Date::TYPE_DATETIME)]
-    private ?DateTime $created;
+    #[JsonProperty('pages')]
+    private ?int $pages;
 
     /**
      * @param array{
-     *   id?: ?string,
-     *   method?: ?string,
-     *   url?: ?string,
-     *   version?: ?string,
-     *   status?: ?int,
-     *   orgId?: ?string,
-     *   projectId?: ?string,
-     *   object?: ?string,
-     *   created?: ?DateTime,
+     *   requestId?: ?string,
+     *   type?: ?string,
+     *   limit?: ?int,
+     *   total?: ?int,
+     *   page?: ?int,
+     *   pages?: ?int,
      * } $values
      */
     public function __construct(
         array $values = [],
     ) {
-        $this->id = $values['id'] ?? null;
-        $this->method = $values['method'] ?? null;
-        $this->url = $values['url'] ?? null;
-        $this->version = $values['version'] ?? null;
-        $this->status = $values['status'] ?? null;
-        $this->orgId = $values['orgId'] ?? null;
-        $this->projectId = $values['projectId'] ?? null;
-        $this->object = $values['object'] ?? null;
-        $this->created = $values['created'] ?? null;
+        $this->requestId = $values['requestId'] ?? null;
+        $this->type = $values['type'] ?? null;
+        $this->limit = $values['limit'] ?? null;
+        $this->total = $values['total'] ?? null;
+        $this->page = $values['page'] ?? null;
+        $this->pages = $values['pages'] ?? null;
     }
 
     /**
      * @return ?string
      */
-    public function getId(): ?string
+    public function getRequestId(): ?string
     {
-        return $this->id;
+        return $this->requestId;
     }
 
     /**
      * @param ?string $value
      */
-    public function setId(?string $value = null): self
+    public function setRequestId(?string $value = null): self
     {
-        $this->id = $value;
+        $this->requestId = $value;
         return $this;
     }
 
     /**
      * @return ?string
      */
-    public function getMethod(): ?string
+    public function getType(): ?string
     {
-        return $this->method;
+        return $this->type;
     }
 
     /**
      * @param ?string $value
      */
-    public function setMethod(?string $value = null): self
+    public function setType(?string $value = null): self
     {
-        $this->method = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    /**
-     * @param ?string $value
-     */
-    public function setUrl(?string $value = null): self
-    {
-        $this->url = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getVersion(): ?string
-    {
-        return $this->version;
-    }
-
-    /**
-     * @param ?string $value
-     */
-    public function setVersion(?string $value = null): self
-    {
-        $this->version = $value;
+        $this->type = $value;
         return $this;
     }
 
     /**
      * @return ?int
      */
-    public function getStatus(): ?int
+    public function getLimit(): ?int
     {
-        return $this->status;
+        return $this->limit;
     }
 
     /**
      * @param ?int $value
      */
-    public function setStatus(?int $value = null): self
+    public function setLimit(?int $value = null): self
     {
-        $this->status = $value;
+        $this->limit = $value;
         return $this;
     }
 
     /**
-     * @return ?string
+     * @return ?int
      */
-    public function getOrgId(): ?string
+    public function getTotal(): ?int
     {
-        return $this->orgId;
+        return $this->total;
     }
 
     /**
-     * @param ?string $value
+     * @param ?int $value
      */
-    public function setOrgId(?string $value = null): self
+    public function setTotal(?int $value = null): self
     {
-        $this->orgId = $value;
+        $this->total = $value;
         return $this;
     }
 
     /**
-     * @return ?string
+     * @return ?int
      */
-    public function getProjectId(): ?string
+    public function getPage(): ?int
     {
-        return $this->projectId;
+        return $this->page;
     }
 
     /**
-     * @param ?string $value
+     * @param ?int $value
      */
-    public function setProjectId(?string $value = null): self
+    public function setPage(?int $value = null): self
     {
-        $this->projectId = $value;
+        $this->page = $value;
         return $this;
     }
 
     /**
-     * @return ?string
+     * @return ?int
      */
-    public function getObject(): ?string
+    public function getPages(): ?int
     {
-        return $this->object;
+        return $this->pages;
     }
 
     /**
-     * @param ?string $value
+     * @param ?int $value
      */
-    public function setObject(?string $value = null): self
+    public function setPages(?int $value = null): self
     {
-        $this->object = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?DateTime
-     */
-    public function getCreated(): ?DateTime
-    {
-        return $this->created;
-    }
-
-    /**
-     * @param ?DateTime $value
-     */
-    public function setCreated(?DateTime $value = null): self
-    {
-        $this->created = $value;
+        $this->pages = $value;
         return $this;
     }
 

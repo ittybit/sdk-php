@@ -3,51 +3,91 @@
 namespace Ittybit\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
-use Ittybit\Traits\ApiResponseBase;
 use Ittybit\Core\Json\JsonProperty;
 
-/**
- * Standard wrapper for single File responses.
- */
 class FileResponse extends JsonSerializableType
 {
-    use ApiResponseBase;
+    /**
+     * @var ?FileResponseMeta $meta
+     */
+    #[JsonProperty('meta')]
+    private ?FileResponseMeta $meta;
 
     /**
-     * @var ?File $data
+     * @var ?FileResponseData $data
      */
     #[JsonProperty('data')]
-    private ?File $data;
+    private ?FileResponseData $data;
+
+    /**
+     * @var ?FileResponseLinks $links
+     */
+    #[JsonProperty('links')]
+    private ?FileResponseLinks $links;
 
     /**
      * @param array{
-     *   meta?: ?Meta,
-     *   links?: ?Links,
-     *   data?: ?File,
+     *   meta?: ?FileResponseMeta,
+     *   data?: ?FileResponseData,
+     *   links?: ?FileResponseLinks,
      * } $values
      */
     public function __construct(
         array $values = [],
     ) {
         $this->meta = $values['meta'] ?? null;
-        $this->links = $values['links'] ?? null;
         $this->data = $values['data'] ?? null;
+        $this->links = $values['links'] ?? null;
     }
 
     /**
-     * @return ?File
+     * @return ?FileResponseMeta
      */
-    public function getData(): ?File
+    public function getMeta(): ?FileResponseMeta
+    {
+        return $this->meta;
+    }
+
+    /**
+     * @param ?FileResponseMeta $value
+     */
+    public function setMeta(?FileResponseMeta $value = null): self
+    {
+        $this->meta = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?FileResponseData
+     */
+    public function getData(): ?FileResponseData
     {
         return $this->data;
     }
 
     /**
-     * @param ?File $value
+     * @param ?FileResponseData $value
      */
-    public function setData(?File $value = null): self
+    public function setData(?FileResponseData $value = null): self
     {
         $this->data = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?FileResponseLinks
+     */
+    public function getLinks(): ?FileResponseLinks
+    {
+        return $this->links;
+    }
+
+    /**
+     * @param ?FileResponseLinks $value
+     */
+    public function setLinks(?FileResponseLinks $value = null): self
+    {
+        $this->links = $value;
         return $this;
     }
 

@@ -5,9 +5,6 @@ namespace Ittybit\Types;
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
 
-/**
- * Details of a generated signature and signed URL.
- */
 class Signature extends JsonSerializableType
 {
     /**

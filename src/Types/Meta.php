@@ -5,40 +5,19 @@ namespace Ittybit\Types;
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
 
-/**
- * Standard metadata included in API responses.
- */
 class Meta extends JsonSerializableType
 {
     /**
-     * @var ?string $id Request ID
+     * @var ?string $requestId Request ID
      */
-    #[JsonProperty('id')]
-    private ?string $id;
+    #[JsonProperty('request_id')]
+    private ?string $requestId;
 
     /**
-     * @var ?string $orgId Organisation ID associated with the request
+     * @var ?string $type Type of the primary data object in the response (e.g., list, object)
      */
-    #[JsonProperty('org_id')]
-    private ?string $orgId;
-
-    /**
-     * @var ?string $projectId Project ID associated with the request
-     */
-    #[JsonProperty('project_id')]
-    private ?string $projectId;
-
-    /**
-     * @var ?string $object Type of the primary data object in the response (e.g., list, object)
-     */
-    #[JsonProperty('object')]
-    private ?string $object;
-
-    /**
-     * @var ?bool $list Whether the response is a list of objects.
-     */
-    #[JsonProperty('list')]
-    private ?bool $list;
+    #[JsonProperty('type')]
+    private ?string $type;
 
     /**
      * @var ?int $limit Number of items per page.
@@ -66,11 +45,8 @@ class Meta extends JsonSerializableType
 
     /**
      * @param array{
-     *   id?: ?string,
-     *   orgId?: ?string,
-     *   projectId?: ?string,
-     *   object?: ?string,
-     *   list?: ?bool,
+     *   requestId?: ?string,
+     *   type?: ?string,
      *   limit?: ?int,
      *   total?: ?int,
      *   page?: ?int,
@@ -80,11 +56,8 @@ class Meta extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
-        $this->id = $values['id'] ?? null;
-        $this->orgId = $values['orgId'] ?? null;
-        $this->projectId = $values['projectId'] ?? null;
-        $this->object = $values['object'] ?? null;
-        $this->list = $values['list'] ?? null;
+        $this->requestId = $values['requestId'] ?? null;
+        $this->type = $values['type'] ?? null;
         $this->limit = $values['limit'] ?? null;
         $this->total = $values['total'] ?? null;
         $this->page = $values['page'] ?? null;
@@ -94,85 +67,34 @@ class Meta extends JsonSerializableType
     /**
      * @return ?string
      */
-    public function getId(): ?string
+    public function getRequestId(): ?string
     {
-        return $this->id;
+        return $this->requestId;
     }
 
     /**
      * @param ?string $value
      */
-    public function setId(?string $value = null): self
+    public function setRequestId(?string $value = null): self
     {
-        $this->id = $value;
+        $this->requestId = $value;
         return $this;
     }
 
     /**
      * @return ?string
      */
-    public function getOrgId(): ?string
+    public function getType(): ?string
     {
-        return $this->orgId;
+        return $this->type;
     }
 
     /**
      * @param ?string $value
      */
-    public function setOrgId(?string $value = null): self
+    public function setType(?string $value = null): self
     {
-        $this->orgId = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getProjectId(): ?string
-    {
-        return $this->projectId;
-    }
-
-    /**
-     * @param ?string $value
-     */
-    public function setProjectId(?string $value = null): self
-    {
-        $this->projectId = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getObject(): ?string
-    {
-        return $this->object;
-    }
-
-    /**
-     * @param ?string $value
-     */
-    public function setObject(?string $value = null): self
-    {
-        $this->object = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?bool
-     */
-    public function getList(): ?bool
-    {
-        return $this->list;
-    }
-
-    /**
-     * @param ?bool $value
-     */
-    public function setList(?bool $value = null): self
-    {
-        $this->list = $value;
+        $this->type = $value;
         return $this;
     }
 

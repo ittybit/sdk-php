@@ -8,9 +8,6 @@ use Ittybit\Core\Types\ArrayType;
 use DateTime;
 use Ittybit\Core\Types\Date;
 
-/**
- * Represents a media item, which can contain multiple source files and associated data.
- */
 class Media extends JsonSerializableType
 {
     /**
@@ -80,9 +77,9 @@ class Media extends JsonSerializableType
     private ?int $filesize;
 
     /**
-     * @var array<MediaSource> $sources Array of source files associated with this media item.
+     * @var array<MediaSourcesItem> $sources Array of source files associated with this media item.
      */
-    #[JsonProperty('sources'), ArrayType([MediaSource::class])]
+    #[JsonProperty('sources'), ArrayType([MediaSourcesItem::class])]
     private array $sources;
 
     /**
@@ -160,7 +157,7 @@ class Media extends JsonSerializableType
      *   liveMode: bool,
      *   kind: value-of<MediaKind>,
      *   type: string,
-     *   sources: array<MediaSource>,
+     *   sources: array<MediaSourcesItem>,
      *   original: string,
      *   created: DateTime,
      *   updated: DateTime,
@@ -394,7 +391,7 @@ class Media extends JsonSerializableType
     }
 
     /**
-     * @return array<MediaSource>
+     * @return array<MediaSourcesItem>
      */
     public function getSources(): array
     {
@@ -402,7 +399,7 @@ class Media extends JsonSerializableType
     }
 
     /**
-     * @param array<MediaSource> $value
+     * @param array<MediaSourcesItem> $value
      */
     public function setSources(array $value): self
     {

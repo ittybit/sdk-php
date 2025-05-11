@@ -4,8 +4,9 @@ namespace Ittybit\Automations\Requests;
 
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
+use Ittybit\Automations\Types\AutomationsUpdateRequestTrigger;
+use Ittybit\Automations\Types\AutomationsUpdateRequestWorkflowItem;
 use Ittybit\Core\Types\ArrayType;
-use Ittybit\Types\WorkflowTaskStep;
 
 class AutomationsUpdateRequest extends JsonSerializableType
 {
@@ -22,23 +23,23 @@ class AutomationsUpdateRequest extends JsonSerializableType
     private ?string $description;
 
     /**
-     * @var array<array<string, mixed>> $trigger
+     * @var ?AutomationsUpdateRequestTrigger $trigger Defines the trigger event and conditions. To clear/remove a trigger, provide null. To update, provide the new trigger object.
      */
-    #[JsonProperty('trigger'), ArrayType([['string' => 'mixed']])]
-    private array $trigger;
+    #[JsonProperty('trigger')]
+    private ?AutomationsUpdateRequestTrigger $trigger;
 
     /**
-     * @var ?array<WorkflowTaskStep> $workflow The updated sequence of tasks for the automation.
+     * @var ?array<AutomationsUpdateRequestWorkflowItem> $workflow The updated sequence of tasks for the automation.
      */
-    #[JsonProperty('workflow'), ArrayType([WorkflowTaskStep::class])]
+    #[JsonProperty('workflow'), ArrayType([AutomationsUpdateRequestWorkflowItem::class])]
     private ?array $workflow;
 
     /**
      * @param array{
      *   name: string,
-     *   trigger: array<array<string, mixed>>,
      *   description?: ?string,
-     *   workflow?: ?array<WorkflowTaskStep>,
+     *   trigger?: ?AutomationsUpdateRequestTrigger,
+     *   workflow?: ?array<AutomationsUpdateRequestWorkflowItem>,
      * } $values
      */
     public function __construct(
@@ -46,7 +47,7 @@ class AutomationsUpdateRequest extends JsonSerializableType
     ) {
         $this->name = $values['name'];
         $this->description = $values['description'] ?? null;
-        $this->trigger = $values['trigger'];
+        $this->trigger = $values['trigger'] ?? null;
         $this->workflow = $values['workflow'] ?? null;
     }
 
@@ -85,24 +86,24 @@ class AutomationsUpdateRequest extends JsonSerializableType
     }
 
     /**
-     * @return array<array<string, mixed>>
+     * @return ?AutomationsUpdateRequestTrigger
      */
-    public function getTrigger(): array
+    public function getTrigger(): ?AutomationsUpdateRequestTrigger
     {
         return $this->trigger;
     }
 
     /**
-     * @param array<array<string, mixed>> $value
+     * @param ?AutomationsUpdateRequestTrigger $value
      */
-    public function setTrigger(array $value): self
+    public function setTrigger(?AutomationsUpdateRequestTrigger $value = null): self
     {
         $this->trigger = $value;
         return $this;
     }
 
     /**
-     * @return ?array<WorkflowTaskStep>
+     * @return ?array<AutomationsUpdateRequestWorkflowItem>
      */
     public function getWorkflow(): ?array
     {
@@ -110,7 +111,7 @@ class AutomationsUpdateRequest extends JsonSerializableType
     }
 
     /**
-     * @param ?array<WorkflowTaskStep> $value
+     * @param ?array<AutomationsUpdateRequestWorkflowItem> $value
      */
     public function setWorkflow(?array $value = null): self
     {

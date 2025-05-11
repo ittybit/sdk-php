@@ -15,9 +15,9 @@ use JsonException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Ittybit\Media\Requests\MediaCreateRequest;
-use Ittybit\Types\MediaResponse;
+use Ittybit\Media\Types\MediaCreateResponse;
 use Ittybit\Media\Types\MediaGetResponse;
-use Ittybit\Types\ConfirmationResponse;
+use Ittybit\Media\Types\MediaDeleteResponse;
 
 class MediaClient
 {
@@ -130,11 +130,11 @@ class MediaClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return MediaResponse
+     * @return MediaCreateResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function create(MediaCreateRequest $request = new MediaCreateRequest(), ?array $options = null): MediaResponse
+    public function create(MediaCreateRequest $request = new MediaCreateRequest(), ?array $options = null): MediaCreateResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -150,7 +150,7 @@ class MediaClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return MediaResponse::fromJson($json);
+                return MediaCreateResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -241,11 +241,11 @@ class MediaClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ConfirmationResponse
+     * @return MediaDeleteResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function delete(string $id, ?array $options = null): ConfirmationResponse
+    public function delete(string $id, ?array $options = null): MediaDeleteResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -260,7 +260,7 @@ class MediaClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return ConfirmationResponse::fromJson($json);
+                return MediaDeleteResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);

@@ -5,40 +5,37 @@ namespace Ittybit\Files\Types;
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
 
-/**
- * Contains a confirmation message
- */
 class FilesDeleteResponseData extends JsonSerializableType
 {
     /**
-     * @var ?string $message Confirmation message
+     * @var string $message
      */
     #[JsonProperty('message')]
-    private ?string $message;
+    private string $message;
 
     /**
      * @param array{
-     *   message?: ?string,
+     *   message: string,
      * } $values
      */
     public function __construct(
-        array $values = [],
+        array $values,
     ) {
-        $this->message = $values['message'] ?? null;
+        $this->message = $values['message'];
     }
 
     /**
-     * @return ?string
+     * @return string
      */
-    public function getMessage(): ?string
+    public function getMessage(): string
     {
         return $this->message;
     }
 
     /**
-     * @param ?string $value
+     * @param string $value
      */
-    public function setMessage(?string $value = null): self
+    public function setMessage(string $value): self
     {
         $this->message = $value;
         return $this;

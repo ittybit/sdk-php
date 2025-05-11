@@ -8,9 +8,6 @@ use Ittybit\Core\Types\ArrayType;
 use DateTime;
 use Ittybit\Core\Types\Date;
 
-/**
- * Represents a processing task or a step in a workflow.
- */
 class Task extends JsonSerializableType
 {
     /**
@@ -92,15 +89,15 @@ class Task extends JsonSerializableType
     private ?string $parentId;
 
     /**
-     * @var ?array<Task> $workflow Array of nested task objects representing the steps within this workflow task.
+     * @var ?array<TaskWorkflowItem> $workflow Array of nested task objects representing the steps within this workflow task.
      */
-    #[JsonProperty('workflow'), ArrayType([Task::class])]
+    #[JsonProperty('workflow'), ArrayType([TaskWorkflowItem::class])]
     private ?array $workflow;
 
     /**
-     * @var ?array<Task> $next Array representing subsequent tasks (e.g., in an automation). Structure may vary.
+     * @var ?array<TaskNextItem> $next Array representing subsequent tasks (e.g., in an automation). Structure may vary.
      */
-    #[JsonProperty('next'), ArrayType([Task::class])]
+    #[JsonProperty('next'), ArrayType([TaskNextItem::class])]
     private ?array $next;
 
     /**
@@ -124,8 +121,8 @@ class Task extends JsonSerializableType
      *   error?: ?string,
      *   createdBy?: ?string,
      *   parentId?: ?string,
-     *   workflow?: ?array<Task>,
-     *   next?: ?array<Task>,
+     *   workflow?: ?array<TaskWorkflowItem>,
+     *   next?: ?array<TaskNextItem>,
      *   results?: ?TaskResults,
      * } $values
      */
@@ -372,7 +369,7 @@ class Task extends JsonSerializableType
     }
 
     /**
-     * @return ?array<Task>
+     * @return ?array<TaskWorkflowItem>
      */
     public function getWorkflow(): ?array
     {
@@ -380,7 +377,7 @@ class Task extends JsonSerializableType
     }
 
     /**
-     * @param ?array<Task> $value
+     * @param ?array<TaskWorkflowItem> $value
      */
     public function setWorkflow(?array $value = null): self
     {
@@ -389,7 +386,7 @@ class Task extends JsonSerializableType
     }
 
     /**
-     * @return ?array<Task>
+     * @return ?array<TaskNextItem>
      */
     public function getNext(): ?array
     {
@@ -397,7 +394,7 @@ class Task extends JsonSerializableType
     }
 
     /**
-     * @param ?array<Task> $value
+     * @param ?array<TaskNextItem> $value
      */
     public function setNext(?array $value = null): self
     {

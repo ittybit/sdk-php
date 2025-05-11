@@ -5,27 +5,24 @@ namespace Ittybit\Types;
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
 
-/**
- * Base structure for standard API responses.
- */
 class ApiResponseBase extends JsonSerializableType
 {
     /**
-     * @var ?Meta $meta
+     * @var ?ApiResponseBaseMeta $meta
      */
     #[JsonProperty('meta')]
-    private ?Meta $meta;
+    private ?ApiResponseBaseMeta $meta;
 
     /**
-     * @var ?Links $links
+     * @var ?ApiResponseBaseLinks $links
      */
     #[JsonProperty('links')]
-    private ?Links $links;
+    private ?ApiResponseBaseLinks $links;
 
     /**
      * @param array{
-     *   meta?: ?Meta,
-     *   links?: ?Links,
+     *   meta?: ?ApiResponseBaseMeta,
+     *   links?: ?ApiResponseBaseLinks,
      * } $values
      */
     public function __construct(
@@ -36,34 +33,34 @@ class ApiResponseBase extends JsonSerializableType
     }
 
     /**
-     * @return ?Meta
+     * @return ?ApiResponseBaseMeta
      */
-    public function getMeta(): ?Meta
+    public function getMeta(): ?ApiResponseBaseMeta
     {
         return $this->meta;
     }
 
     /**
-     * @param ?Meta $value
+     * @param ?ApiResponseBaseMeta $value
      */
-    public function setMeta(?Meta $value = null): self
+    public function setMeta(?ApiResponseBaseMeta $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?Links
+     * @return ?ApiResponseBaseLinks
      */
-    public function getLinks(): ?Links
+    public function getLinks(): ?ApiResponseBaseLinks
     {
         return $this->links;
     }
 
     /**
-     * @param ?Links $value
+     * @param ?ApiResponseBaseLinks $value
      */
-    public function setLinks(?Links $value = null): self
+    public function setLinks(?ApiResponseBaseLinks $value = null): self
     {
         $this->links = $value;
         return $this;

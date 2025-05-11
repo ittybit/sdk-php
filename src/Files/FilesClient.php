@@ -15,10 +15,11 @@ use JsonException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Ittybit\Files\Requests\FilesCreateFromUrlRequest;
-use Ittybit\Types\FileResponse;
+use Ittybit\Files\Types\FilesCreateFromUrlResponse;
 use Ittybit\Files\Types\FilesGetResponse;
 use Ittybit\Files\Types\FilesDeleteResponse;
 use Ittybit\Files\Requests\FilesUpdateMetadataRequest;
+use Ittybit\Files\Types\FilesUpdateMetadataResponse;
 
 class FilesClient
 {
@@ -131,11 +132,11 @@ class FilesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return FileResponse
+     * @return FilesCreateFromUrlResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function createFromUrl(FilesCreateFromUrlRequest $request, ?array $options = null): FileResponse
+    public function createFromUrl(FilesCreateFromUrlRequest $request, ?array $options = null): FilesCreateFromUrlResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -151,7 +152,7 @@ class FilesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return FileResponse::fromJson($json);
+                return FilesCreateFromUrlResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -298,11 +299,11 @@ class FilesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return FileResponse
+     * @return FilesUpdateMetadataResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function updateMetadata(string $id, FilesUpdateMetadataRequest $request = new FilesUpdateMetadataRequest(), ?array $options = null): FileResponse
+    public function updateMetadata(string $id, FilesUpdateMetadataRequest $request = new FilesUpdateMetadataRequest(), ?array $options = null): FilesUpdateMetadataResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -318,7 +319,7 @@ class FilesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return FileResponse::fromJson($json);
+                return FilesUpdateMetadataResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);

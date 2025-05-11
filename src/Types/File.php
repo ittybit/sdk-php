@@ -8,9 +8,6 @@ use DateTime;
 use Ittybit\Core\Types\Date;
 use Ittybit\Core\Types\ArrayType;
 
-/**
- * Represents a file stored in the system, including its metadata and source information.
- */
 class File extends JsonSerializableType
 {
     /**

@@ -4,7 +4,6 @@ namespace Ittybit\Media\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
-use Ittybit\Types\Media;
 
 class MediaGetResponse extends JsonSerializableType
 {
@@ -15,10 +14,10 @@ class MediaGetResponse extends JsonSerializableType
     private ?MediaGetResponseMeta $meta;
 
     /**
-     * @var ?Media $data
+     * @var ?MediaGetResponseData $data
      */
     #[JsonProperty('data')]
-    private ?Media $data;
+    private ?MediaGetResponseData $data;
 
     /**
      * @var ?MediaGetResponseLinks $links
@@ -29,7 +28,7 @@ class MediaGetResponse extends JsonSerializableType
     /**
      * @param array{
      *   meta?: ?MediaGetResponseMeta,
-     *   data?: ?Media,
+     *   data?: ?MediaGetResponseData,
      *   links?: ?MediaGetResponseLinks,
      * } $values
      */
@@ -59,17 +58,17 @@ class MediaGetResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?Media
+     * @return ?MediaGetResponseData
      */
-    public function getData(): ?Media
+    public function getData(): ?MediaGetResponseData
     {
         return $this->data;
     }
 
     /**
-     * @param ?Media $value
+     * @param ?MediaGetResponseData $value
      */
-    public function setData(?Media $value = null): self
+    public function setData(?MediaGetResponseData $value = null): self
     {
         $this->data = $value;
         return $this;

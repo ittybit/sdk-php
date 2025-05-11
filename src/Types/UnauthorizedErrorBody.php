@@ -4,26 +4,25 @@ namespace Ittybit\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
-use Ittybit\Core\Types\ArrayType;
 
 class UnauthorizedErrorBody extends JsonSerializableType
 {
     /**
-     * @var ?array<string, mixed> $meta
+     * @var ?UnauthorizedErrorBodyMeta $meta
      */
-    #[JsonProperty('meta'), ArrayType(['string' => 'mixed'])]
-    private ?array $meta;
+    #[JsonProperty('meta')]
+    private ?UnauthorizedErrorBodyMeta $meta;
 
     /**
-     * @var ?string $error
+     * @var ?UnauthorizedErrorBodyError $error
      */
     #[JsonProperty('error')]
-    private ?string $error;
+    private ?UnauthorizedErrorBodyError $error;
 
     /**
      * @param array{
-     *   meta?: ?array<string, mixed>,
-     *   error?: ?string,
+     *   meta?: ?UnauthorizedErrorBodyMeta,
+     *   error?: ?UnauthorizedErrorBodyError,
      * } $values
      */
     public function __construct(
@@ -34,34 +33,34 @@ class UnauthorizedErrorBody extends JsonSerializableType
     }
 
     /**
-     * @return ?array<string, mixed>
+     * @return ?UnauthorizedErrorBodyMeta
      */
-    public function getMeta(): ?array
+    public function getMeta(): ?UnauthorizedErrorBodyMeta
     {
         return $this->meta;
     }
 
     /**
-     * @param ?array<string, mixed> $value
+     * @param ?UnauthorizedErrorBodyMeta $value
      */
-    public function setMeta(?array $value = null): self
+    public function setMeta(?UnauthorizedErrorBodyMeta $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?string
+     * @return ?UnauthorizedErrorBodyError
      */
-    public function getError(): ?string
+    public function getError(): ?UnauthorizedErrorBodyError
     {
         return $this->error;
     }
 
     /**
-     * @param ?string $value
+     * @param ?UnauthorizedErrorBodyError $value
      */
-    public function setError(?string $value = null): self
+    public function setError(?UnauthorizedErrorBodyError $value = null): self
     {
         $this->error = $value;
         return $this;

@@ -8,9 +8,6 @@ use Ittybit\Core\Types\ArrayType;
 use DateTime;
 use Ittybit\Core\Types\Date;
 
-/**
- * Represents an automated workflow triggered by specific events.
- */
 class Automation extends JsonSerializableType
 {
     /**
@@ -32,15 +29,21 @@ class Automation extends JsonSerializableType
     private ?string $description;
 
     /**
+     * @var ?array<string, mixed> $metadata User-defined key-value metadata for the automation.
+     */
+    #[JsonProperty('metadata'), ArrayType(['string' => 'mixed'])]
+    private ?array $metadata;
+
+    /**
      * @var AutomationTrigger $trigger The event and conditions that trigger this automation.
      */
     #[JsonProperty('trigger')]
     private AutomationTrigger $trigger;
 
     /**
-     * @var array<WorkflowTaskStep> $workflow The sequence of tasks to be executed when the automation is triggered. The structure of each task object varies depending on its 'kind'.
+     * @var array<AutomationWorkflowItem> $workflow The sequence of tasks to be executed when the automation is triggered. The structure of each task object varies depending on its 'kind'.
      */
-    #[JsonProperty('workflow'), ArrayType([WorkflowTaskStep::class])]
+    #[JsonProperty('workflow'), ArrayType([AutomationWorkflowItem::class])]
     private array $workflow;
 
     /**
@@ -66,11 +69,12 @@ class Automation extends JsonSerializableType
      *   id: string,
      *   name: string,
      *   trigger: AutomationTrigger,
-     *   workflow: array<WorkflowTaskStep>,
+     *   workflow: array<AutomationWorkflowItem>,
      *   status: value-of<AutomationStatus>,
      *   created: DateTime,
      *   updated: DateTime,
      *   description?: ?string,
+     *   metadata?: ?array<string, mixed>,
      * } $values
      */
     public function __construct(
@@ -79,6 +83,7 @@ class Automation extends JsonSerializableType
         $this->id = $values['id'];
         $this->name = $values['name'];
         $this->description = $values['description'] ?? null;
+        $this->metadata = $values['metadata'] ?? null;
         $this->trigger = $values['trigger'];
         $this->workflow = $values['workflow'];
         $this->status = $values['status'];
@@ -138,6 +143,23 @@ class Automation extends JsonSerializableType
     }
 
     /**
+     * @return ?array<string, mixed>
+     */
+    public function getMetadata(): ?array
+    {
+        return $this->metadata;
+    }
+
+    /**
+     * @param ?array<string, mixed> $value
+     */
+    public function setMetadata(?array $value = null): self
+    {
+        $this->metadata = $value;
+        return $this;
+    }
+
+    /**
      * @return AutomationTrigger
      */
     public function getTrigger(): AutomationTrigger
@@ -155,7 +177,7 @@ class Automation extends JsonSerializableType
     }
 
     /**
-     * @return array<WorkflowTaskStep>
+     * @return array<AutomationWorkflowItem>
      */
     public function getWorkflow(): array
     {
@@ -163,7 +185,7 @@ class Automation extends JsonSerializableType
     }
 
     /**
-     * @param array<WorkflowTaskStep> $value
+     * @param array<AutomationWorkflowItem> $value
      */
     public function setWorkflow(array $value): self
     {

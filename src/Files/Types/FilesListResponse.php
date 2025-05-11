@@ -3,39 +3,63 @@
 namespace Ittybit\Files\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
-use Ittybit\Traits\ApiResponseBase;
 use Ittybit\Core\Json\JsonProperty;
 use Ittybit\Core\Types\ArrayType;
-use Ittybit\Types\Meta;
-use Ittybit\Types\Links;
 
 class FilesListResponse extends JsonSerializableType
 {
-    use ApiResponseBase;
+    /**
+     * @var ?FilesListResponseMeta $meta
+     */
+    #[JsonProperty('meta')]
+    private ?FilesListResponseMeta $meta;
 
     /**
-     * @var ?array<mixed> $data List of file objects
+     * @var ?array<FilesListResponseDataItem> $data
      */
-    #[JsonProperty('data'), ArrayType(['mixed'])]
+    #[JsonProperty('data'), ArrayType([FilesListResponseDataItem::class])]
     private ?array $data;
 
     /**
+     * @var ?FilesListResponseLinks $links
+     */
+    #[JsonProperty('links')]
+    private ?FilesListResponseLinks $links;
+
+    /**
      * @param array{
-     *   meta?: ?Meta,
-     *   links?: ?Links,
-     *   data?: ?array<mixed>,
+     *   meta?: ?FilesListResponseMeta,
+     *   data?: ?array<FilesListResponseDataItem>,
+     *   links?: ?FilesListResponseLinks,
      * } $values
      */
     public function __construct(
         array $values = [],
     ) {
         $this->meta = $values['meta'] ?? null;
-        $this->links = $values['links'] ?? null;
         $this->data = $values['data'] ?? null;
+        $this->links = $values['links'] ?? null;
     }
 
     /**
-     * @return ?array<mixed>
+     * @return ?FilesListResponseMeta
+     */
+    public function getMeta(): ?FilesListResponseMeta
+    {
+        return $this->meta;
+    }
+
+    /**
+     * @param ?FilesListResponseMeta $value
+     */
+    public function setMeta(?FilesListResponseMeta $value = null): self
+    {
+        $this->meta = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?array<FilesListResponseDataItem>
      */
     public function getData(): ?array
     {
@@ -43,11 +67,28 @@ class FilesListResponse extends JsonSerializableType
     }
 
     /**
-     * @param ?array<mixed> $value
+     * @param ?array<FilesListResponseDataItem> $value
      */
     public function setData(?array $value = null): self
     {
         $this->data = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?FilesListResponseLinks
+     */
+    public function getLinks(): ?FilesListResponseLinks
+    {
+        return $this->links;
+    }
+
+    /**
+     * @param ?FilesListResponseLinks $value
+     */
+    public function setLinks(?FilesListResponseLinks $value = null): self
+    {
+        $this->links = $value;
         return $this;
     }
 
