@@ -8,10 +8,10 @@ use Ittybit\Core\Json\JsonProperty;
 class ConfirmationResponse extends JsonSerializableType
 {
     /**
-     * @var ?ConfirmationResponseMeta $meta
+     * @var mixed $meta
      */
     #[JsonProperty('meta')]
-    private ?ConfirmationResponseMeta $meta;
+    private mixed $meta;
 
     /**
      * @var ?ConfirmationResponseData $data
@@ -20,16 +20,16 @@ class ConfirmationResponse extends JsonSerializableType
     private ?ConfirmationResponseData $data;
 
     /**
-     * @var ?ConfirmationResponseLinks $links
+     * @var ?Links $links
      */
     #[JsonProperty('links')]
-    private ?ConfirmationResponseLinks $links;
+    private ?Links $links;
 
     /**
      * @param array{
-     *   meta?: ?ConfirmationResponseMeta,
+     *   meta?: mixed,
      *   data?: ?ConfirmationResponseData,
-     *   links?: ?ConfirmationResponseLinks,
+     *   links?: ?Links,
      * } $values
      */
     public function __construct(
@@ -41,17 +41,17 @@ class ConfirmationResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?ConfirmationResponseMeta
+     * @return mixed
      */
-    public function getMeta(): ?ConfirmationResponseMeta
+    public function getMeta(): mixed
     {
         return $this->meta;
     }
 
     /**
-     * @param ?ConfirmationResponseMeta $value
+     * @param mixed $value
      */
-    public function setMeta(?ConfirmationResponseMeta $value = null): self
+    public function setMeta(mixed $value = null): self
     {
         $this->meta = $value;
         return $this;
@@ -75,17 +75,17 @@ class ConfirmationResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?ConfirmationResponseLinks
+     * @return ?Links
      */
-    public function getLinks(): ?ConfirmationResponseLinks
+    public function getLinks(): ?Links
     {
         return $this->links;
     }
 
     /**
-     * @param ?ConfirmationResponseLinks $value
+     * @param ?Links $value
      */
-    public function setLinks(?ConfirmationResponseLinks $value = null): self
+    public function setLinks(?Links $value = null): self
     {
         $this->links = $value;
         return $this;

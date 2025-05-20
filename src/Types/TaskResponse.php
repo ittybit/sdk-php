@@ -8,28 +8,28 @@ use Ittybit\Core\Json\JsonProperty;
 class TaskResponse extends JsonSerializableType
 {
     /**
-     * @var ?TaskResponseMeta $meta
+     * @var mixed $meta
      */
     #[JsonProperty('meta')]
-    private ?TaskResponseMeta $meta;
+    private mixed $meta;
 
     /**
-     * @var ?TaskResponseData $data
+     * @var ?Task $data
      */
     #[JsonProperty('data')]
-    private ?TaskResponseData $data;
+    private ?Task $data;
 
     /**
-     * @var ?TaskResponseLinks $links
+     * @var ?Links $links
      */
     #[JsonProperty('links')]
-    private ?TaskResponseLinks $links;
+    private ?Links $links;
 
     /**
      * @param array{
-     *   meta?: ?TaskResponseMeta,
-     *   data?: ?TaskResponseData,
-     *   links?: ?TaskResponseLinks,
+     *   meta?: mixed,
+     *   data?: ?Task,
+     *   links?: ?Links,
      * } $values
      */
     public function __construct(
@@ -41,51 +41,51 @@ class TaskResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?TaskResponseMeta
+     * @return mixed
      */
-    public function getMeta(): ?TaskResponseMeta
+    public function getMeta(): mixed
     {
         return $this->meta;
     }
 
     /**
-     * @param ?TaskResponseMeta $value
+     * @param mixed $value
      */
-    public function setMeta(?TaskResponseMeta $value = null): self
+    public function setMeta(mixed $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?TaskResponseData
+     * @return ?Task
      */
-    public function getData(): ?TaskResponseData
+    public function getData(): ?Task
     {
         return $this->data;
     }
 
     /**
-     * @param ?TaskResponseData $value
+     * @param ?Task $value
      */
-    public function setData(?TaskResponseData $value = null): self
+    public function setData(?Task $value = null): self
     {
         $this->data = $value;
         return $this;
     }
 
     /**
-     * @return ?TaskResponseLinks
+     * @return ?Links
      */
-    public function getLinks(): ?TaskResponseLinks
+    public function getLinks(): ?Links
     {
         return $this->links;
     }
 
     /**
-     * @param ?TaskResponseLinks $value
+     * @param ?Links $value
      */
-    public function setLinks(?TaskResponseLinks $value = null): self
+    public function setLinks(?Links $value = null): self
     {
         $this->links = $value;
         return $this;

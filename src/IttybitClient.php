@@ -3,10 +3,8 @@
 namespace Ittybit;
 
 use Ittybit\Automations\AutomationsClient;
-use Ittybit\Billing\BillingClient;
 use Ittybit\Files\FilesClient;
 use Ittybit\Media\MediaClient;
-use Ittybit\Example\ExampleClient;
 use Ittybit\Tasks\TasksClient;
 use Ittybit\Signatures\SignaturesClient;
 use GuzzleHttp\ClientInterface;
@@ -20,11 +18,6 @@ class IttybitClient
     public AutomationsClient $automations;
 
     /**
-     * @var BillingClient $billing
-     */
-    public BillingClient $billing;
-
-    /**
      * @var FilesClient $files
      */
     public FilesClient $files;
@@ -33,11 +26,6 @@ class IttybitClient
      * @var MediaClient $media
      */
     public MediaClient $media;
-
-    /**
-     * @var ExampleClient $example
-     */
-    public ExampleClient $example;
 
     /**
      * @var TasksClient $tasks
@@ -67,6 +55,7 @@ class IttybitClient
 
     /**
      * @param string $token The token to use for authentication.
+     * @param ?string $version
      * @param ?array{
      *   baseUrl?: string,
      *   client?: ClientInterface,
@@ -77,15 +66,19 @@ class IttybitClient
      */
     public function __construct(
         string $token,
+        ?string $version = null,
         ?array $options = null,
     ) {
         $defaultHeaders = [
             'Authorization' => "Bearer $token",
             'X-Fern-Language' => 'PHP',
             'X-Fern-SDK-Name' => 'Ittybit',
-            'X-Fern-SDK-Version' => '0.7.2',
-            'User-Agent' => 'ittybit/sdk/0.7.2',
+            'X-Fern-SDK-Version' => '0.7.3',
+            'User-Agent' => 'ittybit/sdk/0.7.3',
         ];
+        if ($version != null) {
+            $defaultHeaders['ACCEPT_VERSION'] = $version;
+        }
 
         $this->options = $options ?? [];
         $this->options['headers'] = array_merge(
@@ -98,10 +91,8 @@ class IttybitClient
         );
 
         $this->automations = new AutomationsClient($this->client, $this->options);
-        $this->billing = new BillingClient($this->client, $this->options);
         $this->files = new FilesClient($this->client, $this->options);
         $this->media = new MediaClient($this->client, $this->options);
-        $this->example = new ExampleClient($this->client, $this->options);
         $this->tasks = new TasksClient($this->client, $this->options);
         $this->signatures = new SignaturesClient($this->client, $this->options);
     }

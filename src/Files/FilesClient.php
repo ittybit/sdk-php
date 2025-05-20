@@ -5,7 +5,7 @@ namespace Ittybit\Files;
 use GuzzleHttp\ClientInterface;
 use Ittybit\Core\Client\RawClient;
 use Ittybit\Files\Requests\FilesListRequest;
-use Ittybit\Files\Types\FilesListResponse;
+use Ittybit\Types\FileListResponse;
 use Ittybit\Exceptions\IttybitException;
 use Ittybit\Exceptions\IttybitApiException;
 use Ittybit\Core\Json\JsonApiRequest;
@@ -14,12 +14,10 @@ use Ittybit\Core\Client\HttpMethod;
 use JsonException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
-use Ittybit\Files\Requests\FilesCreateFromUrlRequest;
-use Ittybit\Files\Types\FilesCreateFromUrlResponse;
-use Ittybit\Files\Types\FilesGetResponse;
+use Ittybit\Files\Requests\FilesCreateRequest;
+use Ittybit\Types\FileResponse;
 use Ittybit\Files\Types\FilesDeleteResponse;
-use Ittybit\Files\Requests\FilesUpdateMetadataRequest;
-use Ittybit\Files\Types\FilesUpdateMetadataResponse;
+use Ittybit\Files\Requests\FilesUpdateRequest;
 
 class FilesClient
 {
@@ -69,17 +67,14 @@ class FilesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return FilesListResponse
+     * @return FileListResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function list(FilesListRequest $request = new FilesListRequest(), ?array $options = null): FilesListResponse
+    public function list(FilesListRequest $request = new FilesListRequest(), ?array $options = null): FileListResponse
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
-        if ($request->getPage() != null) {
-            $query['page'] = $request->getPage();
-        }
         if ($request->getLimit() != null) {
             $query['limit'] = $request->getLimit();
         }
@@ -96,7 +91,7 @@ class FilesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return FilesListResponse::fromJson($json);
+                return FileListResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -123,7 +118,7 @@ class FilesClient
     /**
      * Registers a file from a publicly accessible URL. The file will be ingested asynchronously.
      *
-     * @param FilesCreateFromUrlRequest $request
+     * @param FilesCreateRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -132,11 +127,11 @@ class FilesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return FilesCreateFromUrlResponse
+     * @return FileResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function createFromUrl(FilesCreateFromUrlRequest $request, ?array $options = null): FilesCreateFromUrlResponse
+    public function create(FilesCreateRequest $request, ?array $options = null): FileResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -152,7 +147,7 @@ class FilesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return FilesCreateFromUrlResponse::fromJson($json);
+                return FileResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -179,7 +174,7 @@ class FilesClient
     /**
      * Retrieves detailed information about a specific file identified by its unique ID, including its metadata, media associations, and technical properties.
      *
-     * @param string $id Unique identifier of the file to retrieve. Must be a valid file ID (e.g., file_7bKpN2950Dx4EW8T).
+     * @param string $id
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -188,11 +183,11 @@ class FilesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return FilesGetResponse
+     * @return FileResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function get(string $id, ?array $options = null): FilesGetResponse
+    public function get(string $id, ?array $options = null): FileResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -207,7 +202,7 @@ class FilesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return FilesGetResponse::fromJson($json);
+                return FileResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -234,7 +229,7 @@ class FilesClient
     /**
      * Permanently removes a file from the system. This action cannot be undone. Associated media entries may still reference this file ID.
      *
-     * @param string $id Unique identifier of the file to delete. Must be a valid file ID (e.g., file_7bKpN2950Dx4EW8T).
+     * @param string $id
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -289,8 +284,8 @@ class FilesClient
     /**
      * Updates metadata, filename, or folder properties of an existing file. Only the specified fields will be updated.
      *
-     * @param string $id Unique identifier of the file to update. Must be a valid file ID (e.g., file_abc123).
-     * @param FilesUpdateMetadataRequest $request
+     * @param string $id
+     * @param FilesUpdateRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -299,11 +294,11 @@ class FilesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return FilesUpdateMetadataResponse
+     * @return FileResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function updateMetadata(string $id, FilesUpdateMetadataRequest $request = new FilesUpdateMetadataRequest(), ?array $options = null): FilesUpdateMetadataResponse
+    public function update(string $id, FilesUpdateRequest $request = new FilesUpdateRequest(), ?array $options = null): FileResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -319,7 +314,7 @@ class FilesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return FilesUpdateMetadataResponse::fromJson($json);
+                return FileResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);

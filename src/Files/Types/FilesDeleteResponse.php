@@ -4,32 +4,33 @@ namespace Ittybit\Files\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
+use Ittybit\Types\Links;
 
 class FilesDeleteResponse extends JsonSerializableType
 {
     /**
-     * @var ?FilesDeleteResponseData $data
+     * @var ?FilesDeleteResponseData $data Contains a confirmation message
      */
     #[JsonProperty('data')]
     private ?FilesDeleteResponseData $data;
 
     /**
-     * @var ?FilesDeleteResponseMeta $meta
+     * @var mixed $meta
      */
     #[JsonProperty('meta')]
-    private ?FilesDeleteResponseMeta $meta;
+    private mixed $meta;
 
     /**
-     * @var ?FilesDeleteResponseLinks $links
+     * @var ?Links $links
      */
     #[JsonProperty('links')]
-    private ?FilesDeleteResponseLinks $links;
+    private ?Links $links;
 
     /**
      * @param array{
      *   data?: ?FilesDeleteResponseData,
-     *   meta?: ?FilesDeleteResponseMeta,
-     *   links?: ?FilesDeleteResponseLinks,
+     *   meta?: mixed,
+     *   links?: ?Links,
      * } $values
      */
     public function __construct(
@@ -58,34 +59,34 @@ class FilesDeleteResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?FilesDeleteResponseMeta
+     * @return mixed
      */
-    public function getMeta(): ?FilesDeleteResponseMeta
+    public function getMeta(): mixed
     {
         return $this->meta;
     }
 
     /**
-     * @param ?FilesDeleteResponseMeta $value
+     * @param mixed $value
      */
-    public function setMeta(?FilesDeleteResponseMeta $value = null): self
+    public function setMeta(mixed $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?FilesDeleteResponseLinks
+     * @return ?Links
      */
-    public function getLinks(): ?FilesDeleteResponseLinks
+    public function getLinks(): ?Links
     {
         return $this->links;
     }
 
     /**
-     * @param ?FilesDeleteResponseLinks $value
+     * @param ?Links $value
      */
-    public function setLinks(?FilesDeleteResponseLinks $value = null): self
+    public function setLinks(?Links $value = null): self
     {
         $this->links = $value;
         return $this;

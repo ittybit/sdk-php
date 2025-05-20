@@ -5,7 +5,7 @@ namespace Ittybit\Types;
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
 
-class AutomationResponse extends JsonSerializableType
+class ErrorResponse extends JsonSerializableType
 {
     /**
      * @var mixed $meta
@@ -14,30 +14,22 @@ class AutomationResponse extends JsonSerializableType
     private mixed $meta;
 
     /**
-     * @var ?Automation $data
+     * @var ?Error $error
      */
-    #[JsonProperty('data')]
-    private ?Automation $data;
-
-    /**
-     * @var ?Links $links
-     */
-    #[JsonProperty('links')]
-    private ?Links $links;
+    #[JsonProperty('error')]
+    private ?Error $error;
 
     /**
      * @param array{
      *   meta?: mixed,
-     *   data?: ?Automation,
-     *   links?: ?Links,
+     *   error?: ?Error,
      * } $values
      */
     public function __construct(
         array $values = [],
     ) {
         $this->meta = $values['meta'] ?? null;
-        $this->data = $values['data'] ?? null;
-        $this->links = $values['links'] ?? null;
+        $this->error = $values['error'] ?? null;
     }
 
     /**
@@ -58,36 +50,19 @@ class AutomationResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?Automation
+     * @return ?Error
      */
-    public function getData(): ?Automation
+    public function getError(): ?Error
     {
-        return $this->data;
+        return $this->error;
     }
 
     /**
-     * @param ?Automation $value
+     * @param ?Error $value
      */
-    public function setData(?Automation $value = null): self
+    public function setError(?Error $value = null): self
     {
-        $this->data = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?Links
-     */
-    public function getLinks(): ?Links
-    {
-        return $this->links;
-    }
-
-    /**
-     * @param ?Links $value
-     */
-    public function setLinks(?Links $value = null): self
-    {
-        $this->links = $value;
+        $this->error = $value;
         return $this;
     }
 

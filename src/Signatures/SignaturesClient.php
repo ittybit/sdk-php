@@ -5,7 +5,7 @@ namespace Ittybit\Signatures;
 use GuzzleHttp\ClientInterface;
 use Ittybit\Core\Client\RawClient;
 use Ittybit\Signatures\Requests\SignaturesCreateRequest;
-use Ittybit\Signatures\Types\SignaturesCreateResponse;
+use Ittybit\Types\SignatureResponse;
 use Ittybit\Exceptions\IttybitException;
 use Ittybit\Exceptions\IttybitApiException;
 use Ittybit\Core\Json\JsonApiRequest;
@@ -63,11 +63,11 @@ class SignaturesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return SignaturesCreateResponse
+     * @return SignatureResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function create(SignaturesCreateRequest $request, ?array $options = null): SignaturesCreateResponse
+    public function create(SignaturesCreateRequest $request, ?array $options = null): SignatureResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -83,7 +83,7 @@ class SignaturesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return SignaturesCreateResponse::fromJson($json);
+                return SignatureResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);

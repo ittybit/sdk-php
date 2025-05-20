@@ -8,28 +8,28 @@ use Ittybit\Core\Json\JsonProperty;
 class FileResponse extends JsonSerializableType
 {
     /**
-     * @var ?FileResponseMeta $meta
+     * @var mixed $meta
      */
     #[JsonProperty('meta')]
-    private ?FileResponseMeta $meta;
+    private mixed $meta;
 
     /**
-     * @var ?FileResponseData $data
+     * @var ?File $data
      */
     #[JsonProperty('data')]
-    private ?FileResponseData $data;
+    private ?File $data;
 
     /**
-     * @var ?FileResponseLinks $links
+     * @var ?Links $links
      */
     #[JsonProperty('links')]
-    private ?FileResponseLinks $links;
+    private ?Links $links;
 
     /**
      * @param array{
-     *   meta?: ?FileResponseMeta,
-     *   data?: ?FileResponseData,
-     *   links?: ?FileResponseLinks,
+     *   meta?: mixed,
+     *   data?: ?File,
+     *   links?: ?Links,
      * } $values
      */
     public function __construct(
@@ -41,51 +41,51 @@ class FileResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?FileResponseMeta
+     * @return mixed
      */
-    public function getMeta(): ?FileResponseMeta
+    public function getMeta(): mixed
     {
         return $this->meta;
     }
 
     /**
-     * @param ?FileResponseMeta $value
+     * @param mixed $value
      */
-    public function setMeta(?FileResponseMeta $value = null): self
+    public function setMeta(mixed $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?FileResponseData
+     * @return ?File
      */
-    public function getData(): ?FileResponseData
+    public function getData(): ?File
     {
         return $this->data;
     }
 
     /**
-     * @param ?FileResponseData $value
+     * @param ?File $value
      */
-    public function setData(?FileResponseData $value = null): self
+    public function setData(?File $value = null): self
     {
         $this->data = $value;
         return $this;
     }
 
     /**
-     * @return ?FileResponseLinks
+     * @return ?Links
      */
-    public function getLinks(): ?FileResponseLinks
+    public function getLinks(): ?Links
     {
         return $this->links;
     }
 
     /**
-     * @param ?FileResponseLinks $value
+     * @param ?Links $value
      */
-    public function setLinks(?FileResponseLinks $value = null): self
+    public function setLinks(?Links $value = null): self
     {
         $this->links = $value;
         return $this;

@@ -1,17 +1,14 @@
 <?php
 
-namespace Ittybit\Files\Types;
+namespace Ittybit\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
 
-/**
- * Contains a confirmation message
- */
-class FilesDeleteResponseData extends JsonSerializableType
+class Error extends JsonSerializableType
 {
     /**
-     * @var ?string $message Confirmation message
+     * @var ?string $message
      */
     #[JsonProperty('message')]
     private ?string $message;

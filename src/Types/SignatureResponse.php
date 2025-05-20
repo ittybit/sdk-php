@@ -8,28 +8,28 @@ use Ittybit\Core\Json\JsonProperty;
 class SignatureResponse extends JsonSerializableType
 {
     /**
-     * @var ?SignatureResponseMeta $meta
+     * @var mixed $meta
      */
     #[JsonProperty('meta')]
-    private ?SignatureResponseMeta $meta;
+    private mixed $meta;
 
     /**
-     * @var ?SignatureResponseData $data
+     * @var ?Signature $data
      */
     #[JsonProperty('data')]
-    private ?SignatureResponseData $data;
+    private ?Signature $data;
 
     /**
-     * @var ?SignatureResponseLinks $links
+     * @var ?Links $links
      */
     #[JsonProperty('links')]
-    private ?SignatureResponseLinks $links;
+    private ?Links $links;
 
     /**
      * @param array{
-     *   meta?: ?SignatureResponseMeta,
-     *   data?: ?SignatureResponseData,
-     *   links?: ?SignatureResponseLinks,
+     *   meta?: mixed,
+     *   data?: ?Signature,
+     *   links?: ?Links,
      * } $values
      */
     public function __construct(
@@ -41,51 +41,51 @@ class SignatureResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?SignatureResponseMeta
+     * @return mixed
      */
-    public function getMeta(): ?SignatureResponseMeta
+    public function getMeta(): mixed
     {
         return $this->meta;
     }
 
     /**
-     * @param ?SignatureResponseMeta $value
+     * @param mixed $value
      */
-    public function setMeta(?SignatureResponseMeta $value = null): self
+    public function setMeta(mixed $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?SignatureResponseData
+     * @return ?Signature
      */
-    public function getData(): ?SignatureResponseData
+    public function getData(): ?Signature
     {
         return $this->data;
     }
 
     /**
-     * @param ?SignatureResponseData $value
+     * @param ?Signature $value
      */
-    public function setData(?SignatureResponseData $value = null): self
+    public function setData(?Signature $value = null): self
     {
         $this->data = $value;
         return $this;
     }
 
     /**
-     * @return ?SignatureResponseLinks
+     * @return ?Links
      */
-    public function getLinks(): ?SignatureResponseLinks
+    public function getLinks(): ?Links
     {
         return $this->links;
     }
 
     /**
-     * @param ?SignatureResponseLinks $value
+     * @param ?Links $value
      */
-    public function setLinks(?SignatureResponseLinks $value = null): self
+    public function setLinks(?Links $value = null): self
     {
         $this->links = $value;
         return $this;

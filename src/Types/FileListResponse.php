@@ -9,28 +9,28 @@ use Ittybit\Core\Types\ArrayType;
 class FileListResponse extends JsonSerializableType
 {
     /**
-     * @var ?FileListResponseMeta $meta
+     * @var ?MetaList $meta
      */
     #[JsonProperty('meta')]
-    private ?FileListResponseMeta $meta;
+    private ?MetaList $meta;
 
     /**
-     * @var ?array<FileListResponseDataItem> $data
+     * @var ?array<File> $data
      */
-    #[JsonProperty('data'), ArrayType([FileListResponseDataItem::class])]
+    #[JsonProperty('data'), ArrayType([File::class])]
     private ?array $data;
 
     /**
-     * @var ?FileListResponseLinks $links
+     * @var ?LinksList $links
      */
     #[JsonProperty('links')]
-    private ?FileListResponseLinks $links;
+    private ?LinksList $links;
 
     /**
      * @param array{
-     *   meta?: ?FileListResponseMeta,
-     *   data?: ?array<FileListResponseDataItem>,
-     *   links?: ?FileListResponseLinks,
+     *   meta?: ?MetaList,
+     *   data?: ?array<File>,
+     *   links?: ?LinksList,
      * } $values
      */
     public function __construct(
@@ -42,24 +42,24 @@ class FileListResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?FileListResponseMeta
+     * @return ?MetaList
      */
-    public function getMeta(): ?FileListResponseMeta
+    public function getMeta(): ?MetaList
     {
         return $this->meta;
     }
 
     /**
-     * @param ?FileListResponseMeta $value
+     * @param ?MetaList $value
      */
-    public function setMeta(?FileListResponseMeta $value = null): self
+    public function setMeta(?MetaList $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?array<FileListResponseDataItem>
+     * @return ?array<File>
      */
     public function getData(): ?array
     {
@@ -67,7 +67,7 @@ class FileListResponse extends JsonSerializableType
     }
 
     /**
-     * @param ?array<FileListResponseDataItem> $value
+     * @param ?array<File> $value
      */
     public function setData(?array $value = null): self
     {
@@ -76,17 +76,17 @@ class FileListResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?FileListResponseLinks
+     * @return ?LinksList
      */
-    public function getLinks(): ?FileListResponseLinks
+    public function getLinks(): ?LinksList
     {
         return $this->links;
     }
 
     /**
-     * @param ?FileListResponseLinks $value
+     * @param ?LinksList $value
      */
-    public function setLinks(?FileListResponseLinks $value = null): self
+    public function setLinks(?LinksList $value = null): self
     {
         $this->links = $value;
         return $this;

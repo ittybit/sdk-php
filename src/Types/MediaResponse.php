@@ -8,28 +8,28 @@ use Ittybit\Core\Json\JsonProperty;
 class MediaResponse extends JsonSerializableType
 {
     /**
-     * @var ?MediaResponseMeta $meta
+     * @var mixed $meta
      */
     #[JsonProperty('meta')]
-    private ?MediaResponseMeta $meta;
+    private mixed $meta;
 
     /**
-     * @var ?MediaResponseData $data
+     * @var ?Media $data
      */
     #[JsonProperty('data')]
-    private ?MediaResponseData $data;
+    private ?Media $data;
 
     /**
-     * @var ?MediaResponseLinks $links
+     * @var ?Links $links
      */
     #[JsonProperty('links')]
-    private ?MediaResponseLinks $links;
+    private ?Links $links;
 
     /**
      * @param array{
-     *   meta?: ?MediaResponseMeta,
-     *   data?: ?MediaResponseData,
-     *   links?: ?MediaResponseLinks,
+     *   meta?: mixed,
+     *   data?: ?Media,
+     *   links?: ?Links,
      * } $values
      */
     public function __construct(
@@ -41,51 +41,51 @@ class MediaResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?MediaResponseMeta
+     * @return mixed
      */
-    public function getMeta(): ?MediaResponseMeta
+    public function getMeta(): mixed
     {
         return $this->meta;
     }
 
     /**
-     * @param ?MediaResponseMeta $value
+     * @param mixed $value
      */
-    public function setMeta(?MediaResponseMeta $value = null): self
+    public function setMeta(mixed $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?MediaResponseData
+     * @return ?Media
      */
-    public function getData(): ?MediaResponseData
+    public function getData(): ?Media
     {
         return $this->data;
     }
 
     /**
-     * @param ?MediaResponseData $value
+     * @param ?Media $value
      */
-    public function setData(?MediaResponseData $value = null): self
+    public function setData(?Media $value = null): self
     {
         $this->data = $value;
         return $this;
     }
 
     /**
-     * @return ?MediaResponseLinks
+     * @return ?Links
      */
-    public function getLinks(): ?MediaResponseLinks
+    public function getLinks(): ?Links
     {
         return $this->links;
     }
 
     /**
-     * @param ?MediaResponseLinks $value
+     * @param ?Links $value
      */
-    public function setLinks(?MediaResponseLinks $value = null): self
+    public function setLinks(?Links $value = null): self
     {
         $this->links = $value;
         return $this;

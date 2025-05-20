@@ -9,28 +9,28 @@ use Ittybit\Core\Types\ArrayType;
 class MediaListResponse extends JsonSerializableType
 {
     /**
-     * @var ?MediaListResponseMeta $meta
+     * @var ?MetaList $meta
      */
     #[JsonProperty('meta')]
-    private ?MediaListResponseMeta $meta;
+    private ?MetaList $meta;
 
     /**
-     * @var ?array<MediaListResponseDataItem> $data
+     * @var ?array<Media> $data
      */
-    #[JsonProperty('data'), ArrayType([MediaListResponseDataItem::class])]
+    #[JsonProperty('data'), ArrayType([Media::class])]
     private ?array $data;
 
     /**
-     * @var ?MediaListResponseLinks $links
+     * @var ?LinksList $links
      */
     #[JsonProperty('links')]
-    private ?MediaListResponseLinks $links;
+    private ?LinksList $links;
 
     /**
      * @param array{
-     *   meta?: ?MediaListResponseMeta,
-     *   data?: ?array<MediaListResponseDataItem>,
-     *   links?: ?MediaListResponseLinks,
+     *   meta?: ?MetaList,
+     *   data?: ?array<Media>,
+     *   links?: ?LinksList,
      * } $values
      */
     public function __construct(
@@ -42,24 +42,24 @@ class MediaListResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?MediaListResponseMeta
+     * @return ?MetaList
      */
-    public function getMeta(): ?MediaListResponseMeta
+    public function getMeta(): ?MetaList
     {
         return $this->meta;
     }
 
     /**
-     * @param ?MediaListResponseMeta $value
+     * @param ?MetaList $value
      */
-    public function setMeta(?MediaListResponseMeta $value = null): self
+    public function setMeta(?MetaList $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?array<MediaListResponseDataItem>
+     * @return ?array<Media>
      */
     public function getData(): ?array
     {
@@ -67,7 +67,7 @@ class MediaListResponse extends JsonSerializableType
     }
 
     /**
-     * @param ?array<MediaListResponseDataItem> $value
+     * @param ?array<Media> $value
      */
     public function setData(?array $value = null): self
     {
@@ -76,17 +76,17 @@ class MediaListResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?MediaListResponseLinks
+     * @return ?LinksList
      */
-    public function getLinks(): ?MediaListResponseLinks
+    public function getLinks(): ?LinksList
     {
         return $this->links;
     }
 
     /**
-     * @param ?MediaListResponseLinks $value
+     * @param ?LinksList $value
      */
-    public function setLinks(?MediaListResponseLinks $value = null): self
+    public function setLinks(?LinksList $value = null): self
     {
         $this->links = $value;
         return $this;

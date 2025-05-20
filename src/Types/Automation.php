@@ -41,9 +41,9 @@ class Automation extends JsonSerializableType
     private AutomationTrigger $trigger;
 
     /**
-     * @var array<AutomationWorkflowItem> $workflow The sequence of tasks to be executed when the automation is triggered. The structure of each task object varies depending on its 'kind'.
+     * @var array<WorkflowTaskStep> $workflow The sequence of tasks to be executed when the automation is triggered. The structure of each task object varies depending on its 'kind'.
      */
-    #[JsonProperty('workflow'), ArrayType([AutomationWorkflowItem::class])]
+    #[JsonProperty('workflow'), ArrayType([WorkflowTaskStep::class])]
     private array $workflow;
 
     /**
@@ -69,7 +69,7 @@ class Automation extends JsonSerializableType
      *   id: string,
      *   name: string,
      *   trigger: AutomationTrigger,
-     *   workflow: array<AutomationWorkflowItem>,
+     *   workflow: array<WorkflowTaskStep>,
      *   status: value-of<AutomationStatus>,
      *   created: DateTime,
      *   updated: DateTime,
@@ -177,7 +177,7 @@ class Automation extends JsonSerializableType
     }
 
     /**
-     * @return array<AutomationWorkflowItem>
+     * @return array<WorkflowTaskStep>
      */
     public function getWorkflow(): array
     {
@@ -185,7 +185,7 @@ class Automation extends JsonSerializableType
     }
 
     /**
-     * @param array<AutomationWorkflowItem> $value
+     * @param array<WorkflowTaskStep> $value
      */
     public function setWorkflow(array $value): self
     {

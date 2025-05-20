@@ -89,15 +89,15 @@ class Task extends JsonSerializableType
     private ?string $parentId;
 
     /**
-     * @var ?array<TaskWorkflowItem> $workflow Array of nested task objects representing the steps within this workflow task.
+     * @var ?array<Task> $workflow Array of nested task objects representing the steps within this workflow task.
      */
-    #[JsonProperty('workflow'), ArrayType([TaskWorkflowItem::class])]
+    #[JsonProperty('workflow'), ArrayType([Task::class])]
     private ?array $workflow;
 
     /**
-     * @var ?array<TaskNextItem> $next Array representing subsequent tasks (e.g., in an automation). Structure may vary.
+     * @var ?array<Task> $next Array representing subsequent tasks (e.g., in an automation). Structure may vary.
      */
-    #[JsonProperty('next'), ArrayType([TaskNextItem::class])]
+    #[JsonProperty('next'), ArrayType([Task::class])]
     private ?array $next;
 
     /**
@@ -121,8 +121,8 @@ class Task extends JsonSerializableType
      *   error?: ?string,
      *   createdBy?: ?string,
      *   parentId?: ?string,
-     *   workflow?: ?array<TaskWorkflowItem>,
-     *   next?: ?array<TaskNextItem>,
+     *   workflow?: ?array<Task>,
+     *   next?: ?array<Task>,
      *   results?: ?TaskResults,
      * } $values
      */
@@ -369,7 +369,7 @@ class Task extends JsonSerializableType
     }
 
     /**
-     * @return ?array<TaskWorkflowItem>
+     * @return ?array<Task>
      */
     public function getWorkflow(): ?array
     {
@@ -377,7 +377,7 @@ class Task extends JsonSerializableType
     }
 
     /**
-     * @param ?array<TaskWorkflowItem> $value
+     * @param ?array<Task> $value
      */
     public function setWorkflow(?array $value = null): self
     {
@@ -386,7 +386,7 @@ class Task extends JsonSerializableType
     }
 
     /**
-     * @return ?array<TaskNextItem>
+     * @return ?array<Task>
      */
     public function getNext(): ?array
     {
@@ -394,7 +394,7 @@ class Task extends JsonSerializableType
     }
 
     /**
-     * @param ?array<TaskNextItem> $value
+     * @param ?array<Task> $value
      */
     public function setNext(?array $value = null): self
     {
