@@ -4,36 +4,49 @@ namespace Ittybit\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
-use Ittybit\Core\Types\ArrayType;
 
-/**
- * The event and conditions that trigger this automation.
- */
 class AutomationTrigger extends JsonSerializableType
 {
     /**
-     * @var string $event The event that triggers the automation
+     * @var ?'event' $kind
+     */
+    #[JsonProperty('kind')]
+    private ?string $kind;
+
+    /**
+     * @var string $event
      */
     #[JsonProperty('event')]
     private string $event;
 
     /**
-     * @var ?array<AutomationTriggerConditionsItem> $conditions Conditions that must be met for the trigger to activate.
-     */
-    #[JsonProperty('conditions'), ArrayType([AutomationTriggerConditionsItem::class])]
-    private ?array $conditions;
-
-    /**
      * @param array{
      *   event: string,
-     *   conditions?: ?array<AutomationTriggerConditionsItem>,
+     *   kind?: ?'event',
      * } $values
      */
     public function __construct(
         array $values,
     ) {
+        $this->kind = $values['kind'] ?? null;
         $this->event = $values['event'];
-        $this->conditions = $values['conditions'] ?? null;
+    }
+
+    /**
+     * @return ?'event'
+     */
+    public function getKind(): ?string
+    {
+        return $this->kind;
+    }
+
+    /**
+     * @param ?'event' $value
+     */
+    public function setKind(?string $value = null): self
+    {
+        $this->kind = $value;
+        return $this;
     }
 
     /**
@@ -50,23 +63,6 @@ class AutomationTrigger extends JsonSerializableType
     public function setEvent(string $value): self
     {
         $this->event = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?array<AutomationTriggerConditionsItem>
-     */
-    public function getConditions(): ?array
-    {
-        return $this->conditions;
-    }
-
-    /**
-     * @param ?array<AutomationTriggerConditionsItem> $value
-     */
-    public function setConditions(?array $value = null): self
-    {
-        $this->conditions = $value;
         return $this;
     }
 

@@ -4,72 +4,105 @@ namespace Ittybit\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
+use Ittybit\Core\Types\ArrayType;
 
 class WorkflowTaskStep extends JsonSerializableType
 {
     /**
-     * @var value-of<WorkflowTaskStepKind> $kind The type of operation the task performs.
+     * @var value-of<WorkflowTaskStepKind> $kind
      */
     #[JsonProperty('kind')]
     private string $kind;
 
     /**
-     * @var ?string $label Optional label for the output of this step.
+     * @var ?string $ref
      */
-    #[JsonProperty('label')]
-    private ?string $label;
+    #[JsonProperty('ref')]
+    private ?string $ref;
 
     /**
-     * @var ?string $format Output format (e.g., mp4, jpg)
+     * @var ?string $format
      */
     #[JsonProperty('format')]
     private ?string $format;
 
     /**
-     * @var ?int $width Output width
+     * @var ?float $start
+     */
+    #[JsonProperty('start')]
+    private ?float $start;
+
+    /**
+     * @var ?float $end
+     */
+    #[JsonProperty('end')]
+    private ?float $end;
+
+    /**
+     * @var ?int $width
      */
     #[JsonProperty('width')]
     private ?int $width;
 
     /**
-     * @var ?int $height Output height
+     * @var ?int $height
      */
     #[JsonProperty('height')]
     private ?int $height;
 
     /**
-     * @var ?string $resize Resize mode
+     * @var ?string $fit
      */
-    #[JsonProperty('resize')]
-    private ?string $resize;
+    #[JsonProperty('fit')]
+    private ?string $fit;
 
     /**
-     * @var ?int $quality Quality setting
+     * @var ?string $background
+     */
+    #[JsonProperty('background')]
+    private ?string $background;
+
+    /**
+     * @var ?int $quality
      */
     #[JsonProperty('quality')]
     private ?int $quality;
 
     /**
+     * @var ?array<mixed> $next
+     */
+    #[JsonProperty('next'), ArrayType(['mixed'])]
+    private ?array $next;
+
+    /**
      * @param array{
      *   kind: value-of<WorkflowTaskStepKind>,
-     *   label?: ?string,
+     *   ref?: ?string,
      *   format?: ?string,
+     *   start?: ?float,
+     *   end?: ?float,
      *   width?: ?int,
      *   height?: ?int,
-     *   resize?: ?string,
+     *   fit?: ?string,
+     *   background?: ?string,
      *   quality?: ?int,
+     *   next?: ?array<mixed>,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
         $this->kind = $values['kind'];
-        $this->label = $values['label'] ?? null;
+        $this->ref = $values['ref'] ?? null;
         $this->format = $values['format'] ?? null;
+        $this->start = $values['start'] ?? null;
+        $this->end = $values['end'] ?? null;
         $this->width = $values['width'] ?? null;
         $this->height = $values['height'] ?? null;
-        $this->resize = $values['resize'] ?? null;
+        $this->fit = $values['fit'] ?? null;
+        $this->background = $values['background'] ?? null;
         $this->quality = $values['quality'] ?? null;
+        $this->next = $values['next'] ?? null;
     }
 
     /**
@@ -92,17 +125,17 @@ class WorkflowTaskStep extends JsonSerializableType
     /**
      * @return ?string
      */
-    public function getLabel(): ?string
+    public function getRef(): ?string
     {
-        return $this->label;
+        return $this->ref;
     }
 
     /**
      * @param ?string $value
      */
-    public function setLabel(?string $value = null): self
+    public function setRef(?string $value = null): self
     {
-        $this->label = $value;
+        $this->ref = $value;
         return $this;
     }
 
@@ -120,6 +153,40 @@ class WorkflowTaskStep extends JsonSerializableType
     public function setFormat(?string $value = null): self
     {
         $this->format = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?float
+     */
+    public function getStart(): ?float
+    {
+        return $this->start;
+    }
+
+    /**
+     * @param ?float $value
+     */
+    public function setStart(?float $value = null): self
+    {
+        $this->start = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?float
+     */
+    public function getEnd(): ?float
+    {
+        return $this->end;
+    }
+
+    /**
+     * @param ?float $value
+     */
+    public function setEnd(?float $value = null): self
+    {
+        $this->end = $value;
         return $this;
     }
 
@@ -160,17 +227,34 @@ class WorkflowTaskStep extends JsonSerializableType
     /**
      * @return ?string
      */
-    public function getResize(): ?string
+    public function getFit(): ?string
     {
-        return $this->resize;
+        return $this->fit;
     }
 
     /**
      * @param ?string $value
      */
-    public function setResize(?string $value = null): self
+    public function setFit(?string $value = null): self
     {
-        $this->resize = $value;
+        $this->fit = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getBackground(): ?string
+    {
+        return $this->background;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setBackground(?string $value = null): self
+    {
+        $this->background = $value;
         return $this;
     }
 
@@ -188,6 +272,23 @@ class WorkflowTaskStep extends JsonSerializableType
     public function setQuality(?int $value = null): self
     {
         $this->quality = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?array<mixed>
+     */
+    public function getNext(): ?array
+    {
+        return $this->next;
+    }
+
+    /**
+     * @param ?array<mixed> $value
+     */
+    public function setNext(?array $value = null): self
+    {
+        $this->next = $value;
         return $this;
     }
 

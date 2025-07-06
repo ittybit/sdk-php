@@ -9,68 +9,60 @@ use Ittybit\Core\Types\ArrayType;
 class FilesCreateRequest extends JsonSerializableType
 {
     /**
-     * @var string $url The publicly accessible URL of the file to ingest.
+     * @var string $url
      */
     #[JsonProperty('url')]
     private string $url;
 
     /**
-     * @var ?string $filename Optional desired filename. If not provided, it may be derived from the URL.
-     */
-    #[JsonProperty('filename')]
-    private ?string $filename;
-
-    /**
-     * @var ?string $folder Folder path (optional)
-     */
-    #[JsonProperty('folder')]
-    private ?string $folder;
-
-    /**
-     * @var ?string $mediaId Optional existing media ID to associate the file with.
+     * @var ?string $mediaId
      */
     #[JsonProperty('media_id')]
     private ?string $mediaId;
 
     /**
-     * @var ?string $label Optional label for the file.
+     * @var ?string $folder
      */
-    #[JsonProperty('label')]
-    private ?string $label;
+    #[JsonProperty('folder')]
+    private ?string $folder;
 
     /**
-     * @var ?array<string, mixed> $metadata Optional user-defined key-value metadata.
+     * @var ?string $filename
+     */
+    #[JsonProperty('filename')]
+    private ?string $filename;
+
+    /**
+     * @var ?string $ref
+     */
+    #[JsonProperty('ref')]
+    private ?string $ref;
+
+    /**
+     * @var ?array<string, mixed> $metadata
      */
     #[JsonProperty('metadata'), ArrayType(['string' => 'mixed'])]
     private ?array $metadata;
 
     /**
-     * @var ?bool $async Whether to process the ingestion asynchronously.
-     */
-    #[JsonProperty('async')]
-    private ?bool $async;
-
-    /**
      * @param array{
      *   url: string,
-     *   filename?: ?string,
-     *   folder?: ?string,
      *   mediaId?: ?string,
-     *   label?: ?string,
+     *   folder?: ?string,
+     *   filename?: ?string,
+     *   ref?: ?string,
      *   metadata?: ?array<string, mixed>,
-     *   async?: ?bool,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
         $this->url = $values['url'];
-        $this->filename = $values['filename'] ?? null;
-        $this->folder = $values['folder'] ?? null;
         $this->mediaId = $values['mediaId'] ?? null;
-        $this->label = $values['label'] ?? null;
+        $this->folder = $values['folder'] ?? null;
+        $this->filename = $values['filename'] ?? null;
+        $this->ref = $values['ref'] ?? null;
         $this->metadata = $values['metadata'] ?? null;
-        $this->async = $values['async'] ?? null;
     }
 
     /**
@@ -87,40 +79,6 @@ class FilesCreateRequest extends JsonSerializableType
     public function setUrl(string $value): self
     {
         $this->url = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getFilename(): ?string
-    {
-        return $this->filename;
-    }
-
-    /**
-     * @param ?string $value
-     */
-    public function setFilename(?string $value = null): self
-    {
-        $this->filename = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getFolder(): ?string
-    {
-        return $this->folder;
-    }
-
-    /**
-     * @param ?string $value
-     */
-    public function setFolder(?string $value = null): self
-    {
-        $this->folder = $value;
         return $this;
     }
 
@@ -144,17 +102,51 @@ class FilesCreateRequest extends JsonSerializableType
     /**
      * @return ?string
      */
-    public function getLabel(): ?string
+    public function getFolder(): ?string
     {
-        return $this->label;
+        return $this->folder;
     }
 
     /**
      * @param ?string $value
      */
-    public function setLabel(?string $value = null): self
+    public function setFolder(?string $value = null): self
     {
-        $this->label = $value;
+        $this->folder = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setFilename(?string $value = null): self
+    {
+        $this->filename = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getRef(): ?string
+    {
+        return $this->ref;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setRef(?string $value = null): self
+    {
+        $this->ref = $value;
         return $this;
     }
 
@@ -172,23 +164,6 @@ class FilesCreateRequest extends JsonSerializableType
     public function setMetadata(?array $value = null): self
     {
         $this->metadata = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?bool
-     */
-    public function getAsync(): ?bool
-    {
-        return $this->async;
-    }
-
-    /**
-     * @param ?bool $value
-     */
-    public function setAsync(?bool $value = null): self
-    {
-        $this->async = $value;
         return $this;
     }
 }

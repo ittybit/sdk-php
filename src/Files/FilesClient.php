@@ -16,7 +16,7 @@ use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Ittybit\Files\Requests\FilesCreateRequest;
 use Ittybit\Types\FileResponse;
-use Ittybit\Files\Types\FilesDeleteResponse;
+use Ittybit\Types\ConfirmationResponse;
 use Ittybit\Files\Requests\FilesUpdateRequest;
 
 class FilesClient
@@ -56,7 +56,7 @@ class FilesClient
     }
 
     /**
-     * Retrieves a paginated list of all files associated with the current project. Files can be filtered using query parameters.
+     * Retrieves a paginated list of all files associated with the current project.
      *
      * @param FilesListRequest $request
      * @param ?array{
@@ -116,7 +116,7 @@ class FilesClient
     }
 
     /**
-     * Registers a file from a publicly accessible URL. The file will be ingested asynchronously.
+     * Creates a new file from a publicly accessible or signed URL.
      *
      * @param FilesCreateRequest $request
      * @param ?array{
@@ -172,7 +172,7 @@ class FilesClient
     }
 
     /**
-     * Retrieves detailed information about a specific file identified by its unique ID, including its metadata, media associations, and technical properties.
+     * Retrieve the file object for a file with the given ID.
      *
      * @param string $id
      * @param ?array{
@@ -227,7 +227,7 @@ class FilesClient
     }
 
     /**
-     * Permanently removes a file from the system. This action cannot be undone. Associated media entries may still reference this file ID.
+     * Permanently removes a file from the system. This action cannot be undone.
      *
      * @param string $id
      * @param ?array{
@@ -238,11 +238,11 @@ class FilesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return FilesDeleteResponse
+     * @return ConfirmationResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function delete(string $id, ?array $options = null): FilesDeleteResponse
+    public function delete(string $id, ?array $options = null): ConfirmationResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -257,7 +257,7 @@ class FilesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return FilesDeleteResponse::fromJson($json);
+                return ConfirmationResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -282,7 +282,7 @@ class FilesClient
     }
 
     /**
-     * Updates metadata, filename, or folder properties of an existing file. Only the specified fields will be updated.
+     * Update a file's `filename`, `folder`, `ref`, or `metadata`. Only the specified fields will be updated.
      *
      * @param string $id
      * @param FilesUpdateRequest $request

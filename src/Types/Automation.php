@@ -11,55 +11,49 @@ use Ittybit\Core\Types\Date;
 class Automation extends JsonSerializableType
 {
     /**
-     * @var string $id Unique identifier for the automation
+     * @var string $id
      */
     #[JsonProperty('id')]
     private string $id;
 
     /**
-     * @var string $name User-defined name for the automation
+     * @var string $name
      */
     #[JsonProperty('name')]
     private string $name;
 
     /**
-     * @var ?string $description Optional description for the automation
+     * @var ?string $description
      */
     #[JsonProperty('description')]
     private ?string $description;
 
     /**
-     * @var ?array<string, mixed> $metadata User-defined key-value metadata for the automation.
-     */
-    #[JsonProperty('metadata'), ArrayType(['string' => 'mixed'])]
-    private ?array $metadata;
-
-    /**
-     * @var AutomationTrigger $trigger The event and conditions that trigger this automation.
+     * @var AutomationTrigger $trigger
      */
     #[JsonProperty('trigger')]
     private AutomationTrigger $trigger;
 
     /**
-     * @var array<WorkflowTaskStep> $workflow The sequence of tasks to be executed when the automation is triggered. The structure of each task object varies depending on its 'kind'.
+     * @var array<WorkflowTaskStep> $workflow
      */
     #[JsonProperty('workflow'), ArrayType([WorkflowTaskStep::class])]
     private array $workflow;
 
     /**
-     * @var value-of<AutomationStatus> $status Current status of the automation
+     * @var value-of<AutomationStatus> $status
      */
     #[JsonProperty('status')]
     private string $status;
 
     /**
-     * @var DateTime $created Timestamp when the automation was created
+     * @var DateTime $created
      */
     #[JsonProperty('created'), Date(Date::TYPE_DATETIME)]
     private DateTime $created;
 
     /**
-     * @var DateTime $updated Timestamp when the automation was last updated
+     * @var DateTime $updated
      */
     #[JsonProperty('updated'), Date(Date::TYPE_DATETIME)]
     private DateTime $updated;
@@ -74,7 +68,6 @@ class Automation extends JsonSerializableType
      *   created: DateTime,
      *   updated: DateTime,
      *   description?: ?string,
-     *   metadata?: ?array<string, mixed>,
      * } $values
      */
     public function __construct(
@@ -83,7 +76,6 @@ class Automation extends JsonSerializableType
         $this->id = $values['id'];
         $this->name = $values['name'];
         $this->description = $values['description'] ?? null;
-        $this->metadata = $values['metadata'] ?? null;
         $this->trigger = $values['trigger'];
         $this->workflow = $values['workflow'];
         $this->status = $values['status'];
@@ -139,23 +131,6 @@ class Automation extends JsonSerializableType
     public function setDescription(?string $value = null): self
     {
         $this->description = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?array<string, mixed>
-     */
-    public function getMetadata(): ?array
-    {
-        return $this->metadata;
-    }
-
-    /**
-     * @param ?array<string, mixed> $value
-     */
-    public function setMetadata(?array $value = null): self
-    {
-        $this->metadata = $value;
         return $this;
     }
 

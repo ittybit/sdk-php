@@ -8,37 +8,31 @@ use Ittybit\Core\Json\JsonProperty;
 class LinksList extends JsonSerializableType
 {
     /**
-     * @var ?string $self The absolute URL of the current request, potentially including query parameters.
+     * @var ?string $self
      */
     #[JsonProperty('self')]
     private ?string $self;
 
     /**
-     * @var ?string $next URL for the next page of results.
-     */
-    #[JsonProperty('next')]
-    private ?string $next;
-
-    /**
-     * @var ?string $prev URL for the previous page of results.
-     */
-    #[JsonProperty('prev')]
-    private ?string $prev;
-
-    /**
-     * @var ?string $parent URL for the parent resource.
-     */
-    #[JsonProperty('parent')]
-    private ?string $parent;
-
-    /**
-     * @var ?string $first URL for the first page of results.
+     * @var ?string $first
      */
     #[JsonProperty('first')]
     private ?string $first;
 
     /**
-     * @var ?string $last URL for the last page of results.
+     * @var ?string $next
+     */
+    #[JsonProperty('next')]
+    private ?string $next;
+
+    /**
+     * @var ?string $prev
+     */
+    #[JsonProperty('prev')]
+    private ?string $prev;
+
+    /**
+     * @var ?string $last
      */
     #[JsonProperty('last')]
     private ?string $last;
@@ -46,10 +40,9 @@ class LinksList extends JsonSerializableType
     /**
      * @param array{
      *   self?: ?string,
+     *   first?: ?string,
      *   next?: ?string,
      *   prev?: ?string,
-     *   parent?: ?string,
-     *   first?: ?string,
      *   last?: ?string,
      * } $values
      */
@@ -57,10 +50,9 @@ class LinksList extends JsonSerializableType
         array $values = [],
     ) {
         $this->self = $values['self'] ?? null;
+        $this->first = $values['first'] ?? null;
         $this->next = $values['next'] ?? null;
         $this->prev = $values['prev'] ?? null;
-        $this->parent = $values['parent'] ?? null;
-        $this->first = $values['first'] ?? null;
         $this->last = $values['last'] ?? null;
     }
 
@@ -78,6 +70,23 @@ class LinksList extends JsonSerializableType
     public function setSelf(?string $value = null): self
     {
         $this->self = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getFirst(): ?string
+    {
+        return $this->first;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setFirst(?string $value = null): self
+    {
+        $this->first = $value;
         return $this;
     }
 
@@ -112,40 +121,6 @@ class LinksList extends JsonSerializableType
     public function setPrev(?string $value = null): self
     {
         $this->prev = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getParent(): ?string
-    {
-        return $this->parent;
-    }
-
-    /**
-     * @param ?string $value
-     */
-    public function setParent(?string $value = null): self
-    {
-        $this->parent = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getFirst(): ?string
-    {
-        return $this->first;
-    }
-
-    /**
-     * @param ?string $value
-     */
-    public function setFirst(?string $value = null): self
-    {
-        $this->first = $value;
         return $this;
     }
 

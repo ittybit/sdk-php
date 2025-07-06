@@ -14,10 +14,16 @@ class ConfirmationResponse extends JsonSerializableType
     private mixed $meta;
 
     /**
-     * @var ?ConfirmationResponseData $data
+     * @var ?Confirmation $data
      */
     #[JsonProperty('data')]
-    private ?ConfirmationResponseData $data;
+    private ?Confirmation $data;
+
+    /**
+     * @var ?Error $error
+     */
+    #[JsonProperty('error')]
+    private ?Error $error;
 
     /**
      * @var ?Links $links
@@ -28,7 +34,8 @@ class ConfirmationResponse extends JsonSerializableType
     /**
      * @param array{
      *   meta?: mixed,
-     *   data?: ?ConfirmationResponseData,
+     *   data?: ?Confirmation,
+     *   error?: ?Error,
      *   links?: ?Links,
      * } $values
      */
@@ -37,6 +44,7 @@ class ConfirmationResponse extends JsonSerializableType
     ) {
         $this->meta = $values['meta'] ?? null;
         $this->data = $values['data'] ?? null;
+        $this->error = $values['error'] ?? null;
         $this->links = $values['links'] ?? null;
     }
 
@@ -58,19 +66,36 @@ class ConfirmationResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?ConfirmationResponseData
+     * @return ?Confirmation
      */
-    public function getData(): ?ConfirmationResponseData
+    public function getData(): ?Confirmation
     {
         return $this->data;
     }
 
     /**
-     * @param ?ConfirmationResponseData $value
+     * @param ?Confirmation $value
      */
-    public function setData(?ConfirmationResponseData $value = null): self
+    public function setData(?Confirmation $value = null): self
     {
         $this->data = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?Error
+     */
+    public function getError(): ?Error
+    {
+        return $this->error;
+    }
+
+    /**
+     * @param ?Error $value
+     */
+    public function setError(?Error $value = null): self
+    {
+        $this->error = $value;
         return $this;
     }
 

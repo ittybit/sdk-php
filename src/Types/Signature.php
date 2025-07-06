@@ -8,43 +8,43 @@ use Ittybit\Core\Json\JsonProperty;
 class Signature extends JsonSerializableType
 {
     /**
-     * @var string $domain Domain of the signed URL
+     * @var string $domain
      */
     #[JsonProperty('domain')]
     private string $domain;
 
     /**
-     * @var string $filename Filename of the signed file
+     * @var string $filename
      */
     #[JsonProperty('filename')]
     private string $filename;
 
     /**
-     * @var ?string $folder Folder of the signed file
+     * @var ?string $folder
      */
     #[JsonProperty('folder')]
     private ?string $folder;
 
     /**
-     * @var int $expiry Expiry timestamp of the signed URL
+     * @var int $expiry
      */
     #[JsonProperty('expiry')]
     private int $expiry;
 
     /**
-     * @var string $method HTTP method for the signed URL
+     * @var string $method
      */
     #[JsonProperty('method')]
     private string $method;
 
     /**
-     * @var string $signature Generated signature for the signed URL
+     * @var string $signature
      */
     #[JsonProperty('signature')]
     private string $signature;
 
     /**
-     * @var string $url Generated signed URL
+     * @var string $url
      */
     #[JsonProperty('url')]
     private string $url;

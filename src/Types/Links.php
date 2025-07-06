@@ -8,13 +8,13 @@ use Ittybit\Core\Json\JsonProperty;
 class Links extends JsonSerializableType
 {
     /**
-     * @var ?string $self The absolute URL of the current request, potentially including query parameters.
+     * @var ?string $self
      */
     #[JsonProperty('self')]
     private ?string $self;
 
     /**
-     * @var ?string $parent URL for the parent resource.
+     * @var ?string $parent
      */
     #[JsonProperty('parent')]
     private ?string $parent;

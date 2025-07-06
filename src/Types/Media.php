@@ -11,167 +11,104 @@ use Ittybit\Core\Types\Date;
 class Media extends JsonSerializableType
 {
     /**
-     * @var string $id Unique identifier for the media item.
+     * @var string $id
      */
     #[JsonProperty('id')]
     private string $id;
 
     /**
-     * @var string $object Object type, always 'media'.
+     * @var string $object
      */
     #[JsonProperty('object')]
     private string $object;
 
     /**
-     * @var string $orgId Organisation ID associated with the request.
-     */
-    #[JsonProperty('org_id')]
-    private string $orgId;
-
-    /**
-     * @var string $projectId Project ID associated with the request.
-     */
-    #[JsonProperty('project_id')]
-    private string $projectId;
-
-    /**
-     * @var bool $liveMode Indicates if the item is in live mode.
-     */
-    #[JsonProperty('live_mode')]
-    private bool $liveMode;
-
-    /**
-     * @var value-of<MediaKind> $kind The primary kind of the media item, derived from its sources.
+     * @var ?value-of<MediaKind> $kind
      */
     #[JsonProperty('kind')]
-    private string $kind;
+    private ?string $kind;
 
     /**
-     * @var string $type The primary MIME type of the media item.
+     * @var ?string $title
      */
-    #[JsonProperty('type')]
-    private string $type;
+    #[JsonProperty('title')]
+    private ?string $title;
 
     /**
-     * @var ?int $width Width of the primary source in pixels.
+     * @var ?string $alt
+     */
+    #[JsonProperty('alt')]
+    private ?string $alt;
+
+    /**
+     * @var ?int $width
      */
     #[JsonProperty('width')]
     private ?int $width;
 
     /**
-     * @var ?int $height Height of the primary source in pixels.
+     * @var ?int $height
      */
     #[JsonProperty('height')]
     private ?int $height;
 
     /**
-     * @var ?float $duration Duration of the primary source in seconds.
+     * @var ?float $duration
      */
     #[JsonProperty('duration')]
     private ?float $duration;
 
     /**
-     * @var ?int $filesize Combined file size of all sources in bytes.
+     * @var array<MediaSource> $files
      */
-    #[JsonProperty('filesize')]
-    private ?int $filesize;
+    #[JsonProperty('files'), ArrayType([MediaSource::class])]
+    private array $files;
 
     /**
-     * @var array<MediaSource> $sources Array of source files associated with this media item.
+     * @var array<string, mixed> $urls
      */
-    #[JsonProperty('sources'), ArrayType([MediaSource::class])]
-    private array $sources;
+    #[JsonProperty('urls'), ArrayType(['string' => 'mixed'])]
+    private array $urls;
 
     /**
-     * @var ?array<array<string, mixed>> $tracks Text tracks (e.g., subtitles, captions).
-     */
-    #[JsonProperty('tracks'), ArrayType([['string' => 'mixed']])]
-    private ?array $tracks;
-
-    /**
-     * @var ?array<array<string, mixed>> $intelligence AI-generated analysis data.
-     */
-    #[JsonProperty('intelligence'), ArrayType([['string' => 'mixed']])]
-    private ?array $intelligence;
-
-    /**
-     * @var string $original URL of the primary original source file.
-     */
-    #[JsonProperty('original')]
-    private string $original;
-
-    /**
-     * @var ?string $placeholder Low-quality image placeholder (data URI).
-     */
-    #[JsonProperty('placeholder')]
-    private ?string $placeholder;
-
-    /**
-     * @var ?string $background Dominant background color hex code.
+     * @var ?string $background
      */
     #[JsonProperty('background')]
     private ?string $background;
 
     /**
-     * @var ?string $folder The folder path containing the primary source file.
-     */
-    #[JsonProperty('folder')]
-    private ?string $folder;
-
-    /**
-     * @var ?string $filename The filename of the primary source file.
-     */
-    #[JsonProperty('filename')]
-    private ?string $filename;
-
-    /**
-     * @var ?array<string, mixed> $metadata User-defined key-value metadata for the media item.
+     * @var ?array<string, mixed> $metadata
      */
     #[JsonProperty('metadata'), ArrayType(['string' => 'mixed'])]
     private ?array $metadata;
 
     /**
-     * @var DateTime $created Timestamp when the media record was created.
+     * @var DateTime $created
      */
     #[JsonProperty('created'), Date(Date::TYPE_DATETIME)]
     private DateTime $created;
 
     /**
-     * @var DateTime $updated Timestamp when the media item was last updated.
+     * @var DateTime $updated
      */
     #[JsonProperty('updated'), Date(Date::TYPE_DATETIME)]
     private DateTime $updated;
 
     /**
-     * @var value-of<MediaStatus> $status Processing status.
-     */
-    #[JsonProperty('status')]
-    private string $status;
-
-    /**
      * @param array{
      *   id: string,
      *   object: string,
-     *   orgId: string,
-     *   projectId: string,
-     *   liveMode: bool,
-     *   kind: value-of<MediaKind>,
-     *   type: string,
-     *   sources: array<MediaSource>,
-     *   original: string,
+     *   files: array<MediaSource>,
+     *   urls: array<string, mixed>,
      *   created: DateTime,
      *   updated: DateTime,
-     *   status: value-of<MediaStatus>,
+     *   kind?: ?value-of<MediaKind>,
+     *   title?: ?string,
+     *   alt?: ?string,
      *   width?: ?int,
      *   height?: ?int,
      *   duration?: ?float,
-     *   filesize?: ?int,
-     *   tracks?: ?array<array<string, mixed>>,
-     *   intelligence?: ?array<array<string, mixed>>,
-     *   placeholder?: ?string,
      *   background?: ?string,
-     *   folder?: ?string,
-     *   filename?: ?string,
      *   metadata?: ?array<string, mixed>,
      * } $values
      */
@@ -180,27 +117,18 @@ class Media extends JsonSerializableType
     ) {
         $this->id = $values['id'];
         $this->object = $values['object'];
-        $this->orgId = $values['orgId'];
-        $this->projectId = $values['projectId'];
-        $this->liveMode = $values['liveMode'];
-        $this->kind = $values['kind'];
-        $this->type = $values['type'];
+        $this->kind = $values['kind'] ?? null;
+        $this->title = $values['title'] ?? null;
+        $this->alt = $values['alt'] ?? null;
         $this->width = $values['width'] ?? null;
         $this->height = $values['height'] ?? null;
         $this->duration = $values['duration'] ?? null;
-        $this->filesize = $values['filesize'] ?? null;
-        $this->sources = $values['sources'];
-        $this->tracks = $values['tracks'] ?? null;
-        $this->intelligence = $values['intelligence'] ?? null;
-        $this->original = $values['original'];
-        $this->placeholder = $values['placeholder'] ?? null;
+        $this->files = $values['files'];
+        $this->urls = $values['urls'];
         $this->background = $values['background'] ?? null;
-        $this->folder = $values['folder'] ?? null;
-        $this->filename = $values['filename'] ?? null;
         $this->metadata = $values['metadata'] ?? null;
         $this->created = $values['created'];
         $this->updated = $values['updated'];
-        $this->status = $values['status'];
     }
 
     /**
@@ -238,87 +166,53 @@ class Media extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return ?value-of<MediaKind>
      */
-    public function getOrgId(): string
-    {
-        return $this->orgId;
-    }
-
-    /**
-     * @param string $value
-     */
-    public function setOrgId(string $value): self
-    {
-        $this->orgId = $value;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getProjectId(): string
-    {
-        return $this->projectId;
-    }
-
-    /**
-     * @param string $value
-     */
-    public function setProjectId(string $value): self
-    {
-        $this->projectId = $value;
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getLiveMode(): bool
-    {
-        return $this->liveMode;
-    }
-
-    /**
-     * @param bool $value
-     */
-    public function setLiveMode(bool $value): self
-    {
-        $this->liveMode = $value;
-        return $this;
-    }
-
-    /**
-     * @return value-of<MediaKind>
-     */
-    public function getKind(): string
+    public function getKind(): ?string
     {
         return $this->kind;
     }
 
     /**
-     * @param value-of<MediaKind> $value
+     * @param ?value-of<MediaKind> $value
      */
-    public function setKind(string $value): self
+    public function setKind(?string $value = null): self
     {
         $this->kind = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getType(): string
+    public function getTitle(): ?string
     {
-        return $this->type;
+        return $this->title;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setType(string $value): self
+    public function setTitle(?string $value = null): self
     {
-        $this->type = $value;
+        $this->title = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getAlt(): ?string
+    {
+        return $this->alt;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setAlt(?string $value = null): self
+    {
+        $this->alt = $value;
         return $this;
     }
 
@@ -374,104 +268,36 @@ class Media extends JsonSerializableType
     }
 
     /**
-     * @return ?int
-     */
-    public function getFilesize(): ?int
-    {
-        return $this->filesize;
-    }
-
-    /**
-     * @param ?int $value
-     */
-    public function setFilesize(?int $value = null): self
-    {
-        $this->filesize = $value;
-        return $this;
-    }
-
-    /**
      * @return array<MediaSource>
      */
-    public function getSources(): array
+    public function getFiles(): array
     {
-        return $this->sources;
+        return $this->files;
     }
 
     /**
      * @param array<MediaSource> $value
      */
-    public function setSources(array $value): self
+    public function setFiles(array $value): self
     {
-        $this->sources = $value;
+        $this->files = $value;
         return $this;
     }
 
     /**
-     * @return ?array<array<string, mixed>>
+     * @return array<string, mixed>
      */
-    public function getTracks(): ?array
+    public function getUrls(): array
     {
-        return $this->tracks;
+        return $this->urls;
     }
 
     /**
-     * @param ?array<array<string, mixed>> $value
+     * @param array<string, mixed> $value
      */
-    public function setTracks(?array $value = null): self
+    public function setUrls(array $value): self
     {
-        $this->tracks = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?array<array<string, mixed>>
-     */
-    public function getIntelligence(): ?array
-    {
-        return $this->intelligence;
-    }
-
-    /**
-     * @param ?array<array<string, mixed>> $value
-     */
-    public function setIntelligence(?array $value = null): self
-    {
-        $this->intelligence = $value;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOriginal(): string
-    {
-        return $this->original;
-    }
-
-    /**
-     * @param string $value
-     */
-    public function setOriginal(string $value): self
-    {
-        $this->original = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getPlaceholder(): ?string
-    {
-        return $this->placeholder;
-    }
-
-    /**
-     * @param ?string $value
-     */
-    public function setPlaceholder(?string $value = null): self
-    {
-        $this->placeholder = $value;
+        $this->urls = $value;
         return $this;
     }
 
@@ -489,40 +315,6 @@ class Media extends JsonSerializableType
     public function setBackground(?string $value = null): self
     {
         $this->background = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getFolder(): ?string
-    {
-        return $this->folder;
-    }
-
-    /**
-     * @param ?string $value
-     */
-    public function setFolder(?string $value = null): self
-    {
-        $this->folder = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getFilename(): ?string
-    {
-        return $this->filename;
-    }
-
-    /**
-     * @param ?string $value
-     */
-    public function setFilename(?string $value = null): self
-    {
-        $this->filename = $value;
         return $this;
     }
 
@@ -574,23 +366,6 @@ class Media extends JsonSerializableType
     public function setUpdated(DateTime $value): self
     {
         $this->updated = $value;
-        return $this;
-    }
-
-    /**
-     * @return value-of<MediaStatus>
-     */
-    public function getStatus(): string
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param value-of<MediaStatus> $value
-     */
-    public function setStatus(string $value): self
-    {
-        $this->status = $value;
         return $this;
     }
 

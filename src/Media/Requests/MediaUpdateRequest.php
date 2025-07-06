@@ -9,13 +9,19 @@ use Ittybit\Core\Types\ArrayType;
 class MediaUpdateRequest extends JsonSerializableType
 {
     /**
-     * @var ?string $title New title for the media item.
+     * @var ?string $title
      */
     #[JsonProperty('title')]
     private ?string $title;
 
     /**
-     * @var ?array<string, mixed> $metadata New metadata object for the media item. This will replace the existing metadata.
+     * @var ?string $alt
+     */
+    #[JsonProperty('alt')]
+    private ?string $alt;
+
+    /**
+     * @var ?array<string, mixed> $metadata
      */
     #[JsonProperty('metadata'), ArrayType(['string' => 'mixed'])]
     private ?array $metadata;
@@ -23,6 +29,7 @@ class MediaUpdateRequest extends JsonSerializableType
     /**
      * @param array{
      *   title?: ?string,
+     *   alt?: ?string,
      *   metadata?: ?array<string, mixed>,
      * } $values
      */
@@ -30,6 +37,7 @@ class MediaUpdateRequest extends JsonSerializableType
         array $values = [],
     ) {
         $this->title = $values['title'] ?? null;
+        $this->alt = $values['alt'] ?? null;
         $this->metadata = $values['metadata'] ?? null;
     }
 
@@ -47,6 +55,23 @@ class MediaUpdateRequest extends JsonSerializableType
     public function setTitle(?string $value = null): self
     {
         $this->title = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getAlt(): ?string
+    {
+        return $this->alt;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setAlt(?string $value = null): self
+    {
+        $this->alt = $value;
         return $this;
     }
 

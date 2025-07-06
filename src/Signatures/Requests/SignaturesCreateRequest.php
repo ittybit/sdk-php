@@ -9,25 +9,25 @@ use Ittybit\Signatures\Types\SignaturesCreateRequestMethod;
 class SignaturesCreateRequest extends JsonSerializableType
 {
     /**
-     * @var string $filename The name of the file to generate a signature for. Special characters will be sanitised.
+     * @var string $filename
      */
     #[JsonProperty('filename')]
     private string $filename;
 
     /**
-     * @var ?string $folder Optional folder path where the file resides. Special characters will be sanitised.
+     * @var ?string $folder
      */
     #[JsonProperty('folder')]
     private ?string $folder;
 
     /**
-     * @var ?int $expiry Optional expiry time for the signature in seconds since epoch. Defaults to 60 minutes from now. Must be a positive integer and in the future.
+     * @var ?int $expiry
      */
     #[JsonProperty('expiry')]
     private ?int $expiry;
 
     /**
-     * @var ?value-of<SignaturesCreateRequestMethod> $method Optional HTTP method allowed for the signed URL. Defaults to 'get'.
+     * @var ?value-of<SignaturesCreateRequestMethod> $method
      */
     #[JsonProperty('method')]
     private ?string $method;

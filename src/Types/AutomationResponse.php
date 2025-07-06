@@ -20,6 +20,12 @@ class AutomationResponse extends JsonSerializableType
     private ?Automation $data;
 
     /**
+     * @var ?Error $error
+     */
+    #[JsonProperty('error')]
+    private ?Error $error;
+
+    /**
      * @var ?Links $links
      */
     #[JsonProperty('links')]
@@ -29,6 +35,7 @@ class AutomationResponse extends JsonSerializableType
      * @param array{
      *   meta?: mixed,
      *   data?: ?Automation,
+     *   error?: ?Error,
      *   links?: ?Links,
      * } $values
      */
@@ -37,6 +44,7 @@ class AutomationResponse extends JsonSerializableType
     ) {
         $this->meta = $values['meta'] ?? null;
         $this->data = $values['data'] ?? null;
+        $this->error = $values['error'] ?? null;
         $this->links = $values['links'] ?? null;
     }
 
@@ -71,6 +79,23 @@ class AutomationResponse extends JsonSerializableType
     public function setData(?Automation $value = null): self
     {
         $this->data = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?Error
+     */
+    public function getError(): ?Error
+    {
+        return $this->error;
+    }
+
+    /**
+     * @param ?Error $value
+     */
+    public function setError(?Error $value = null): self
+    {
+        $this->error = $value;
         return $this;
     }
 

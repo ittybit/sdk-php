@@ -7,7 +7,7 @@ use Ittybit\Core\Json\JsonSerializableType;
 class FilesListRequest extends JsonSerializableType
 {
     /**
-     * @var ?int $limit Items per page
+     * @var ?int $limit
      */
     private ?int $limit;
 

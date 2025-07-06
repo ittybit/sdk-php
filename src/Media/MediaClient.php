@@ -56,7 +56,7 @@ class MediaClient
     }
 
     /**
-     * Retrieves a list of all media for the current project
+     * Retrieves a paginated list of all media for the current project
      *
      * @param MediaListRequest $request
      * @param ?array{
@@ -116,7 +116,7 @@ class MediaClient
     }
 
     /**
-     * Creates a new media item from a URL or as an empty placeholder
+     * Creates a new media item.
      *
      * @param MediaCreateRequest $request
      * @param ?array{
@@ -172,7 +172,7 @@ class MediaClient
     }
 
     /**
-     * Retrieves a specific media item by its ID
+     * Retrieves the media object for a media with the given ID.
      *
      * @param string $id
      * @param ?array{
@@ -227,7 +227,7 @@ class MediaClient
     }
 
     /**
-     * Deletes a specific media item by its ID
+     * Permanently removes a media object from the system. This action cannot be undone.
      *
      * @param string $id
      * @param ?array{
@@ -282,7 +282,7 @@ class MediaClient
     }
 
     /**
-     * Updates specific fields of a media item by its ID. Only the fields provided in the request body will be updated.
+     * Updates a media object's `title`, `alt`, or `metadata`. Only the specified fields will be updated.
      *
      * @param string $id
      * @param MediaUpdateRequest $request

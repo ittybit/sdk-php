@@ -8,37 +8,55 @@ use Ittybit\Core\Json\JsonProperty;
 class MetaList extends JsonSerializableType
 {
     /**
-     * @var ?string $requestId Request ID
+     * @var ?string $requestId
      */
     #[JsonProperty('request_id')]
     private ?string $requestId;
 
     /**
-     * @var ?'list' $type Type of the primary data value in the response
+     * @var ?string $orgId
+     */
+    #[JsonProperty('org_id')]
+    private ?string $orgId;
+
+    /**
+     * @var ?string $projectId
+     */
+    #[JsonProperty('project_id')]
+    private ?string $projectId;
+
+    /**
+     * @var ?string $version
+     */
+    #[JsonProperty('version')]
+    private ?string $version;
+
+    /**
+     * @var ?value-of<MetaListType> $type
      */
     #[JsonProperty('type')]
     private ?string $type;
 
     /**
-     * @var ?int $limit Number of items per page.
+     * @var ?int $limit
      */
     #[JsonProperty('limit')]
     private ?int $limit;
 
     /**
-     * @var ?int $total Total number of items matching the query.
+     * @var ?int $total
      */
     #[JsonProperty('total')]
     private ?int $total;
 
     /**
-     * @var ?int $page Current page number.
+     * @var ?int $page
      */
     #[JsonProperty('page')]
     private ?int $page;
 
     /**
-     * @var ?int $pages Total number of pages.
+     * @var ?int $pages
      */
     #[JsonProperty('pages')]
     private ?int $pages;
@@ -46,7 +64,10 @@ class MetaList extends JsonSerializableType
     /**
      * @param array{
      *   requestId?: ?string,
-     *   type?: ?'list',
+     *   orgId?: ?string,
+     *   projectId?: ?string,
+     *   version?: ?string,
+     *   type?: ?value-of<MetaListType>,
      *   limit?: ?int,
      *   total?: ?int,
      *   page?: ?int,
@@ -57,6 +78,9 @@ class MetaList extends JsonSerializableType
         array $values = [],
     ) {
         $this->requestId = $values['requestId'] ?? null;
+        $this->orgId = $values['orgId'] ?? null;
+        $this->projectId = $values['projectId'] ?? null;
+        $this->version = $values['version'] ?? null;
         $this->type = $values['type'] ?? null;
         $this->limit = $values['limit'] ?? null;
         $this->total = $values['total'] ?? null;
@@ -82,7 +106,58 @@ class MetaList extends JsonSerializableType
     }
 
     /**
-     * @return ?'list'
+     * @return ?string
+     */
+    public function getOrgId(): ?string
+    {
+        return $this->orgId;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setOrgId(?string $value = null): self
+    {
+        $this->orgId = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getProjectId(): ?string
+    {
+        return $this->projectId;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setProjectId(?string $value = null): self
+    {
+        $this->projectId = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getVersion(): ?string
+    {
+        return $this->version;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setVersion(?string $value = null): self
+    {
+        $this->version = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?value-of<MetaListType>
      */
     public function getType(): ?string
     {
@@ -90,7 +165,7 @@ class MetaList extends JsonSerializableType
     }
 
     /**
-     * @param ?'list' $value
+     * @param ?value-of<MetaListType> $value
      */
     public function setType(?string $value = null): self
     {

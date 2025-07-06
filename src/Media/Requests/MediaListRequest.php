@@ -7,7 +7,7 @@ use Ittybit\Core\Json\JsonSerializableType;
 class MediaListRequest extends JsonSerializableType
 {
     /**
-     * @var ?int $limit Number of media items to return per page.
+     * @var ?int $limit
      */
     private ?int $limit;
 

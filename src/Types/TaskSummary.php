@@ -10,61 +10,61 @@ use Ittybit\Core\Types\Date;
 class TaskSummary extends JsonSerializableType
 {
     /**
-     * @var string $id Unique identifier for the task.
+     * @var string $id
      */
     #[JsonProperty('id')]
     private string $id;
 
     /**
-     * @var string $object Object type, always 'task'.
+     * @var string $object
      */
     #[JsonProperty('object')]
     private string $object;
 
     /**
-     * @var value-of<TaskSummaryKind> $kind The type of operation the task performs.
+     * @var value-of<TaskSummaryKind> $kind
      */
     #[JsonProperty('kind')]
     private string $kind;
 
     /**
-     * @var value-of<TaskSummaryStatus> $status Current status of the task.
+     * @var value-of<TaskSummaryStatus> $status
      */
     #[JsonProperty('status')]
     private string $status;
 
     /**
-     * @var ?int $progress Task progress percentage.
+     * @var ?int $progress
      */
     #[JsonProperty('progress')]
     private ?int $progress;
 
     /**
-     * @var ?string $error Error message if the task failed.
+     * @var ?string $error
      */
     #[JsonProperty('error')]
     private ?string $error;
 
     /**
-     * @var ?string $createdBy ID of the entity that created the task (e.g., user ID, automation ID).
+     * @var ?string $createdBy
      */
     #[JsonProperty('created_by')]
     private ?string $createdBy;
 
     /**
-     * @var DateTime $created Timestamp when the task was created.
+     * @var DateTime $created
      */
     #[JsonProperty('created'), Date(Date::TYPE_DATETIME)]
     private DateTime $created;
 
     /**
-     * @var DateTime $updated Timestamp when the task was last updated.
+     * @var DateTime $updated
      */
     #[JsonProperty('updated'), Date(Date::TYPE_DATETIME)]
     private DateTime $updated;
 
     /**
-     * @var ?string $parentId ID of the parent task if this is part of a workflow.
+     * @var ?string $parentId
      */
     #[JsonProperty('parent_id')]
     private ?string $parentId;

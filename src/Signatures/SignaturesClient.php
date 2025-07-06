@@ -52,7 +52,7 @@ class SignaturesClient
     }
 
     /**
-     * Creates a cryptographically signed URL that provides temporary and restricted access to a file. The URL can expire after a specified time and be limited to specific HTTP methods.
+     * You can use signatures to create signed URLs which grant access to your project's resources, without revealing your project's API key. URLs can expire after a specified time and be limited to HTTP `GET` method for read-only access, or HTTP `PUT` method for client-side uploads.
      *
      * @param SignaturesCreateRequest $request
      * @param ?array{
