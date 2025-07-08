@@ -15,6 +15,5 @@ enum WorkflowTaskStepKind: string
     case Description = "description";
     case Outline = "outline";
     case Prompt = "prompt";
-    case Conditions = "conditions";
     case Http = "http";
 }

@@ -73,8 +73,8 @@ class IttybitClient
             'Authorization' => "Bearer $token",
             'X-Fern-Language' => 'PHP',
             'X-Fern-SDK-Name' => 'Ittybit',
-            'X-Fern-SDK-Version' => '0.8.2',
-            'User-Agent' => 'ittybit/sdk/0.8.2',
+            'X-Fern-SDK-Version' => '0.8.6',
+            'User-Agent' => 'ittybit/sdk/0.8.6',
         ];
         if ($version != null) {
             $defaultHeaders['ACCEPT_VERSION'] = $version;

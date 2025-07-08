@@ -5,6 +5,7 @@ namespace Ittybit\Types;
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
 use Ittybit\Core\Types\ArrayType;
+use Ittybit\Core\Types\Union;
 use DateTime;
 use Ittybit\Core\Types\Date;
 
@@ -35,9 +36,12 @@ class Automation extends JsonSerializableType
     private AutomationTrigger $trigger;
 
     /**
-     * @var array<WorkflowTaskStep> $workflow
+     * @var array<(
+     *    WorkflowTaskStep
+     *   |ConditionsTaskStep
+     * )> $workflow
      */
-    #[JsonProperty('workflow'), ArrayType([WorkflowTaskStep::class])]
+    #[JsonProperty('workflow'), ArrayType([new Union(WorkflowTaskStep::class, ConditionsTaskStep::class)])]
     private array $workflow;
 
     /**
@@ -62,7 +66,10 @@ class Automation extends JsonSerializableType
      * @param array{
      *   id: string,
      *   trigger: AutomationTrigger,
-     *   workflow: array<WorkflowTaskStep>,
+     *   workflow: array<(
+     *    WorkflowTaskStep
+     *   |ConditionsTaskStep
+     * )>,
      *   status: value-of<AutomationStatus>,
      *   created: DateTime,
      *   updated: DateTime,
@@ -152,7 +159,10 @@ class Automation extends JsonSerializableType
     }
 
     /**
-     * @return array<WorkflowTaskStep>
+     * @return array<(
+     *    WorkflowTaskStep
+     *   |ConditionsTaskStep
+     * )>
      */
     public function getWorkflow(): array
     {
@@ -160,7 +170,10 @@ class Automation extends JsonSerializableType
     }
 
     /**
-     * @param array<WorkflowTaskStep> $value
+     * @param array<(
+     *    WorkflowTaskStep
+     *   |ConditionsTaskStep
+     * )> $value
      */
     public function setWorkflow(array $value): self
     {
