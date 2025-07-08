@@ -55,7 +55,7 @@ class IttybitClient
 
     /**
      * @param string $token The token to use for authentication.
-     * @param ?int $version
+     * @param ?string $version
      * @param ?array{
      *   baseUrl?: string,
      *   client?: ClientInterface,
@@ -66,15 +66,15 @@ class IttybitClient
      */
     public function __construct(
         string $token,
-        ?int $version = null,
+        ?string $version = null,
         ?array $options = null,
     ) {
         $defaultHeaders = [
             'Authorization' => "Bearer $token",
             'X-Fern-Language' => 'PHP',
             'X-Fern-SDK-Name' => 'Ittybit',
-            'X-Fern-SDK-Version' => '0.8.6',
-            'User-Agent' => 'ittybit/sdk/0.8.6',
+            'X-Fern-SDK-Version' => '0.8.7',
+            'User-Agent' => 'ittybit/sdk/0.8.7',
         ];
         if ($version != null) {
             $defaultHeaders['ACCEPT_VERSION'] = $version;

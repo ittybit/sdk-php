@@ -71,6 +71,9 @@ class TasksClient
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
+        if ($request->getPage() != null) {
+            $query['page'] = $request->getPage();
+        }
         if ($request->getLimit() != null) {
             $query['limit'] = $request->getLimit();
         }
