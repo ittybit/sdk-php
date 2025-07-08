@@ -4,6 +4,7 @@ namespace Ittybit\Automations;
 
 use GuzzleHttp\ClientInterface;
 use Ittybit\Core\Client\RawClient;
+use Ittybit\Automations\Requests\AutomationsListRequest;
 use Ittybit\Types\AutomationListResponse;
 use Ittybit\Exceptions\IttybitException;
 use Ittybit\Exceptions\IttybitApiException;
@@ -14,7 +15,8 @@ use JsonException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Ittybit\Types\AutomationResponse;
-use Ittybit\Automations\Requests\AutomationsUpdateRequest;
+use Ittybit\Types\ConfirmationResponse;
+use Ittybit\Automations\Requests\UpdateAutomationRequest;
 
 class AutomationsClient
 {
@@ -53,8 +55,9 @@ class AutomationsClient
     }
 
     /**
-     * Retrieves a list of all automations for the current project
+     * Retrieves a paginated list of all automations for the current project
      *
+     * @param AutomationsListRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -67,15 +70,20 @@ class AutomationsClient
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function list(?array $options = null): AutomationListResponse
+    public function list(AutomationsListRequest $request = new AutomationsListRequest(), ?array $options = null): AutomationListResponse
     {
         $options = array_merge($this->options, $options ?? []);
+        $query = [];
+        if ($request->getLimit() != null) {
+            $query['limit'] = $request->getLimit();
+        }
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
                     path: "automations",
                     method: HttpMethod::GET,
+                    query: $query,
                 ),
                 $options,
             );
@@ -107,7 +115,7 @@ class AutomationsClient
     }
 
     /**
-     * Creates a new automation for the current project
+     * Creates a new automation.
      *
      * @param ?array{
      *   baseUrl?: string,
@@ -161,7 +169,7 @@ class AutomationsClient
     }
 
     /**
-     * Retrieves a specific automation by its ID
+     * Retrieve the automation object for a automation with the given ID.
      *
      * @param string $id
      * @param ?array{
@@ -216,10 +224,7 @@ class AutomationsClient
     }
 
     /**
-     * Updates an existing automation by its ID
-     *
      * @param string $id
-     * @param AutomationsUpdateRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -228,11 +233,10 @@ class AutomationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return AutomationResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function update(string $id, AutomationsUpdateRequest $request, ?array $options = null): AutomationResponse
+    public function update(string $id, ?array $options = null): void
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -241,14 +245,65 @@ class AutomationsClient
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
                     path: "automations/{$id}",
                     method: HttpMethod::PUT,
-                    body: $request,
+                ),
+                $options,
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                return;
+            }
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new IttybitException(message: $e->getMessage(), previous: $e);
+            }
+            throw new IttybitApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
+        } catch (ClientExceptionInterface $e) {
+            throw new IttybitException(message: $e->getMessage(), previous: $e);
+        }
+        throw new IttybitApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * Permanently removes an automation from the system. This action cannot be undone.
+     *
+     * @param string $id
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @return ConfirmationResponse
+     * @throws IttybitException
+     * @throws IttybitApiException
+     */
+    public function delete(string $id, ?array $options = null): ConfirmationResponse
+    {
+        $options = array_merge($this->options, $options ?? []);
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
+                    path: "automations/{$id}",
+                    method: HttpMethod::DELETE,
                 ),
                 $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return AutomationResponse::fromJson($json);
+                return ConfirmationResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -273,9 +328,10 @@ class AutomationsClient
     }
 
     /**
-     * Deletes an automation by its ID
+     * Updates an automation's `name`, `description`, `trigger`, `workflow`, or `status`. Only the specified fields will be updated.
      *
      * @param string $id
+     * @param UpdateAutomationRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -284,10 +340,11 @@ class AutomationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
+     * @return AutomationResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function delete(string $id, ?array $options = null): void
+    public function updateAutomation(string $id, UpdateAutomationRequest $request = new UpdateAutomationRequest(), ?array $options = null): AutomationResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -295,14 +352,18 @@ class AutomationsClient
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
                     path: "automations/{$id}",
-                    method: HttpMethod::DELETE,
+                    method: HttpMethod::PATCH,
+                    body: $request,
                 ),
                 $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
-                return;
+                $json = $response->getBody()->getContents();
+                return AutomationResponse::fromJson($json);
             }
+        } catch (JsonException $e) {
+            throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
         } catch (RequestException $e) {
             $response = $e->getResponse();
             if ($response === null) {

@@ -14,7 +14,6 @@ use Ittybit\Core\Client\HttpMethod;
 use JsonException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
-use Ittybit\Tasks\Requests\TasksCreateRequest;
 use Ittybit\Types\TaskResponse;
 use Ittybit\Core\Json\JsonDecoder;
 
@@ -55,8 +54,6 @@ class TasksClient
     }
 
     /**
-     * Retrieves a list of tasks for the project, optionally filtered by status or kind.
-     *
      * @param TasksListRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -76,12 +73,6 @@ class TasksClient
         $query = [];
         if ($request->getLimit() != null) {
             $query['limit'] = $request->getLimit();
-        }
-        if ($request->getStatus() != null) {
-            $query['status'] = $request->getStatus();
-        }
-        if ($request->getKind() != null) {
-            $query['kind'] = $request->getKind();
         }
         try {
             $response = $this->client->sendRequest(
@@ -121,9 +112,9 @@ class TasksClient
     }
 
     /**
-     * Creates a new processing task (e.g., ingest, video transcode, speech analysis) or a workflow task.
+     * Creates a new task item. See [Tasks](/docs/tasks) for detailed coverage of all available props and values.
      *
-     * @param TasksCreateRequest $request
+     * @param mixed $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -136,7 +127,7 @@ class TasksClient
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function create(TasksCreateRequest $request, ?array $options = null): TaskResponse
+    public function create(mixed $request, ?array $options = null): TaskResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -146,6 +137,61 @@ class TasksClient
                     path: "tasks",
                     method: HttpMethod::POST,
                     body: $request,
+                ),
+                $options,
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                $json = $response->getBody()->getContents();
+                return TaskResponse::fromJson($json);
+            }
+        } catch (JsonException $e) {
+            throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new IttybitException(message: $e->getMessage(), previous: $e);
+            }
+            throw new IttybitApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
+        } catch (ClientExceptionInterface $e) {
+            throw new IttybitException(message: $e->getMessage(), previous: $e);
+        }
+        throw new IttybitApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * Retrieves the task object for a task with the given ID.
+     *
+     * @param string $id
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @return TaskResponse
+     * @throws IttybitException
+     * @throws IttybitApiException
+     */
+    public function get(string $id, ?array $options = null): TaskResponse
+    {
+        $options = array_merge($this->options, $options ?? []);
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
+                    path: "tasks/{$id}",
+                    method: HttpMethod::GET,
                 ),
                 $options,
             );
@@ -207,61 +253,6 @@ class TasksClient
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
                 return JsonDecoder::decodeArray($json, ['string' => 'mixed']); // @phpstan-ignore-line
-            }
-        } catch (JsonException $e) {
-            throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IttybitException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IttybitApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
-        } catch (ClientExceptionInterface $e) {
-            throw new IttybitException(message: $e->getMessage(), previous: $e);
-        }
-        throw new IttybitApiException(
-            message: 'API request failed',
-            statusCode: $statusCode,
-            body: $response->getBody()->getContents(),
-        );
-    }
-
-    /**
-     * Retrieves the details of a specific task by its ID.
-     *
-     * @param string $id
-     * @param ?array{
-     *   baseUrl?: string,
-     *   maxRetries?: int,
-     *   timeout?: float,
-     *   headers?: array<string, string>,
-     *   queryParameters?: array<string, mixed>,
-     *   bodyProperties?: array<string, mixed>,
-     * } $options
-     * @return TaskResponse
-     * @throws IttybitException
-     * @throws IttybitApiException
-     */
-    public function get(string $id, ?array $options = null): TaskResponse
-    {
-        $options = array_merge($this->options, $options ?? []);
-        try {
-            $response = $this->client->sendRequest(
-                new JsonApiRequest(
-                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
-                    path: "tasks/{$id}",
-                    method: HttpMethod::GET,
-                ),
-                $options,
-            );
-            $statusCode = $response->getStatusCode();
-            if ($statusCode >= 200 && $statusCode < 400) {
-                $json = $response->getBody()->getContents();
-                return TaskResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);

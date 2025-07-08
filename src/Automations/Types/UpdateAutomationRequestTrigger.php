@@ -1,11 +1,11 @@
 <?php
 
-namespace Ittybit\Types;
+namespace Ittybit\Automations\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
 
-class AutomationTrigger extends JsonSerializableType
+class UpdateAutomationRequestTrigger extends JsonSerializableType
 {
     /**
      * @var 'event' $kind

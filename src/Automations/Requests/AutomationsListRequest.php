@@ -1,10 +1,10 @@
 <?php
 
-namespace Ittybit\Tasks\Requests;
+namespace Ittybit\Automations\Requests;
 
 use Ittybit\Core\Json\JsonSerializableType;
 
-class TasksListRequest extends JsonSerializableType
+class AutomationsListRequest extends JsonSerializableType
 {
     /**
      * @var ?int $limit

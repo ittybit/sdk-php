@@ -116,7 +116,7 @@ class MediaClient
     }
 
     /**
-     * Creates a new media item.
+     * Creates a new media item. See [Media Object](/docs/media) for more details.
      *
      * @param MediaCreateRequest $request
      * @param ?array{

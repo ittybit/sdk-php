@@ -4,17 +4,18 @@ namespace Ittybit\Automations\Requests;
 
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
-use Ittybit\Automations\Types\AutomationsUpdateRequestTrigger;
+use Ittybit\Automations\Types\UpdateAutomationRequestTrigger;
 use Ittybit\Types\WorkflowTaskStep;
 use Ittybit\Core\Types\ArrayType;
+use Ittybit\Automations\Types\UpdateAutomationRequestStatus;
 
-class AutomationsUpdateRequest extends JsonSerializableType
+class UpdateAutomationRequest extends JsonSerializableType
 {
     /**
-     * @var string $name
+     * @var ?string $name
      */
     #[JsonProperty('name')]
-    private string $name;
+    private ?string $name;
 
     /**
      * @var ?string $description
@@ -23,46 +24,54 @@ class AutomationsUpdateRequest extends JsonSerializableType
     private ?string $description;
 
     /**
-     * @var ?AutomationsUpdateRequestTrigger $trigger Defines the trigger event and conditions. To clear/remove a trigger, provide null. To update, provide the new trigger object.
+     * @var ?UpdateAutomationRequestTrigger $trigger
      */
     #[JsonProperty('trigger')]
-    private ?AutomationsUpdateRequestTrigger $trigger;
+    private ?UpdateAutomationRequestTrigger $trigger;
 
     /**
-     * @var ?array<WorkflowTaskStep> $workflow The updated sequence of tasks for the automation.
+     * @var ?array<WorkflowTaskStep> $workflow
      */
     #[JsonProperty('workflow'), ArrayType([WorkflowTaskStep::class])]
     private ?array $workflow;
 
     /**
+     * @var ?value-of<UpdateAutomationRequestStatus> $status
+     */
+    #[JsonProperty('status')]
+    private ?string $status;
+
+    /**
      * @param array{
-     *   name: string,
+     *   name?: ?string,
      *   description?: ?string,
-     *   trigger?: ?AutomationsUpdateRequestTrigger,
+     *   trigger?: ?UpdateAutomationRequestTrigger,
      *   workflow?: ?array<WorkflowTaskStep>,
+     *   status?: ?value-of<UpdateAutomationRequestStatus>,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->name = $values['name'];
+        $this->name = $values['name'] ?? null;
         $this->description = $values['description'] ?? null;
         $this->trigger = $values['trigger'] ?? null;
         $this->workflow = $values['workflow'] ?? null;
+        $this->status = $values['status'] ?? null;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setName(string $value): self
+    public function setName(?string $value = null): self
     {
         $this->name = $value;
         return $this;
@@ -86,17 +95,17 @@ class AutomationsUpdateRequest extends JsonSerializableType
     }
 
     /**
-     * @return ?AutomationsUpdateRequestTrigger
+     * @return ?UpdateAutomationRequestTrigger
      */
-    public function getTrigger(): ?AutomationsUpdateRequestTrigger
+    public function getTrigger(): ?UpdateAutomationRequestTrigger
     {
         return $this->trigger;
     }
 
     /**
-     * @param ?AutomationsUpdateRequestTrigger $value
+     * @param ?UpdateAutomationRequestTrigger $value
      */
-    public function setTrigger(?AutomationsUpdateRequestTrigger $value = null): self
+    public function setTrigger(?UpdateAutomationRequestTrigger $value = null): self
     {
         $this->trigger = $value;
         return $this;
@@ -116,6 +125,23 @@ class AutomationsUpdateRequest extends JsonSerializableType
     public function setWorkflow(?array $value = null): self
     {
         $this->workflow = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?value-of<UpdateAutomationRequestStatus>
+     */
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param ?value-of<UpdateAutomationRequestStatus> $value
+     */
+    public function setStatus(?string $value = null): self
+    {
+        $this->status = $value;
         return $this;
     }
 }

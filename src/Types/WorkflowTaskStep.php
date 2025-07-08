@@ -21,72 +21,16 @@ class WorkflowTaskStep extends JsonSerializableType
     private ?string $ref;
 
     /**
-     * @var ?string $format
+     * @var ?array<WorkflowTaskStepNextItem> $next
      */
-    #[JsonProperty('format')]
-    private ?string $format;
-
-    /**
-     * @var ?float $start
-     */
-    #[JsonProperty('start')]
-    private ?float $start;
-
-    /**
-     * @var ?float $end
-     */
-    #[JsonProperty('end')]
-    private ?float $end;
-
-    /**
-     * @var ?int $width
-     */
-    #[JsonProperty('width')]
-    private ?int $width;
-
-    /**
-     * @var ?int $height
-     */
-    #[JsonProperty('height')]
-    private ?int $height;
-
-    /**
-     * @var ?string $fit
-     */
-    #[JsonProperty('fit')]
-    private ?string $fit;
-
-    /**
-     * @var ?string $background
-     */
-    #[JsonProperty('background')]
-    private ?string $background;
-
-    /**
-     * @var ?int $quality
-     */
-    #[JsonProperty('quality')]
-    private ?int $quality;
-
-    /**
-     * @var ?array<mixed> $next
-     */
-    #[JsonProperty('next'), ArrayType(['mixed'])]
+    #[JsonProperty('next'), ArrayType([WorkflowTaskStepNextItem::class])]
     private ?array $next;
 
     /**
      * @param array{
      *   kind: value-of<WorkflowTaskStepKind>,
      *   ref?: ?string,
-     *   format?: ?string,
-     *   start?: ?float,
-     *   end?: ?float,
-     *   width?: ?int,
-     *   height?: ?int,
-     *   fit?: ?string,
-     *   background?: ?string,
-     *   quality?: ?int,
-     *   next?: ?array<mixed>,
+     *   next?: ?array<WorkflowTaskStepNextItem>,
      * } $values
      */
     public function __construct(
@@ -94,14 +38,6 @@ class WorkflowTaskStep extends JsonSerializableType
     ) {
         $this->kind = $values['kind'];
         $this->ref = $values['ref'] ?? null;
-        $this->format = $values['format'] ?? null;
-        $this->start = $values['start'] ?? null;
-        $this->end = $values['end'] ?? null;
-        $this->width = $values['width'] ?? null;
-        $this->height = $values['height'] ?? null;
-        $this->fit = $values['fit'] ?? null;
-        $this->background = $values['background'] ?? null;
-        $this->quality = $values['quality'] ?? null;
         $this->next = $values['next'] ?? null;
     }
 
@@ -140,143 +76,7 @@ class WorkflowTaskStep extends JsonSerializableType
     }
 
     /**
-     * @return ?string
-     */
-    public function getFormat(): ?string
-    {
-        return $this->format;
-    }
-
-    /**
-     * @param ?string $value
-     */
-    public function setFormat(?string $value = null): self
-    {
-        $this->format = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?float
-     */
-    public function getStart(): ?float
-    {
-        return $this->start;
-    }
-
-    /**
-     * @param ?float $value
-     */
-    public function setStart(?float $value = null): self
-    {
-        $this->start = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?float
-     */
-    public function getEnd(): ?float
-    {
-        return $this->end;
-    }
-
-    /**
-     * @param ?float $value
-     */
-    public function setEnd(?float $value = null): self
-    {
-        $this->end = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?int
-     */
-    public function getWidth(): ?int
-    {
-        return $this->width;
-    }
-
-    /**
-     * @param ?int $value
-     */
-    public function setWidth(?int $value = null): self
-    {
-        $this->width = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?int
-     */
-    public function getHeight(): ?int
-    {
-        return $this->height;
-    }
-
-    /**
-     * @param ?int $value
-     */
-    public function setHeight(?int $value = null): self
-    {
-        $this->height = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getFit(): ?string
-    {
-        return $this->fit;
-    }
-
-    /**
-     * @param ?string $value
-     */
-    public function setFit(?string $value = null): self
-    {
-        $this->fit = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getBackground(): ?string
-    {
-        return $this->background;
-    }
-
-    /**
-     * @param ?string $value
-     */
-    public function setBackground(?string $value = null): self
-    {
-        $this->background = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?int
-     */
-    public function getQuality(): ?int
-    {
-        return $this->quality;
-    }
-
-    /**
-     * @param ?int $value
-     */
-    public function setQuality(?int $value = null): self
-    {
-        $this->quality = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?array<mixed>
+     * @return ?array<WorkflowTaskStepNextItem>
      */
     public function getNext(): ?array
     {
@@ -284,7 +84,7 @@ class WorkflowTaskStep extends JsonSerializableType
     }
 
     /**
-     * @param ?array<mixed> $value
+     * @param ?array<WorkflowTaskStepNextItem> $value
      */
     public function setNext(?array $value = null): self
     {

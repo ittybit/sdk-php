@@ -10,13 +10,11 @@ enum WorkflowTaskStepKind: string
     case Chapters = "chapters";
     case Subtitles = "subtitles";
     case Thumbnails = "thumbnails";
+    case Nsfw = "nsfw";
     case Speech = "speech";
     case Description = "description";
-    case Nsfw = "nsfw";
-    case Prompt = "prompt";
     case Outline = "outline";
-    case Http = "http";
-    case Ingest = "ingest";
-    case Workflow = "workflow";
+    case Prompt = "prompt";
     case Conditions = "conditions";
+    case Http = "http";
 }

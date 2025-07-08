@@ -17,10 +17,10 @@ class Automation extends JsonSerializableType
     private string $id;
 
     /**
-     * @var string $name
+     * @var ?string $name
      */
     #[JsonProperty('name')]
-    private string $name;
+    private ?string $name;
 
     /**
      * @var ?string $description
@@ -61,12 +61,12 @@ class Automation extends JsonSerializableType
     /**
      * @param array{
      *   id: string,
-     *   name: string,
      *   trigger: AutomationTrigger,
      *   workflow: array<WorkflowTaskStep>,
      *   status: value-of<AutomationStatus>,
      *   created: DateTime,
      *   updated: DateTime,
+     *   name?: ?string,
      *   description?: ?string,
      * } $values
      */
@@ -74,7 +74,7 @@ class Automation extends JsonSerializableType
         array $values,
     ) {
         $this->id = $values['id'];
-        $this->name = $values['name'];
+        $this->name = $values['name'] ?? null;
         $this->description = $values['description'] ?? null;
         $this->trigger = $values['trigger'];
         $this->workflow = $values['workflow'];
@@ -101,17 +101,17 @@ class Automation extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setName(string $value): self
+    public function setName(?string $value = null): self
     {
         $this->name = $value;
         return $this;
