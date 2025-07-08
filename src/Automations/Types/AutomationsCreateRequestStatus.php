@@ -2,7 +2,7 @@
 
 namespace Ittybit\Automations\Types;
 
-enum UpdateAutomationRequestStatus: string
+enum AutomationsCreateRequestStatus: string
 {
     case Active = "active";
     case Paused = "paused";

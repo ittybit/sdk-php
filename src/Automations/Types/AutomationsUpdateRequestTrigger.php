@@ -5,7 +5,7 @@ namespace Ittybit\Automations\Types;
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
 
-class UpdateAutomationRequestTrigger extends JsonSerializableType
+class AutomationsUpdateRequestTrigger extends JsonSerializableType
 {
     /**
      * @var 'event' $kind

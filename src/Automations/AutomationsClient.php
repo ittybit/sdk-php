@@ -14,9 +14,10 @@ use Ittybit\Core\Client\HttpMethod;
 use JsonException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
+use Ittybit\Automations\Requests\AutomationsCreateRequest;
 use Ittybit\Types\AutomationResponse;
 use Ittybit\Types\ConfirmationResponse;
-use Ittybit\Automations\Requests\UpdateAutomationRequest;
+use Ittybit\Automations\Requests\AutomationsUpdateRequest;
 
 class AutomationsClient
 {
@@ -117,6 +118,7 @@ class AutomationsClient
     /**
      * Creates a new automation.
      *
+     * @param AutomationsCreateRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -129,7 +131,7 @@ class AutomationsClient
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function create(?array $options = null): AutomationResponse
+    public function create(AutomationsCreateRequest $request, ?array $options = null): AutomationResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -138,6 +140,7 @@ class AutomationsClient
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
                     path: "automations",
                     method: HttpMethod::POST,
+                    body: $request,
                 ),
                 $options,
             );
@@ -224,55 +227,6 @@ class AutomationsClient
     }
 
     /**
-     * @param string $id
-     * @param ?array{
-     *   baseUrl?: string,
-     *   maxRetries?: int,
-     *   timeout?: float,
-     *   headers?: array<string, string>,
-     *   queryParameters?: array<string, mixed>,
-     *   bodyProperties?: array<string, mixed>,
-     * } $options
-     * @throws IttybitException
-     * @throws IttybitApiException
-     */
-    public function update(string $id, ?array $options = null): void
-    {
-        $options = array_merge($this->options, $options ?? []);
-        try {
-            $response = $this->client->sendRequest(
-                new JsonApiRequest(
-                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
-                    path: "automations/{$id}",
-                    method: HttpMethod::PUT,
-                ),
-                $options,
-            );
-            $statusCode = $response->getStatusCode();
-            if ($statusCode >= 200 && $statusCode < 400) {
-                return;
-            }
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IttybitException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IttybitApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
-        } catch (ClientExceptionInterface $e) {
-            throw new IttybitException(message: $e->getMessage(), previous: $e);
-        }
-        throw new IttybitApiException(
-            message: 'API request failed',
-            statusCode: $statusCode,
-            body: $response->getBody()->getContents(),
-        );
-    }
-
-    /**
      * Permanently removes an automation from the system. This action cannot be undone.
      *
      * @param string $id
@@ -331,7 +285,7 @@ class AutomationsClient
      * Updates an automation's `name`, `description`, `trigger`, `workflow`, or `status`. Only the specified fields will be updated.
      *
      * @param string $id
-     * @param UpdateAutomationRequest $request
+     * @param AutomationsUpdateRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -344,7 +298,7 @@ class AutomationsClient
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function updateAutomation(string $id, UpdateAutomationRequest $request = new UpdateAutomationRequest(), ?array $options = null): AutomationResponse
+    public function update(string $id, AutomationsUpdateRequest $request = new AutomationsUpdateRequest(), ?array $options = null): AutomationResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {

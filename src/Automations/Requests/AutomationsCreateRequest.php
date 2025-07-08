@@ -4,12 +4,12 @@ namespace Ittybit\Automations\Requests;
 
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
-use Ittybit\Automations\Types\UpdateAutomationRequestTrigger;
+use Ittybit\Automations\Types\AutomationsCreateRequestTrigger;
 use Ittybit\Types\WorkflowTaskStep;
 use Ittybit\Core\Types\ArrayType;
-use Ittybit\Automations\Types\UpdateAutomationRequestStatus;
+use Ittybit\Automations\Types\AutomationsCreateRequestStatus;
 
-class UpdateAutomationRequest extends JsonSerializableType
+class AutomationsCreateRequest extends JsonSerializableType
 {
     /**
      * @var ?string $name
@@ -24,39 +24,39 @@ class UpdateAutomationRequest extends JsonSerializableType
     private ?string $description;
 
     /**
-     * @var ?UpdateAutomationRequestTrigger $trigger
+     * @var AutomationsCreateRequestTrigger $trigger
      */
     #[JsonProperty('trigger')]
-    private ?UpdateAutomationRequestTrigger $trigger;
+    private AutomationsCreateRequestTrigger $trigger;
 
     /**
-     * @var ?array<WorkflowTaskStep> $workflow
+     * @var array<WorkflowTaskStep> $workflow
      */
     #[JsonProperty('workflow'), ArrayType([WorkflowTaskStep::class])]
-    private ?array $workflow;
+    private array $workflow;
 
     /**
-     * @var ?value-of<UpdateAutomationRequestStatus> $status
+     * @var ?value-of<AutomationsCreateRequestStatus> $status
      */
     #[JsonProperty('status')]
     private ?string $status;
 
     /**
      * @param array{
+     *   trigger: AutomationsCreateRequestTrigger,
+     *   workflow: array<WorkflowTaskStep>,
      *   name?: ?string,
      *   description?: ?string,
-     *   trigger?: ?UpdateAutomationRequestTrigger,
-     *   workflow?: ?array<WorkflowTaskStep>,
-     *   status?: ?value-of<UpdateAutomationRequestStatus>,
+     *   status?: ?value-of<AutomationsCreateRequestStatus>,
      * } $values
      */
     public function __construct(
-        array $values = [],
+        array $values,
     ) {
         $this->name = $values['name'] ?? null;
         $this->description = $values['description'] ?? null;
-        $this->trigger = $values['trigger'] ?? null;
-        $this->workflow = $values['workflow'] ?? null;
+        $this->trigger = $values['trigger'];
+        $this->workflow = $values['workflow'];
         $this->status = $values['status'] ?? null;
     }
 
@@ -95,41 +95,41 @@ class UpdateAutomationRequest extends JsonSerializableType
     }
 
     /**
-     * @return ?UpdateAutomationRequestTrigger
+     * @return AutomationsCreateRequestTrigger
      */
-    public function getTrigger(): ?UpdateAutomationRequestTrigger
+    public function getTrigger(): AutomationsCreateRequestTrigger
     {
         return $this->trigger;
     }
 
     /**
-     * @param ?UpdateAutomationRequestTrigger $value
+     * @param AutomationsCreateRequestTrigger $value
      */
-    public function setTrigger(?UpdateAutomationRequestTrigger $value = null): self
+    public function setTrigger(AutomationsCreateRequestTrigger $value): self
     {
         $this->trigger = $value;
         return $this;
     }
 
     /**
-     * @return ?array<WorkflowTaskStep>
+     * @return array<WorkflowTaskStep>
      */
-    public function getWorkflow(): ?array
+    public function getWorkflow(): array
     {
         return $this->workflow;
     }
 
     /**
-     * @param ?array<WorkflowTaskStep> $value
+     * @param array<WorkflowTaskStep> $value
      */
-    public function setWorkflow(?array $value = null): self
+    public function setWorkflow(array $value): self
     {
         $this->workflow = $value;
         return $this;
     }
 
     /**
-     * @return ?value-of<UpdateAutomationRequestStatus>
+     * @return ?value-of<AutomationsCreateRequestStatus>
      */
     public function getStatus(): ?string
     {
@@ -137,7 +137,7 @@ class UpdateAutomationRequest extends JsonSerializableType
     }
 
     /**
-     * @param ?value-of<UpdateAutomationRequestStatus> $value
+     * @param ?value-of<AutomationsCreateRequestStatus> $value
      */
     public function setStatus(?string $value = null): self
     {
