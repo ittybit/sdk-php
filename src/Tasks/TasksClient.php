@@ -54,6 +54,8 @@ class TasksClient
     }
 
     /**
+     * Retrieves a paginated list of all tasks for the current project.
+     *
      * @param TasksListRequest $request
      * @param ?array{
      *   baseUrl?: string,

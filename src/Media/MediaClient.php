@@ -56,7 +56,7 @@ class MediaClient
     }
 
     /**
-     * Retrieves a paginated list of all media for the current project
+     * Retrieves a paginated list of all media for the current project.
      *
      * @param MediaListRequest $request
      * @param ?array{

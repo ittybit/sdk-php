@@ -56,7 +56,7 @@ class AutomationsClient
     }
 
     /**
-     * Retrieves a paginated list of all automations for the current project
+     * Retrieves a paginated list of all automations for the current project.
      *
      * @param AutomationsListRequest $request
      * @param ?array{

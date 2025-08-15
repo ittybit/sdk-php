@@ -9,6 +9,7 @@ use Ittybit\Tasks\TasksClient;
 use Ittybit\Signatures\SignaturesClient;
 use GuzzleHttp\ClientInterface;
 use Ittybit\Core\Client\RawClient;
+use Exception;
 
 class IttybitClient
 {
@@ -54,7 +55,7 @@ class IttybitClient
     private RawClient $client;
 
     /**
-     * @param string $token The token to use for authentication.
+     * @param ?string $apiKey The apiKey to use for authentication.
      * @param ?string $version
      * @param ?array{
      *   baseUrl?: string,
@@ -65,16 +66,17 @@ class IttybitClient
      * } $options
      */
     public function __construct(
-        string $token,
+        ?string $apiKey = null,
         ?string $version = null,
         ?array $options = null,
     ) {
+        $apiKey ??= $this->getFromEnvOrThrow('ITTYBIT_API_KEY', 'Please pass in apiKey or set the environment variable ITTYBIT_API_KEY.');
         $defaultHeaders = [
-            'Authorization' => "Bearer $token",
+            'Authorization' => "Bearer $apiKey",
             'X-Fern-Language' => 'PHP',
             'X-Fern-SDK-Name' => 'Ittybit',
-            'X-Fern-SDK-Version' => '0.8.7',
-            'User-Agent' => 'ittybit/sdk/0.8.7',
+            'X-Fern-SDK-Version' => '0.8.14',
+            'User-Agent' => 'ittybit/sdk/0.8.14',
         ];
         if ($version != null) {
             $defaultHeaders['ACCEPT_VERSION'] = $version;
@@ -95,5 +97,16 @@ class IttybitClient
         $this->media = new MediaClient($this->client, $this->options);
         $this->tasks = new TasksClient($this->client, $this->options);
         $this->signatures = new SignaturesClient($this->client, $this->options);
+    }
+
+    /**
+     * @param string $env
+     * @param string $message
+     * @return string
+     */
+    private function getFromEnvOrThrow(string $env, string $message): string
+    {
+        $value = getenv($env);
+        return $value ? (string) $value : throw new Exception($message);
     }
 }
