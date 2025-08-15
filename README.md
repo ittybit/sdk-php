@@ -26,7 +26,7 @@ use Ittybit\IttybitClient;
 
 $client = new IttybitClient(
     acceptVersion: "YOUR_ACCEPT_VERSION",
-    token: "YOUR_TOKEN"
+    apiKey: "YOUR_TOKEN"
 );
 
 // Example usage with automations
@@ -42,7 +42,7 @@ use Ittybit\IttybitClient;
 
 $client = new IttybitClient(
     acceptVersion: "YOUR_ACCEPT_VERSION",
-    token: "YOUR_TOKEN"
+    apiKey: "YOUR_TOKEN"
 );
 ```
 
