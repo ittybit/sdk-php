@@ -8,35 +8,35 @@ use Ittybit\Core\Json\JsonProperty;
 class MediaResponse extends JsonSerializableType
 {
     /**
-     * @var mixed $meta
+     * @var ?MediaResponseMeta $meta
      */
     #[JsonProperty('meta')]
-    private mixed $meta;
+    private ?MediaResponseMeta $meta;
 
     /**
-     * @var ?Media $data
+     * @var ?MediaResponseData $data
      */
     #[JsonProperty('data')]
-    private ?Media $data;
+    private ?MediaResponseData $data;
 
     /**
-     * @var ?Error $error
+     * @var ?MediaResponseError $error
      */
     #[JsonProperty('error')]
-    private ?Error $error;
+    private ?MediaResponseError $error;
 
     /**
-     * @var ?Links $links
+     * @var ?MediaResponseLinks $links
      */
     #[JsonProperty('links')]
-    private ?Links $links;
+    private ?MediaResponseLinks $links;
 
     /**
      * @param array{
-     *   meta?: mixed,
-     *   data?: ?Media,
-     *   error?: ?Error,
-     *   links?: ?Links,
+     *   meta?: ?MediaResponseMeta,
+     *   data?: ?MediaResponseData,
+     *   error?: ?MediaResponseError,
+     *   links?: ?MediaResponseLinks,
      * } $values
      */
     public function __construct(
@@ -49,68 +49,68 @@ class MediaResponse extends JsonSerializableType
     }
 
     /**
-     * @return mixed
+     * @return ?MediaResponseMeta
      */
-    public function getMeta(): mixed
+    public function getMeta(): ?MediaResponseMeta
     {
         return $this->meta;
     }
 
     /**
-     * @param mixed $value
+     * @param ?MediaResponseMeta $value
      */
-    public function setMeta(mixed $value = null): self
+    public function setMeta(?MediaResponseMeta $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?Media
+     * @return ?MediaResponseData
      */
-    public function getData(): ?Media
+    public function getData(): ?MediaResponseData
     {
         return $this->data;
     }
 
     /**
-     * @param ?Media $value
+     * @param ?MediaResponseData $value
      */
-    public function setData(?Media $value = null): self
+    public function setData(?MediaResponseData $value = null): self
     {
         $this->data = $value;
         return $this;
     }
 
     /**
-     * @return ?Error
+     * @return ?MediaResponseError
      */
-    public function getError(): ?Error
+    public function getError(): ?MediaResponseError
     {
         return $this->error;
     }
 
     /**
-     * @param ?Error $value
+     * @param ?MediaResponseError $value
      */
-    public function setError(?Error $value = null): self
+    public function setError(?MediaResponseError $value = null): self
     {
         $this->error = $value;
         return $this;
     }
 
     /**
-     * @return ?Links
+     * @return ?MediaResponseLinks
      */
-    public function getLinks(): ?Links
+    public function getLinks(): ?MediaResponseLinks
     {
         return $this->links;
     }
 
     /**
-     * @param ?Links $value
+     * @param ?MediaResponseLinks $value
      */
-    public function setLinks(?Links $value = null): self
+    public function setLinks(?MediaResponseLinks $value = null): self
     {
         $this->links = $value;
         return $this;

@@ -37,11 +37,11 @@ class Automation extends JsonSerializableType
 
     /**
      * @var array<(
-     *    WorkflowTaskStep
-     *   |ConditionsTaskStep
+     *    AutomationWorkflowItemRef
+     *   |AutomationWorkflowItemConditions
      * )> $workflow
      */
-    #[JsonProperty('workflow'), ArrayType([new Union(WorkflowTaskStep::class, ConditionsTaskStep::class)])]
+    #[JsonProperty('workflow'), ArrayType([new Union(AutomationWorkflowItemRef::class, AutomationWorkflowItemConditions::class)])]
     private array $workflow;
 
     /**
@@ -67,8 +67,8 @@ class Automation extends JsonSerializableType
      *   id: string,
      *   trigger: AutomationTrigger,
      *   workflow: array<(
-     *    WorkflowTaskStep
-     *   |ConditionsTaskStep
+     *    AutomationWorkflowItemRef
+     *   |AutomationWorkflowItemConditions
      * )>,
      *   status: value-of<AutomationStatus>,
      *   created: DateTime,
@@ -160,8 +160,8 @@ class Automation extends JsonSerializableType
 
     /**
      * @return array<(
-     *    WorkflowTaskStep
-     *   |ConditionsTaskStep
+     *    AutomationWorkflowItemRef
+     *   |AutomationWorkflowItemConditions
      * )>
      */
     public function getWorkflow(): array
@@ -171,8 +171,8 @@ class Automation extends JsonSerializableType
 
     /**
      * @param array<(
-     *    WorkflowTaskStep
-     *   |ConditionsTaskStep
+     *    AutomationWorkflowItemRef
+     *   |AutomationWorkflowItemConditions
      * )> $value
      */
     public function setWorkflow(array $value): self

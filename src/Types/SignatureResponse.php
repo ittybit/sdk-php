@@ -8,35 +8,35 @@ use Ittybit\Core\Json\JsonProperty;
 class SignatureResponse extends JsonSerializableType
 {
     /**
-     * @var mixed $meta
+     * @var ?SignatureResponseMeta $meta
      */
     #[JsonProperty('meta')]
-    private mixed $meta;
+    private ?SignatureResponseMeta $meta;
 
     /**
-     * @var ?Signature $data
+     * @var ?SignatureResponseData $data
      */
     #[JsonProperty('data')]
-    private ?Signature $data;
+    private ?SignatureResponseData $data;
 
     /**
-     * @var ?Error $error
+     * @var ?SignatureResponseError $error
      */
     #[JsonProperty('error')]
-    private ?Error $error;
+    private ?SignatureResponseError $error;
 
     /**
-     * @var ?Links $links
+     * @var ?SignatureResponseLinks $links
      */
     #[JsonProperty('links')]
-    private ?Links $links;
+    private ?SignatureResponseLinks $links;
 
     /**
      * @param array{
-     *   meta?: mixed,
-     *   data?: ?Signature,
-     *   error?: ?Error,
-     *   links?: ?Links,
+     *   meta?: ?SignatureResponseMeta,
+     *   data?: ?SignatureResponseData,
+     *   error?: ?SignatureResponseError,
+     *   links?: ?SignatureResponseLinks,
      * } $values
      */
     public function __construct(
@@ -49,68 +49,68 @@ class SignatureResponse extends JsonSerializableType
     }
 
     /**
-     * @return mixed
+     * @return ?SignatureResponseMeta
      */
-    public function getMeta(): mixed
+    public function getMeta(): ?SignatureResponseMeta
     {
         return $this->meta;
     }
 
     /**
-     * @param mixed $value
+     * @param ?SignatureResponseMeta $value
      */
-    public function setMeta(mixed $value = null): self
+    public function setMeta(?SignatureResponseMeta $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?Signature
+     * @return ?SignatureResponseData
      */
-    public function getData(): ?Signature
+    public function getData(): ?SignatureResponseData
     {
         return $this->data;
     }
 
     /**
-     * @param ?Signature $value
+     * @param ?SignatureResponseData $value
      */
-    public function setData(?Signature $value = null): self
+    public function setData(?SignatureResponseData $value = null): self
     {
         $this->data = $value;
         return $this;
     }
 
     /**
-     * @return ?Error
+     * @return ?SignatureResponseError
      */
-    public function getError(): ?Error
+    public function getError(): ?SignatureResponseError
     {
         return $this->error;
     }
 
     /**
-     * @param ?Error $value
+     * @param ?SignatureResponseError $value
      */
-    public function setError(?Error $value = null): self
+    public function setError(?SignatureResponseError $value = null): self
     {
         $this->error = $value;
         return $this;
     }
 
     /**
-     * @return ?Links
+     * @return ?SignatureResponseLinks
      */
-    public function getLinks(): ?Links
+    public function getLinks(): ?SignatureResponseLinks
     {
         return $this->links;
     }
 
     /**
-     * @param ?Links $value
+     * @param ?SignatureResponseLinks $value
      */
-    public function setLinks(?Links $value = null): self
+    public function setLinks(?SignatureResponseLinks $value = null): self
     {
         $this->links = $value;
         return $this;

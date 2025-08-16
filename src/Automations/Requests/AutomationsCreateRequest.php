@@ -5,7 +5,7 @@ namespace Ittybit\Automations\Requests;
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
 use Ittybit\Automations\Types\AutomationsCreateRequestTrigger;
-use Ittybit\Types\WorkflowTaskStep;
+use Ittybit\Automations\Types\AutomationsCreateRequestWorkflowItem;
 use Ittybit\Core\Types\ArrayType;
 use Ittybit\Automations\Types\AutomationsCreateRequestStatus;
 
@@ -30,9 +30,9 @@ class AutomationsCreateRequest extends JsonSerializableType
     private AutomationsCreateRequestTrigger $trigger;
 
     /**
-     * @var array<WorkflowTaskStep> $workflow
+     * @var array<AutomationsCreateRequestWorkflowItem> $workflow
      */
-    #[JsonProperty('workflow'), ArrayType([WorkflowTaskStep::class])]
+    #[JsonProperty('workflow'), ArrayType([AutomationsCreateRequestWorkflowItem::class])]
     private array $workflow;
 
     /**
@@ -44,7 +44,7 @@ class AutomationsCreateRequest extends JsonSerializableType
     /**
      * @param array{
      *   trigger: AutomationsCreateRequestTrigger,
-     *   workflow: array<WorkflowTaskStep>,
+     *   workflow: array<AutomationsCreateRequestWorkflowItem>,
      *   name?: ?string,
      *   description?: ?string,
      *   status?: ?value-of<AutomationsCreateRequestStatus>,
@@ -112,7 +112,7 @@ class AutomationsCreateRequest extends JsonSerializableType
     }
 
     /**
-     * @return array<WorkflowTaskStep>
+     * @return array<AutomationsCreateRequestWorkflowItem>
      */
     public function getWorkflow(): array
     {
@@ -120,7 +120,7 @@ class AutomationsCreateRequest extends JsonSerializableType
     }
 
     /**
-     * @param array<WorkflowTaskStep> $value
+     * @param array<AutomationsCreateRequestWorkflowItem> $value
      */
     public function setWorkflow(array $value): self
     {

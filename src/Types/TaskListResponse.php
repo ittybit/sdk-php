@@ -9,35 +9,35 @@ use Ittybit\Core\Types\ArrayType;
 class TaskListResponse extends JsonSerializableType
 {
     /**
-     * @var ?MetaList $meta
+     * @var ?TaskListResponseMeta $meta
      */
     #[JsonProperty('meta')]
-    private ?MetaList $meta;
+    private ?TaskListResponseMeta $meta;
 
     /**
-     * @var ?array<Task> $data
+     * @var ?array<TaskListResponseDataItem> $data
      */
-    #[JsonProperty('data'), ArrayType([Task::class])]
+    #[JsonProperty('data'), ArrayType([TaskListResponseDataItem::class])]
     private ?array $data;
 
     /**
-     * @var ?Error $error
+     * @var ?TaskListResponseError $error
      */
     #[JsonProperty('error')]
-    private ?Error $error;
+    private ?TaskListResponseError $error;
 
     /**
-     * @var ?LinksList $links
+     * @var ?TaskListResponseLinks $links
      */
     #[JsonProperty('links')]
-    private ?LinksList $links;
+    private ?TaskListResponseLinks $links;
 
     /**
      * @param array{
-     *   meta?: ?MetaList,
-     *   data?: ?array<Task>,
-     *   error?: ?Error,
-     *   links?: ?LinksList,
+     *   meta?: ?TaskListResponseMeta,
+     *   data?: ?array<TaskListResponseDataItem>,
+     *   error?: ?TaskListResponseError,
+     *   links?: ?TaskListResponseLinks,
      * } $values
      */
     public function __construct(
@@ -50,24 +50,24 @@ class TaskListResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?MetaList
+     * @return ?TaskListResponseMeta
      */
-    public function getMeta(): ?MetaList
+    public function getMeta(): ?TaskListResponseMeta
     {
         return $this->meta;
     }
 
     /**
-     * @param ?MetaList $value
+     * @param ?TaskListResponseMeta $value
      */
-    public function setMeta(?MetaList $value = null): self
+    public function setMeta(?TaskListResponseMeta $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?array<Task>
+     * @return ?array<TaskListResponseDataItem>
      */
     public function getData(): ?array
     {
@@ -75,7 +75,7 @@ class TaskListResponse extends JsonSerializableType
     }
 
     /**
-     * @param ?array<Task> $value
+     * @param ?array<TaskListResponseDataItem> $value
      */
     public function setData(?array $value = null): self
     {
@@ -84,34 +84,34 @@ class TaskListResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?Error
+     * @return ?TaskListResponseError
      */
-    public function getError(): ?Error
+    public function getError(): ?TaskListResponseError
     {
         return $this->error;
     }
 
     /**
-     * @param ?Error $value
+     * @param ?TaskListResponseError $value
      */
-    public function setError(?Error $value = null): self
+    public function setError(?TaskListResponseError $value = null): self
     {
         $this->error = $value;
         return $this;
     }
 
     /**
-     * @return ?LinksList
+     * @return ?TaskListResponseLinks
      */
-    public function getLinks(): ?LinksList
+    public function getLinks(): ?TaskListResponseLinks
     {
         return $this->links;
     }
 
     /**
-     * @param ?LinksList $value
+     * @param ?TaskListResponseLinks $value
      */
-    public function setLinks(?LinksList $value = null): self
+    public function setLinks(?TaskListResponseLinks $value = null): self
     {
         $this->links = $value;
         return $this;

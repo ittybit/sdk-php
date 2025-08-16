@@ -9,35 +9,35 @@ use Ittybit\Core\Types\ArrayType;
 class AutomationListResponse extends JsonSerializableType
 {
     /**
-     * @var ?MetaList $meta
+     * @var ?AutomationListResponseMeta $meta
      */
     #[JsonProperty('meta')]
-    private ?MetaList $meta;
+    private ?AutomationListResponseMeta $meta;
 
     /**
-     * @var ?array<Automation> $data
+     * @var ?array<AutomationListResponseDataItem> $data
      */
-    #[JsonProperty('data'), ArrayType([Automation::class])]
+    #[JsonProperty('data'), ArrayType([AutomationListResponseDataItem::class])]
     private ?array $data;
 
     /**
-     * @var ?Error $error
+     * @var ?AutomationListResponseError $error
      */
     #[JsonProperty('error')]
-    private ?Error $error;
+    private ?AutomationListResponseError $error;
 
     /**
-     * @var ?LinksList $links
+     * @var ?AutomationListResponseLinks $links
      */
     #[JsonProperty('links')]
-    private ?LinksList $links;
+    private ?AutomationListResponseLinks $links;
 
     /**
      * @param array{
-     *   meta?: ?MetaList,
-     *   data?: ?array<Automation>,
-     *   error?: ?Error,
-     *   links?: ?LinksList,
+     *   meta?: ?AutomationListResponseMeta,
+     *   data?: ?array<AutomationListResponseDataItem>,
+     *   error?: ?AutomationListResponseError,
+     *   links?: ?AutomationListResponseLinks,
      * } $values
      */
     public function __construct(
@@ -50,24 +50,24 @@ class AutomationListResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?MetaList
+     * @return ?AutomationListResponseMeta
      */
-    public function getMeta(): ?MetaList
+    public function getMeta(): ?AutomationListResponseMeta
     {
         return $this->meta;
     }
 
     /**
-     * @param ?MetaList $value
+     * @param ?AutomationListResponseMeta $value
      */
-    public function setMeta(?MetaList $value = null): self
+    public function setMeta(?AutomationListResponseMeta $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?array<Automation>
+     * @return ?array<AutomationListResponseDataItem>
      */
     public function getData(): ?array
     {
@@ -75,7 +75,7 @@ class AutomationListResponse extends JsonSerializableType
     }
 
     /**
-     * @param ?array<Automation> $value
+     * @param ?array<AutomationListResponseDataItem> $value
      */
     public function setData(?array $value = null): self
     {
@@ -84,34 +84,34 @@ class AutomationListResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?Error
+     * @return ?AutomationListResponseError
      */
-    public function getError(): ?Error
+    public function getError(): ?AutomationListResponseError
     {
         return $this->error;
     }
 
     /**
-     * @param ?Error $value
+     * @param ?AutomationListResponseError $value
      */
-    public function setError(?Error $value = null): self
+    public function setError(?AutomationListResponseError $value = null): self
     {
         $this->error = $value;
         return $this;
     }
 
     /**
-     * @return ?LinksList
+     * @return ?AutomationListResponseLinks
      */
-    public function getLinks(): ?LinksList
+    public function getLinks(): ?AutomationListResponseLinks
     {
         return $this->links;
     }
 
     /**
-     * @param ?LinksList $value
+     * @param ?AutomationListResponseLinks $value
      */
-    public function setLinks(?LinksList $value = null): self
+    public function setLinks(?AutomationListResponseLinks $value = null): self
     {
         $this->links = $value;
         return $this;

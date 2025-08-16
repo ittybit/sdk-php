@@ -1,11 +1,11 @@
 <?php
 
-namespace Ittybit\Types;
+namespace Ittybit\Media\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
 
-class Error extends JsonSerializableType
+class MediaCreateResponseError extends JsonSerializableType
 {
     /**
      * @var ?string $message

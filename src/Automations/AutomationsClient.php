@@ -5,7 +5,7 @@ namespace Ittybit\Automations;
 use GuzzleHttp\ClientInterface;
 use Ittybit\Core\Client\RawClient;
 use Ittybit\Automations\Requests\AutomationsListRequest;
-use Ittybit\Types\AutomationListResponse;
+use Ittybit\Automations\Types\AutomationsListResponse;
 use Ittybit\Exceptions\IttybitException;
 use Ittybit\Exceptions\IttybitApiException;
 use Ittybit\Core\Json\JsonApiRequest;
@@ -15,9 +15,11 @@ use JsonException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Ittybit\Automations\Requests\AutomationsCreateRequest;
-use Ittybit\Types\AutomationResponse;
-use Ittybit\Types\ConfirmationResponse;
+use Ittybit\Automations\Types\AutomationsCreateResponse;
+use Ittybit\Automations\Types\AutomationsGetResponse;
+use Ittybit\Automations\Types\AutomationsDeleteResponse;
 use Ittybit\Automations\Requests\AutomationsUpdateRequest;
+use Ittybit\Automations\Types\AutomationsUpdateResponse;
 
 class AutomationsClient
 {
@@ -67,11 +69,11 @@ class AutomationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return AutomationListResponse
+     * @return AutomationsListResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function list(AutomationsListRequest $request = new AutomationsListRequest(), ?array $options = null): AutomationListResponse
+    public function list(AutomationsListRequest $request = new AutomationsListRequest(), ?array $options = null): AutomationsListResponse
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -94,7 +96,7 @@ class AutomationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return AutomationListResponse::fromJson($json);
+                return AutomationsListResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -130,11 +132,11 @@ class AutomationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return AutomationResponse
+     * @return AutomationsCreateResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function create(AutomationsCreateRequest $request, ?array $options = null): AutomationResponse
+    public function create(AutomationsCreateRequest $request, ?array $options = null): AutomationsCreateResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -150,7 +152,7 @@ class AutomationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return AutomationResponse::fromJson($json);
+                return AutomationsCreateResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -186,11 +188,11 @@ class AutomationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return AutomationResponse
+     * @return AutomationsGetResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function get(string $id, ?array $options = null): AutomationResponse
+    public function get(string $id, ?array $options = null): AutomationsGetResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -205,7 +207,7 @@ class AutomationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return AutomationResponse::fromJson($json);
+                return AutomationsGetResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -241,11 +243,11 @@ class AutomationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ConfirmationResponse
+     * @return AutomationsDeleteResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function delete(string $id, ?array $options = null): ConfirmationResponse
+    public function delete(string $id, ?array $options = null): AutomationsDeleteResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -260,7 +262,7 @@ class AutomationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return ConfirmationResponse::fromJson($json);
+                return AutomationsDeleteResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -297,11 +299,11 @@ class AutomationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return AutomationResponse
+     * @return AutomationsUpdateResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function update(string $id, AutomationsUpdateRequest $request = new AutomationsUpdateRequest(), ?array $options = null): AutomationResponse
+    public function update(string $id, AutomationsUpdateRequest $request = new AutomationsUpdateRequest(), ?array $options = null): AutomationsUpdateResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -317,7 +319,7 @@ class AutomationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return AutomationResponse::fromJson($json);
+                return AutomationsUpdateResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);

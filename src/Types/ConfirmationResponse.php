@@ -8,35 +8,35 @@ use Ittybit\Core\Json\JsonProperty;
 class ConfirmationResponse extends JsonSerializableType
 {
     /**
-     * @var mixed $meta
+     * @var ?ConfirmationResponseMeta $meta
      */
     #[JsonProperty('meta')]
-    private mixed $meta;
+    private ?ConfirmationResponseMeta $meta;
 
     /**
-     * @var ?Confirmation $data
+     * @var ?ConfirmationResponseData $data
      */
     #[JsonProperty('data')]
-    private ?Confirmation $data;
+    private ?ConfirmationResponseData $data;
 
     /**
-     * @var ?Error $error
+     * @var ?ConfirmationResponseError $error
      */
     #[JsonProperty('error')]
-    private ?Error $error;
+    private ?ConfirmationResponseError $error;
 
     /**
-     * @var ?Links $links
+     * @var ?ConfirmationResponseLinks $links
      */
     #[JsonProperty('links')]
-    private ?Links $links;
+    private ?ConfirmationResponseLinks $links;
 
     /**
      * @param array{
-     *   meta?: mixed,
-     *   data?: ?Confirmation,
-     *   error?: ?Error,
-     *   links?: ?Links,
+     *   meta?: ?ConfirmationResponseMeta,
+     *   data?: ?ConfirmationResponseData,
+     *   error?: ?ConfirmationResponseError,
+     *   links?: ?ConfirmationResponseLinks,
      * } $values
      */
     public function __construct(
@@ -49,68 +49,68 @@ class ConfirmationResponse extends JsonSerializableType
     }
 
     /**
-     * @return mixed
+     * @return ?ConfirmationResponseMeta
      */
-    public function getMeta(): mixed
+    public function getMeta(): ?ConfirmationResponseMeta
     {
         return $this->meta;
     }
 
     /**
-     * @param mixed $value
+     * @param ?ConfirmationResponseMeta $value
      */
-    public function setMeta(mixed $value = null): self
+    public function setMeta(?ConfirmationResponseMeta $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?Confirmation
+     * @return ?ConfirmationResponseData
      */
-    public function getData(): ?Confirmation
+    public function getData(): ?ConfirmationResponseData
     {
         return $this->data;
     }
 
     /**
-     * @param ?Confirmation $value
+     * @param ?ConfirmationResponseData $value
      */
-    public function setData(?Confirmation $value = null): self
+    public function setData(?ConfirmationResponseData $value = null): self
     {
         $this->data = $value;
         return $this;
     }
 
     /**
-     * @return ?Error
+     * @return ?ConfirmationResponseError
      */
-    public function getError(): ?Error
+    public function getError(): ?ConfirmationResponseError
     {
         return $this->error;
     }
 
     /**
-     * @param ?Error $value
+     * @param ?ConfirmationResponseError $value
      */
-    public function setError(?Error $value = null): self
+    public function setError(?ConfirmationResponseError $value = null): self
     {
         $this->error = $value;
         return $this;
     }
 
     /**
-     * @return ?Links
+     * @return ?ConfirmationResponseLinks
      */
-    public function getLinks(): ?Links
+    public function getLinks(): ?ConfirmationResponseLinks
     {
         return $this->links;
     }
 
     /**
-     * @param ?Links $value
+     * @param ?ConfirmationResponseLinks $value
      */
-    public function setLinks(?Links $value = null): self
+    public function setLinks(?ConfirmationResponseLinks $value = null): self
     {
         $this->links = $value;
         return $this;

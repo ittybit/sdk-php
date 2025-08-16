@@ -8,35 +8,35 @@ use Ittybit\Core\Json\JsonProperty;
 class FileResponse extends JsonSerializableType
 {
     /**
-     * @var mixed $meta
+     * @var ?FileResponseMeta $meta
      */
     #[JsonProperty('meta')]
-    private mixed $meta;
+    private ?FileResponseMeta $meta;
 
     /**
-     * @var ?File $data
+     * @var ?FileResponseData $data
      */
     #[JsonProperty('data')]
-    private ?File $data;
+    private ?FileResponseData $data;
 
     /**
-     * @var ?Error $error
+     * @var ?FileResponseError $error
      */
     #[JsonProperty('error')]
-    private ?Error $error;
+    private ?FileResponseError $error;
 
     /**
-     * @var ?Links $links
+     * @var ?FileResponseLinks $links
      */
     #[JsonProperty('links')]
-    private ?Links $links;
+    private ?FileResponseLinks $links;
 
     /**
      * @param array{
-     *   meta?: mixed,
-     *   data?: ?File,
-     *   error?: ?Error,
-     *   links?: ?Links,
+     *   meta?: ?FileResponseMeta,
+     *   data?: ?FileResponseData,
+     *   error?: ?FileResponseError,
+     *   links?: ?FileResponseLinks,
      * } $values
      */
     public function __construct(
@@ -49,68 +49,68 @@ class FileResponse extends JsonSerializableType
     }
 
     /**
-     * @return mixed
+     * @return ?FileResponseMeta
      */
-    public function getMeta(): mixed
+    public function getMeta(): ?FileResponseMeta
     {
         return $this->meta;
     }
 
     /**
-     * @param mixed $value
+     * @param ?FileResponseMeta $value
      */
-    public function setMeta(mixed $value = null): self
+    public function setMeta(?FileResponseMeta $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?File
+     * @return ?FileResponseData
      */
-    public function getData(): ?File
+    public function getData(): ?FileResponseData
     {
         return $this->data;
     }
 
     /**
-     * @param ?File $value
+     * @param ?FileResponseData $value
      */
-    public function setData(?File $value = null): self
+    public function setData(?FileResponseData $value = null): self
     {
         $this->data = $value;
         return $this;
     }
 
     /**
-     * @return ?Error
+     * @return ?FileResponseError
      */
-    public function getError(): ?Error
+    public function getError(): ?FileResponseError
     {
         return $this->error;
     }
 
     /**
-     * @param ?Error $value
+     * @param ?FileResponseError $value
      */
-    public function setError(?Error $value = null): self
+    public function setError(?FileResponseError $value = null): self
     {
         $this->error = $value;
         return $this;
     }
 
     /**
-     * @return ?Links
+     * @return ?FileResponseLinks
      */
-    public function getLinks(): ?Links
+    public function getLinks(): ?FileResponseLinks
     {
         return $this->links;
     }
 
     /**
-     * @param ?Links $value
+     * @param ?FileResponseLinks $value
      */
-    public function setLinks(?Links $value = null): self
+    public function setLinks(?FileResponseLinks $value = null): self
     {
         $this->links = $value;
         return $this;

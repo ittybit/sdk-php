@@ -9,35 +9,35 @@ use Ittybit\Core\Types\ArrayType;
 class FileListResponse extends JsonSerializableType
 {
     /**
-     * @var ?MetaList $meta
+     * @var ?FileListResponseMeta $meta
      */
     #[JsonProperty('meta')]
-    private ?MetaList $meta;
+    private ?FileListResponseMeta $meta;
 
     /**
-     * @var ?array<File> $data
+     * @var ?array<FileListResponseDataItem> $data
      */
-    #[JsonProperty('data'), ArrayType([File::class])]
+    #[JsonProperty('data'), ArrayType([FileListResponseDataItem::class])]
     private ?array $data;
 
     /**
-     * @var ?Error $error
+     * @var ?FileListResponseError $error
      */
     #[JsonProperty('error')]
-    private ?Error $error;
+    private ?FileListResponseError $error;
 
     /**
-     * @var ?LinksList $links
+     * @var ?FileListResponseLinks $links
      */
     #[JsonProperty('links')]
-    private ?LinksList $links;
+    private ?FileListResponseLinks $links;
 
     /**
      * @param array{
-     *   meta?: ?MetaList,
-     *   data?: ?array<File>,
-     *   error?: ?Error,
-     *   links?: ?LinksList,
+     *   meta?: ?FileListResponseMeta,
+     *   data?: ?array<FileListResponseDataItem>,
+     *   error?: ?FileListResponseError,
+     *   links?: ?FileListResponseLinks,
      * } $values
      */
     public function __construct(
@@ -50,24 +50,24 @@ class FileListResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?MetaList
+     * @return ?FileListResponseMeta
      */
-    public function getMeta(): ?MetaList
+    public function getMeta(): ?FileListResponseMeta
     {
         return $this->meta;
     }
 
     /**
-     * @param ?MetaList $value
+     * @param ?FileListResponseMeta $value
      */
-    public function setMeta(?MetaList $value = null): self
+    public function setMeta(?FileListResponseMeta $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?array<File>
+     * @return ?array<FileListResponseDataItem>
      */
     public function getData(): ?array
     {
@@ -75,7 +75,7 @@ class FileListResponse extends JsonSerializableType
     }
 
     /**
-     * @param ?array<File> $value
+     * @param ?array<FileListResponseDataItem> $value
      */
     public function setData(?array $value = null): self
     {
@@ -84,34 +84,34 @@ class FileListResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?Error
+     * @return ?FileListResponseError
      */
-    public function getError(): ?Error
+    public function getError(): ?FileListResponseError
     {
         return $this->error;
     }
 
     /**
-     * @param ?Error $value
+     * @param ?FileListResponseError $value
      */
-    public function setError(?Error $value = null): self
+    public function setError(?FileListResponseError $value = null): self
     {
         $this->error = $value;
         return $this;
     }
 
     /**
-     * @return ?LinksList
+     * @return ?FileListResponseLinks
      */
-    public function getLinks(): ?LinksList
+    public function getLinks(): ?FileListResponseLinks
     {
         return $this->links;
     }
 
     /**
-     * @param ?LinksList $value
+     * @param ?FileListResponseLinks $value
      */
-    public function setLinks(?LinksList $value = null): self
+    public function setLinks(?FileListResponseLinks $value = null): self
     {
         $this->links = $value;
         return $this;

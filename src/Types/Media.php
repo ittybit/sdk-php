@@ -59,9 +59,9 @@ class Media extends JsonSerializableType
     private ?float $duration;
 
     /**
-     * @var array<MediaSource> $files
+     * @var array<MediaFilesItem> $files
      */
-    #[JsonProperty('files'), ArrayType([MediaSource::class])]
+    #[JsonProperty('files'), ArrayType([MediaFilesItem::class])]
     private array $files;
 
     /**
@@ -98,7 +98,7 @@ class Media extends JsonSerializableType
      * @param array{
      *   id: string,
      *   object: string,
-     *   files: array<MediaSource>,
+     *   files: array<MediaFilesItem>,
      *   urls: array<string, mixed>,
      *   created: DateTime,
      *   updated: DateTime,
@@ -268,7 +268,7 @@ class Media extends JsonSerializableType
     }
 
     /**
-     * @return array<MediaSource>
+     * @return array<MediaFilesItem>
      */
     public function getFiles(): array
     {
@@ -276,7 +276,7 @@ class Media extends JsonSerializableType
     }
 
     /**
-     * @param array<MediaSource> $value
+     * @param array<MediaFilesItem> $value
      */
     public function setFiles(array $value): self
     {

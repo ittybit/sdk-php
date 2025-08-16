@@ -5,7 +5,7 @@ namespace Ittybit\Tasks;
 use GuzzleHttp\ClientInterface;
 use Ittybit\Core\Client\RawClient;
 use Ittybit\Tasks\Requests\TasksListRequest;
-use Ittybit\Types\TaskListResponse;
+use Ittybit\Tasks\Types\TasksListResponse;
 use Ittybit\Exceptions\IttybitException;
 use Ittybit\Exceptions\IttybitApiException;
 use Ittybit\Core\Json\JsonApiRequest;
@@ -14,7 +14,8 @@ use Ittybit\Core\Client\HttpMethod;
 use JsonException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
-use Ittybit\Types\TaskResponse;
+use Ittybit\Tasks\Types\TasksCreateResponse;
+use Ittybit\Tasks\Types\TasksGetResponse;
 use Ittybit\Core\Json\JsonDecoder;
 
 class TasksClient
@@ -65,11 +66,11 @@ class TasksClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return TaskListResponse
+     * @return TasksListResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function list(TasksListRequest $request = new TasksListRequest(), ?array $options = null): TaskListResponse
+    public function list(TasksListRequest $request = new TasksListRequest(), ?array $options = null): TasksListResponse
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -92,7 +93,7 @@ class TasksClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return TaskListResponse::fromJson($json);
+                return TasksListResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -128,11 +129,11 @@ class TasksClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return TaskResponse
+     * @return TasksCreateResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function create(mixed $request, ?array $options = null): TaskResponse
+    public function create(mixed $request, ?array $options = null): TasksCreateResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -148,7 +149,7 @@ class TasksClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return TaskResponse::fromJson($json);
+                return TasksCreateResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -184,11 +185,11 @@ class TasksClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return TaskResponse
+     * @return TasksGetResponse
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function get(string $id, ?array $options = null): TaskResponse
+    public function get(string $id, ?array $options = null): TasksGetResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -203,7 +204,7 @@ class TasksClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return TaskResponse::fromJson($json);
+                return TasksGetResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);

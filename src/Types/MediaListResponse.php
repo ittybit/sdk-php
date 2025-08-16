@@ -9,35 +9,35 @@ use Ittybit\Core\Types\ArrayType;
 class MediaListResponse extends JsonSerializableType
 {
     /**
-     * @var ?MetaList $meta
+     * @var ?MediaListResponseMeta $meta
      */
     #[JsonProperty('meta')]
-    private ?MetaList $meta;
+    private ?MediaListResponseMeta $meta;
 
     /**
-     * @var ?array<Media> $data
+     * @var ?array<MediaListResponseDataItem> $data
      */
-    #[JsonProperty('data'), ArrayType([Media::class])]
+    #[JsonProperty('data'), ArrayType([MediaListResponseDataItem::class])]
     private ?array $data;
 
     /**
-     * @var ?Error $error
+     * @var ?MediaListResponseError $error
      */
     #[JsonProperty('error')]
-    private ?Error $error;
+    private ?MediaListResponseError $error;
 
     /**
-     * @var ?LinksList $links
+     * @var ?MediaListResponseLinks $links
      */
     #[JsonProperty('links')]
-    private ?LinksList $links;
+    private ?MediaListResponseLinks $links;
 
     /**
      * @param array{
-     *   meta?: ?MetaList,
-     *   data?: ?array<Media>,
-     *   error?: ?Error,
-     *   links?: ?LinksList,
+     *   meta?: ?MediaListResponseMeta,
+     *   data?: ?array<MediaListResponseDataItem>,
+     *   error?: ?MediaListResponseError,
+     *   links?: ?MediaListResponseLinks,
      * } $values
      */
     public function __construct(
@@ -50,24 +50,24 @@ class MediaListResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?MetaList
+     * @return ?MediaListResponseMeta
      */
-    public function getMeta(): ?MetaList
+    public function getMeta(): ?MediaListResponseMeta
     {
         return $this->meta;
     }
 
     /**
-     * @param ?MetaList $value
+     * @param ?MediaListResponseMeta $value
      */
-    public function setMeta(?MetaList $value = null): self
+    public function setMeta(?MediaListResponseMeta $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?array<Media>
+     * @return ?array<MediaListResponseDataItem>
      */
     public function getData(): ?array
     {
@@ -75,7 +75,7 @@ class MediaListResponse extends JsonSerializableType
     }
 
     /**
-     * @param ?array<Media> $value
+     * @param ?array<MediaListResponseDataItem> $value
      */
     public function setData(?array $value = null): self
     {
@@ -84,34 +84,34 @@ class MediaListResponse extends JsonSerializableType
     }
 
     /**
-     * @return ?Error
+     * @return ?MediaListResponseError
      */
-    public function getError(): ?Error
+    public function getError(): ?MediaListResponseError
     {
         return $this->error;
     }
 
     /**
-     * @param ?Error $value
+     * @param ?MediaListResponseError $value
      */
-    public function setError(?Error $value = null): self
+    public function setError(?MediaListResponseError $value = null): self
     {
         $this->error = $value;
         return $this;
     }
 
     /**
-     * @return ?LinksList
+     * @return ?MediaListResponseLinks
      */
-    public function getLinks(): ?LinksList
+    public function getLinks(): ?MediaListResponseLinks
     {
         return $this->links;
     }
 
     /**
-     * @param ?LinksList $value
+     * @param ?MediaListResponseLinks $value
      */
-    public function setLinks(?LinksList $value = null): self
+    public function setLinks(?MediaListResponseLinks $value = null): self
     {
         $this->links = $value;
         return $this;

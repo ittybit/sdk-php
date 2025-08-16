@@ -8,35 +8,35 @@ use Ittybit\Core\Json\JsonProperty;
 class AutomationResponse extends JsonSerializableType
 {
     /**
-     * @var mixed $meta
+     * @var ?AutomationResponseMeta $meta
      */
     #[JsonProperty('meta')]
-    private mixed $meta;
+    private ?AutomationResponseMeta $meta;
 
     /**
-     * @var ?Automation $data
+     * @var ?AutomationResponseData $data
      */
     #[JsonProperty('data')]
-    private ?Automation $data;
+    private ?AutomationResponseData $data;
 
     /**
-     * @var ?Error $error
+     * @var ?AutomationResponseError $error
      */
     #[JsonProperty('error')]
-    private ?Error $error;
+    private ?AutomationResponseError $error;
 
     /**
-     * @var ?Links $links
+     * @var ?AutomationResponseLinks $links
      */
     #[JsonProperty('links')]
-    private ?Links $links;
+    private ?AutomationResponseLinks $links;
 
     /**
      * @param array{
-     *   meta?: mixed,
-     *   data?: ?Automation,
-     *   error?: ?Error,
-     *   links?: ?Links,
+     *   meta?: ?AutomationResponseMeta,
+     *   data?: ?AutomationResponseData,
+     *   error?: ?AutomationResponseError,
+     *   links?: ?AutomationResponseLinks,
      * } $values
      */
     public function __construct(
@@ -49,68 +49,68 @@ class AutomationResponse extends JsonSerializableType
     }
 
     /**
-     * @return mixed
+     * @return ?AutomationResponseMeta
      */
-    public function getMeta(): mixed
+    public function getMeta(): ?AutomationResponseMeta
     {
         return $this->meta;
     }
 
     /**
-     * @param mixed $value
+     * @param ?AutomationResponseMeta $value
      */
-    public function setMeta(mixed $value = null): self
+    public function setMeta(?AutomationResponseMeta $value = null): self
     {
         $this->meta = $value;
         return $this;
     }
 
     /**
-     * @return ?Automation
+     * @return ?AutomationResponseData
      */
-    public function getData(): ?Automation
+    public function getData(): ?AutomationResponseData
     {
         return $this->data;
     }
 
     /**
-     * @param ?Automation $value
+     * @param ?AutomationResponseData $value
      */
-    public function setData(?Automation $value = null): self
+    public function setData(?AutomationResponseData $value = null): self
     {
         $this->data = $value;
         return $this;
     }
 
     /**
-     * @return ?Error
+     * @return ?AutomationResponseError
      */
-    public function getError(): ?Error
+    public function getError(): ?AutomationResponseError
     {
         return $this->error;
     }
 
     /**
-     * @param ?Error $value
+     * @param ?AutomationResponseError $value
      */
-    public function setError(?Error $value = null): self
+    public function setError(?AutomationResponseError $value = null): self
     {
         $this->error = $value;
         return $this;
     }
 
     /**
-     * @return ?Links
+     * @return ?AutomationResponseLinks
      */
-    public function getLinks(): ?Links
+    public function getLinks(): ?AutomationResponseLinks
     {
         return $this->links;
     }
 
     /**
-     * @param ?Links $value
+     * @param ?AutomationResponseLinks $value
      */
-    public function setLinks(?Links $value = null): self
+    public function setLinks(?AutomationResponseLinks $value = null): self
     {
         $this->links = $value;
         return $this;
