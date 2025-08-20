@@ -1,0 +1,21 @@
+name: Sync with Packagist
+
+on:
+  release:
+    types: [published, edited]
+
+jobs:
+  sync-packagist:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync with Packagist
+        run: |
+          # Send webhook to Packagist to trigger package sync
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "X-GitHub-Event: push" \
+            -H "X-Packagist-Token: ${{ secrets.PACKAGIST_TOKEN }}" \
+            -d '{"ref": "refs/tags/${{ github.event.release.tag_name }}", "repository": {"full_name": "${{ github.repository }}"}}' \
+            "https://packagist.org/api/github?username=ittybit"
+        
+
