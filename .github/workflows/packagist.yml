@@ -1,6 +1,7 @@
 name: Sync with Packagist
 
 on:
+  workflow_dispatch:
   release:
     types: [published, edited]
 
