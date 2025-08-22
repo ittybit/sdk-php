@@ -12,6 +12,11 @@ use Ittybit\Automations\Types\AutomationsUpdateRequestStatus;
 class AutomationsUpdateRequest extends JsonSerializableType
 {
     /**
+     * @var '2025-08-20' $acceptVersion Specifies the API Version
+     */
+    private string $acceptVersion;
+
+    /**
      * @var ?string $name
      */
     #[JsonProperty('name')]
@@ -43,6 +48,7 @@ class AutomationsUpdateRequest extends JsonSerializableType
 
     /**
      * @param array{
+     *   acceptVersion: '2025-08-20',
      *   name?: ?string,
      *   description?: ?string,
      *   trigger?: ?AutomationsUpdateRequestTrigger,
@@ -51,13 +57,31 @@ class AutomationsUpdateRequest extends JsonSerializableType
      * } $values
      */
     public function __construct(
-        array $values = [],
+        array $values,
     ) {
+        $this->acceptVersion = $values['acceptVersion'];
         $this->name = $values['name'] ?? null;
         $this->description = $values['description'] ?? null;
         $this->trigger = $values['trigger'] ?? null;
         $this->workflow = $values['workflow'] ?? null;
         $this->status = $values['status'] ?? null;
+    }
+
+    /**
+     * @return '2025-08-20'
+     */
+    public function getAcceptVersion(): string
+    {
+        return $this->acceptVersion;
+    }
+
+    /**
+     * @param '2025-08-20' $value
+     */
+    public function setAcceptVersion(string $value): self
+    {
+        $this->acceptVersion = $value;
+        return $this;
     }
 
     /**

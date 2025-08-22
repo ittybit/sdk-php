@@ -4,115 +4,231 @@ namespace Ittybit\Automations\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
+use Ittybit\Core\Types\ArrayType;
+use Ittybit\Core\Types\Union;
+use DateTime;
+use Ittybit\Core\Types\Date;
 
 class AutomationsUpdateResponse extends JsonSerializableType
 {
     /**
-     * @var ?AutomationsUpdateResponseMeta $meta
+     * @var string $id
      */
-    #[JsonProperty('meta')]
-    private ?AutomationsUpdateResponseMeta $meta;
+    #[JsonProperty('id')]
+    private string $id;
 
     /**
-     * @var ?AutomationsUpdateResponseData $data
+     * @var ?string $name
      */
-    #[JsonProperty('data')]
-    private ?AutomationsUpdateResponseData $data;
+    #[JsonProperty('name')]
+    private ?string $name;
 
     /**
-     * @var ?AutomationsUpdateResponseError $error
+     * @var ?string $description
      */
-    #[JsonProperty('error')]
-    private ?AutomationsUpdateResponseError $error;
+    #[JsonProperty('description')]
+    private ?string $description;
 
     /**
-     * @var ?AutomationsUpdateResponseLinks $links
+     * @var AutomationsUpdateResponseTrigger $trigger
      */
-    #[JsonProperty('links')]
-    private ?AutomationsUpdateResponseLinks $links;
+    #[JsonProperty('trigger')]
+    private AutomationsUpdateResponseTrigger $trigger;
+
+    /**
+     * @var array<(
+     *    AutomationsUpdateResponseWorkflowItemRef
+     *   |AutomationsUpdateResponseWorkflowItemConditions
+     * )> $workflow
+     */
+    #[JsonProperty('workflow'), ArrayType([new Union(AutomationsUpdateResponseWorkflowItemRef::class, AutomationsUpdateResponseWorkflowItemConditions::class)])]
+    private array $workflow;
+
+    /**
+     * @var value-of<AutomationsUpdateResponseStatus> $status
+     */
+    #[JsonProperty('status')]
+    private string $status;
+
+    /**
+     * @var DateTime $created
+     */
+    #[JsonProperty('created'), Date(Date::TYPE_DATETIME)]
+    private DateTime $created;
+
+    /**
+     * @var DateTime $updated
+     */
+    #[JsonProperty('updated'), Date(Date::TYPE_DATETIME)]
+    private DateTime $updated;
 
     /**
      * @param array{
-     *   meta?: ?AutomationsUpdateResponseMeta,
-     *   data?: ?AutomationsUpdateResponseData,
-     *   error?: ?AutomationsUpdateResponseError,
-     *   links?: ?AutomationsUpdateResponseLinks,
+     *   id: string,
+     *   trigger: AutomationsUpdateResponseTrigger,
+     *   workflow: array<(
+     *    AutomationsUpdateResponseWorkflowItemRef
+     *   |AutomationsUpdateResponseWorkflowItemConditions
+     * )>,
+     *   status: value-of<AutomationsUpdateResponseStatus>,
+     *   created: DateTime,
+     *   updated: DateTime,
+     *   name?: ?string,
+     *   description?: ?string,
      * } $values
      */
     public function __construct(
-        array $values = [],
+        array $values,
     ) {
-        $this->meta = $values['meta'] ?? null;
-        $this->data = $values['data'] ?? null;
-        $this->error = $values['error'] ?? null;
-        $this->links = $values['links'] ?? null;
+        $this->id = $values['id'];
+        $this->name = $values['name'] ?? null;
+        $this->description = $values['description'] ?? null;
+        $this->trigger = $values['trigger'];
+        $this->workflow = $values['workflow'];
+        $this->status = $values['status'];
+        $this->created = $values['created'];
+        $this->updated = $values['updated'];
     }
 
     /**
-     * @return ?AutomationsUpdateResponseMeta
+     * @return string
      */
-    public function getMeta(): ?AutomationsUpdateResponseMeta
+    public function getId(): string
     {
-        return $this->meta;
+        return $this->id;
     }
 
     /**
-     * @param ?AutomationsUpdateResponseMeta $value
+     * @param string $value
      */
-    public function setMeta(?AutomationsUpdateResponseMeta $value = null): self
+    public function setId(string $value): self
     {
-        $this->meta = $value;
+        $this->id = $value;
         return $this;
     }
 
     /**
-     * @return ?AutomationsUpdateResponseData
+     * @return ?string
      */
-    public function getData(): ?AutomationsUpdateResponseData
+    public function getName(): ?string
     {
-        return $this->data;
+        return $this->name;
     }
 
     /**
-     * @param ?AutomationsUpdateResponseData $value
+     * @param ?string $value
      */
-    public function setData(?AutomationsUpdateResponseData $value = null): self
+    public function setName(?string $value = null): self
     {
-        $this->data = $value;
+        $this->name = $value;
         return $this;
     }
 
     /**
-     * @return ?AutomationsUpdateResponseError
+     * @return ?string
      */
-    public function getError(): ?AutomationsUpdateResponseError
+    public function getDescription(): ?string
     {
-        return $this->error;
+        return $this->description;
     }
 
     /**
-     * @param ?AutomationsUpdateResponseError $value
+     * @param ?string $value
      */
-    public function setError(?AutomationsUpdateResponseError $value = null): self
+    public function setDescription(?string $value = null): self
     {
-        $this->error = $value;
+        $this->description = $value;
         return $this;
     }
 
     /**
-     * @return ?AutomationsUpdateResponseLinks
+     * @return AutomationsUpdateResponseTrigger
      */
-    public function getLinks(): ?AutomationsUpdateResponseLinks
+    public function getTrigger(): AutomationsUpdateResponseTrigger
     {
-        return $this->links;
+        return $this->trigger;
     }
 
     /**
-     * @param ?AutomationsUpdateResponseLinks $value
+     * @param AutomationsUpdateResponseTrigger $value
      */
-    public function setLinks(?AutomationsUpdateResponseLinks $value = null): self
+    public function setTrigger(AutomationsUpdateResponseTrigger $value): self
     {
-        $this->links = $value;
+        $this->trigger = $value;
+        return $this;
+    }
+
+    /**
+     * @return array<(
+     *    AutomationsUpdateResponseWorkflowItemRef
+     *   |AutomationsUpdateResponseWorkflowItemConditions
+     * )>
+     */
+    public function getWorkflow(): array
+    {
+        return $this->workflow;
+    }
+
+    /**
+     * @param array<(
+     *    AutomationsUpdateResponseWorkflowItemRef
+     *   |AutomationsUpdateResponseWorkflowItemConditions
+     * )> $value
+     */
+    public function setWorkflow(array $value): self
+    {
+        $this->workflow = $value;
+        return $this;
+    }
+
+    /**
+     * @return value-of<AutomationsUpdateResponseStatus>
+     */
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param value-of<AutomationsUpdateResponseStatus> $value
+     */
+    public function setStatus(string $value): self
+    {
+        $this->status = $value;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreated(): DateTime
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param DateTime $value
+     */
+    public function setCreated(DateTime $value): self
+    {
+        $this->created = $value;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdated(): DateTime
+    {
+        return $this->updated;
+    }
+
+    /**
+     * @param DateTime $value
+     */
+    public function setUpdated(DateTime $value): self
+    {
+        $this->updated = $value;
         return $this;
     }
 

@@ -5,12 +5,13 @@ namespace Ittybit\Files;
 use GuzzleHttp\ClientInterface;
 use Ittybit\Core\Client\RawClient;
 use Ittybit\Files\Requests\FilesListRequest;
-use Ittybit\Files\Types\FilesListResponse;
+use Ittybit\Files\Types\FilesListResponseItem;
 use Ittybit\Exceptions\IttybitException;
 use Ittybit\Exceptions\IttybitApiException;
 use Ittybit\Core\Json\JsonApiRequest;
 use Ittybit\Environments;
 use Ittybit\Core\Client\HttpMethod;
+use Ittybit\Core\Json\JsonDecoder;
 use JsonException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
@@ -69,11 +70,11 @@ class FilesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return FilesListResponse
+     * @return array<FilesListResponseItem>
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function list(FilesListRequest $request = new FilesListRequest(), ?array $options = null): FilesListResponse
+    public function list(FilesListRequest $request, ?array $options = null): array
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -83,12 +84,15 @@ class FilesClient
         if ($request->getLimit() != null) {
             $query['limit'] = $request->getLimit();
         }
+        $headers = [];
+        $headers['Accept-Version'] = '2025-08-20';
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
                     path: "files",
                     method: HttpMethod::GET,
+                    headers: $headers,
                     query: $query,
                 ),
                 $options,
@@ -96,7 +100,7 @@ class FilesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return FilesListResponse::fromJson($json);
+                return JsonDecoder::decodeArray($json, [FilesListResponseItem::class]); // @phpstan-ignore-line
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -139,12 +143,15 @@ class FilesClient
     public function create(FilesCreateRequest $request, ?array $options = null): FilesCreateResponse
     {
         $options = array_merge($this->options, $options ?? []);
+        $headers = [];
+        $headers['Accept-Version'] = '2025-08-20';
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
                     path: "files",
                     method: HttpMethod::POST,
+                    headers: $headers,
                     body: $request,
                 ),
                 $options,
@@ -303,15 +310,18 @@ class FilesClient
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function update(string $id, FilesUpdateRequest $request = new FilesUpdateRequest(), ?array $options = null): FilesUpdateResponse
+    public function update(string $id, FilesUpdateRequest $request, ?array $options = null): FilesUpdateResponse
     {
         $options = array_merge($this->options, $options ?? []);
+        $headers = [];
+        $headers['Accept-Version'] = '2025-08-20';
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
                     path: "files/{$id}",
                     method: HttpMethod::PATCH,
+                    headers: $headers,
                     body: $request,
                 ),
                 $options,

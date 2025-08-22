@@ -5,12 +5,13 @@ namespace Ittybit\Media;
 use GuzzleHttp\ClientInterface;
 use Ittybit\Core\Client\RawClient;
 use Ittybit\Media\Requests\MediaListRequest;
-use Ittybit\Types\MediaListResponse;
+use Ittybit\Types\MediaListResponseItem;
 use Ittybit\Exceptions\IttybitException;
 use Ittybit\Exceptions\IttybitApiException;
 use Ittybit\Core\Json\JsonApiRequest;
 use Ittybit\Environments;
 use Ittybit\Core\Client\HttpMethod;
+use Ittybit\Core\Json\JsonDecoder;
 use JsonException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
@@ -69,11 +70,11 @@ class MediaClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return MediaListResponse
+     * @return array<MediaListResponseItem>
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function list(MediaListRequest $request = new MediaListRequest(), ?array $options = null): MediaListResponse
+    public function list(MediaListRequest $request, ?array $options = null): array
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -83,12 +84,15 @@ class MediaClient
         if ($request->getLimit() != null) {
             $query['limit'] = $request->getLimit();
         }
+        $headers = [];
+        $headers['Accept-Version'] = '2025-08-20';
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
                     path: "media",
                     method: HttpMethod::GET,
+                    headers: $headers,
                     query: $query,
                 ),
                 $options,
@@ -96,7 +100,7 @@ class MediaClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return MediaListResponse::fromJson($json);
+                return JsonDecoder::decodeArray($json, [MediaListResponseItem::class]); // @phpstan-ignore-line
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -136,15 +140,18 @@ class MediaClient
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function create(MediaCreateRequest $request = new MediaCreateRequest(), ?array $options = null): MediaCreateResponse
+    public function create(MediaCreateRequest $request, ?array $options = null): MediaCreateResponse
     {
         $options = array_merge($this->options, $options ?? []);
+        $headers = [];
+        $headers['Accept-Version'] = '2025-08-20';
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
                     path: "media",
                     method: HttpMethod::POST,
+                    headers: $headers,
                     body: $request,
                 ),
                 $options,
@@ -303,15 +310,18 @@ class MediaClient
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function update(string $id, MediaUpdateRequest $request = new MediaUpdateRequest(), ?array $options = null): MediaUpdateResponse
+    public function update(string $id, MediaUpdateRequest $request, ?array $options = null): MediaUpdateResponse
     {
         $options = array_merge($this->options, $options ?? []);
+        $headers = [];
+        $headers['Accept-Version'] = '2025-08-20';
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
                     path: "media/{$id}",
                     method: HttpMethod::PATCH,
+                    headers: $headers,
                     body: $request,
                 ),
                 $options,

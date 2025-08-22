@@ -8,111 +8,36 @@ use Ittybit\Core\Json\JsonProperty;
 class MediaDeleteResponse extends JsonSerializableType
 {
     /**
-     * @var ?MediaDeleteResponseMeta $meta
+     * @var ?string $message
      */
-    #[JsonProperty('meta')]
-    private ?MediaDeleteResponseMeta $meta;
-
-    /**
-     * @var ?MediaDeleteResponseData $data
-     */
-    #[JsonProperty('data')]
-    private ?MediaDeleteResponseData $data;
-
-    /**
-     * @var ?MediaDeleteResponseError $error
-     */
-    #[JsonProperty('error')]
-    private ?MediaDeleteResponseError $error;
-
-    /**
-     * @var ?MediaDeleteResponseLinks $links
-     */
-    #[JsonProperty('links')]
-    private ?MediaDeleteResponseLinks $links;
+    #[JsonProperty('message')]
+    private ?string $message;
 
     /**
      * @param array{
-     *   meta?: ?MediaDeleteResponseMeta,
-     *   data?: ?MediaDeleteResponseData,
-     *   error?: ?MediaDeleteResponseError,
-     *   links?: ?MediaDeleteResponseLinks,
+     *   message?: ?string,
      * } $values
      */
     public function __construct(
         array $values = [],
     ) {
-        $this->meta = $values['meta'] ?? null;
-        $this->data = $values['data'] ?? null;
-        $this->error = $values['error'] ?? null;
-        $this->links = $values['links'] ?? null;
+        $this->message = $values['message'] ?? null;
     }
 
     /**
-     * @return ?MediaDeleteResponseMeta
+     * @return ?string
      */
-    public function getMeta(): ?MediaDeleteResponseMeta
+    public function getMessage(): ?string
     {
-        return $this->meta;
+        return $this->message;
     }
 
     /**
-     * @param ?MediaDeleteResponseMeta $value
+     * @param ?string $value
      */
-    public function setMeta(?MediaDeleteResponseMeta $value = null): self
+    public function setMessage(?string $value = null): self
     {
-        $this->meta = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?MediaDeleteResponseData
-     */
-    public function getData(): ?MediaDeleteResponseData
-    {
-        return $this->data;
-    }
-
-    /**
-     * @param ?MediaDeleteResponseData $value
-     */
-    public function setData(?MediaDeleteResponseData $value = null): self
-    {
-        $this->data = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?MediaDeleteResponseError
-     */
-    public function getError(): ?MediaDeleteResponseError
-    {
-        return $this->error;
-    }
-
-    /**
-     * @param ?MediaDeleteResponseError $value
-     */
-    public function setError(?MediaDeleteResponseError $value = null): self
-    {
-        $this->error = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?MediaDeleteResponseLinks
-     */
-    public function getLinks(): ?MediaDeleteResponseLinks
-    {
-        return $this->links;
-    }
-
-    /**
-     * @param ?MediaDeleteResponseLinks $value
-     */
-    public function setLinks(?MediaDeleteResponseLinks $value = null): self
-    {
-        $this->links = $value;
+        $this->message = $value;
         return $this;
     }
 

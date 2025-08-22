@@ -4,115 +4,393 @@ namespace Ittybit\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
+use Ittybit\Core\Types\ArrayType;
+use DateTime;
+use Ittybit\Core\Types\Date;
 
 class TaskResponse extends JsonSerializableType
 {
     /**
-     * @var ?TaskResponseMeta $meta
+     * @var string $id
      */
-    #[JsonProperty('meta')]
-    private ?TaskResponseMeta $meta;
+    #[JsonProperty('id')]
+    private string $id;
 
     /**
-     * @var ?TaskResponseData $data
+     * @var string $object
      */
-    #[JsonProperty('data')]
-    private ?TaskResponseData $data;
+    #[JsonProperty('object')]
+    private string $object;
 
     /**
-     * @var ?TaskResponseError $error
+     * @var value-of<TaskResponseKind> $kind
+     */
+    #[JsonProperty('kind')]
+    private string $kind;
+
+    /**
+     * @var ?array<string, mixed> $input
+     */
+    #[JsonProperty('input'), ArrayType(['string' => 'mixed'])]
+    private ?array $input;
+
+    /**
+     * @var ?array<string, mixed> $options
+     */
+    #[JsonProperty('options'), ArrayType(['string' => 'mixed'])]
+    private ?array $options;
+
+    /**
+     * @var ?array<string, mixed> $output
+     */
+    #[JsonProperty('output'), ArrayType(['string' => 'mixed'])]
+    private ?array $output;
+
+    /**
+     * @var value-of<TaskResponseStatus> $status
+     */
+    #[JsonProperty('status')]
+    private string $status;
+
+    /**
+     * @var ?int $progress
+     */
+    #[JsonProperty('progress')]
+    private ?int $progress;
+
+    /**
+     * @var ?string $error
      */
     #[JsonProperty('error')]
-    private ?TaskResponseError $error;
+    private ?string $error;
 
     /**
-     * @var ?TaskResponseLinks $links
+     * @var ?string $createdBy
      */
-    #[JsonProperty('links')]
-    private ?TaskResponseLinks $links;
+    #[JsonProperty('created_by')]
+    private ?string $createdBy;
+
+    /**
+     * @var DateTime $created
+     */
+    #[JsonProperty('created'), Date(Date::TYPE_DATETIME)]
+    private DateTime $created;
+
+    /**
+     * @var DateTime $updated
+     */
+    #[JsonProperty('updated'), Date(Date::TYPE_DATETIME)]
+    private DateTime $updated;
+
+    /**
+     * @var ?string $parentId
+     */
+    #[JsonProperty('parent_id')]
+    private ?string $parentId;
+
+    /**
+     * @var ?array<mixed> $workflow
+     */
+    #[JsonProperty('workflow'), ArrayType(['mixed'])]
+    private ?array $workflow;
+
+    /**
+     * @var ?TaskResponseResults $results
+     */
+    #[JsonProperty('results')]
+    private ?TaskResponseResults $results;
 
     /**
      * @param array{
-     *   meta?: ?TaskResponseMeta,
-     *   data?: ?TaskResponseData,
-     *   error?: ?TaskResponseError,
-     *   links?: ?TaskResponseLinks,
+     *   id: string,
+     *   object: string,
+     *   kind: value-of<TaskResponseKind>,
+     *   status: value-of<TaskResponseStatus>,
+     *   created: DateTime,
+     *   updated: DateTime,
+     *   input?: ?array<string, mixed>,
+     *   options?: ?array<string, mixed>,
+     *   output?: ?array<string, mixed>,
+     *   progress?: ?int,
+     *   error?: ?string,
+     *   createdBy?: ?string,
+     *   parentId?: ?string,
+     *   workflow?: ?array<mixed>,
+     *   results?: ?TaskResponseResults,
      * } $values
      */
     public function __construct(
-        array $values = [],
+        array $values,
     ) {
-        $this->meta = $values['meta'] ?? null;
-        $this->data = $values['data'] ?? null;
+        $this->id = $values['id'];
+        $this->object = $values['object'];
+        $this->kind = $values['kind'];
+        $this->input = $values['input'] ?? null;
+        $this->options = $values['options'] ?? null;
+        $this->output = $values['output'] ?? null;
+        $this->status = $values['status'];
+        $this->progress = $values['progress'] ?? null;
         $this->error = $values['error'] ?? null;
-        $this->links = $values['links'] ?? null;
+        $this->createdBy = $values['createdBy'] ?? null;
+        $this->created = $values['created'];
+        $this->updated = $values['updated'];
+        $this->parentId = $values['parentId'] ?? null;
+        $this->workflow = $values['workflow'] ?? null;
+        $this->results = $values['results'] ?? null;
     }
 
     /**
-     * @return ?TaskResponseMeta
+     * @return string
      */
-    public function getMeta(): ?TaskResponseMeta
+    public function getId(): string
     {
-        return $this->meta;
+        return $this->id;
     }
 
     /**
-     * @param ?TaskResponseMeta $value
+     * @param string $value
      */
-    public function setMeta(?TaskResponseMeta $value = null): self
+    public function setId(string $value): self
     {
-        $this->meta = $value;
+        $this->id = $value;
         return $this;
     }
 
     /**
-     * @return ?TaskResponseData
+     * @return string
      */
-    public function getData(): ?TaskResponseData
+    public function getObject(): string
     {
-        return $this->data;
+        return $this->object;
     }
 
     /**
-     * @param ?TaskResponseData $value
+     * @param string $value
      */
-    public function setData(?TaskResponseData $value = null): self
+    public function setObject(string $value): self
     {
-        $this->data = $value;
+        $this->object = $value;
         return $this;
     }
 
     /**
-     * @return ?TaskResponseError
+     * @return value-of<TaskResponseKind>
      */
-    public function getError(): ?TaskResponseError
+    public function getKind(): string
+    {
+        return $this->kind;
+    }
+
+    /**
+     * @param value-of<TaskResponseKind> $value
+     */
+    public function setKind(string $value): self
+    {
+        $this->kind = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?array<string, mixed>
+     */
+    public function getInput(): ?array
+    {
+        return $this->input;
+    }
+
+    /**
+     * @param ?array<string, mixed> $value
+     */
+    public function setInput(?array $value = null): self
+    {
+        $this->input = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?array<string, mixed>
+     */
+    public function getOptions(): ?array
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param ?array<string, mixed> $value
+     */
+    public function setOptions(?array $value = null): self
+    {
+        $this->options = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?array<string, mixed>
+     */
+    public function getOutput(): ?array
+    {
+        return $this->output;
+    }
+
+    /**
+     * @param ?array<string, mixed> $value
+     */
+    public function setOutput(?array $value = null): self
+    {
+        $this->output = $value;
+        return $this;
+    }
+
+    /**
+     * @return value-of<TaskResponseStatus>
+     */
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param value-of<TaskResponseStatus> $value
+     */
+    public function setStatus(string $value): self
+    {
+        $this->status = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getProgress(): ?int
+    {
+        return $this->progress;
+    }
+
+    /**
+     * @param ?int $value
+     */
+    public function setProgress(?int $value = null): self
+    {
+        $this->progress = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getError(): ?string
     {
         return $this->error;
     }
 
     /**
-     * @param ?TaskResponseError $value
+     * @param ?string $value
      */
-    public function setError(?TaskResponseError $value = null): self
+    public function setError(?string $value = null): self
     {
         $this->error = $value;
         return $this;
     }
 
     /**
-     * @return ?TaskResponseLinks
+     * @return ?string
      */
-    public function getLinks(): ?TaskResponseLinks
+    public function getCreatedBy(): ?string
     {
-        return $this->links;
+        return $this->createdBy;
     }
 
     /**
-     * @param ?TaskResponseLinks $value
+     * @param ?string $value
      */
-    public function setLinks(?TaskResponseLinks $value = null): self
+    public function setCreatedBy(?string $value = null): self
     {
-        $this->links = $value;
+        $this->createdBy = $value;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreated(): DateTime
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param DateTime $value
+     */
+    public function setCreated(DateTime $value): self
+    {
+        $this->created = $value;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdated(): DateTime
+    {
+        return $this->updated;
+    }
+
+    /**
+     * @param DateTime $value
+     */
+    public function setUpdated(DateTime $value): self
+    {
+        $this->updated = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getParentId(): ?string
+    {
+        return $this->parentId;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setParentId(?string $value = null): self
+    {
+        $this->parentId = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?array<mixed>
+     */
+    public function getWorkflow(): ?array
+    {
+        return $this->workflow;
+    }
+
+    /**
+     * @param ?array<mixed> $value
+     */
+    public function setWorkflow(?array $value = null): self
+    {
+        $this->workflow = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?TaskResponseResults
+     */
+    public function getResults(): ?TaskResponseResults
+    {
+        return $this->results;
+    }
+
+    /**
+     * @param ?TaskResponseResults $value
+     */
+    public function setResults(?TaskResponseResults $value = null): self
+    {
+        $this->results = $value;
         return $this;
     }
 

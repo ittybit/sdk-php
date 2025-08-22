@@ -5,12 +5,13 @@ namespace Ittybit\Automations;
 use GuzzleHttp\ClientInterface;
 use Ittybit\Core\Client\RawClient;
 use Ittybit\Automations\Requests\AutomationsListRequest;
-use Ittybit\Automations\Types\AutomationsListResponse;
+use Ittybit\Automations\Types\AutomationsListResponseItem;
 use Ittybit\Exceptions\IttybitException;
 use Ittybit\Exceptions\IttybitApiException;
 use Ittybit\Core\Json\JsonApiRequest;
 use Ittybit\Environments;
 use Ittybit\Core\Client\HttpMethod;
+use Ittybit\Core\Json\JsonDecoder;
 use JsonException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
@@ -69,11 +70,11 @@ class AutomationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return AutomationsListResponse
+     * @return array<AutomationsListResponseItem>
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function list(AutomationsListRequest $request = new AutomationsListRequest(), ?array $options = null): AutomationsListResponse
+    public function list(AutomationsListRequest $request, ?array $options = null): array
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -83,12 +84,15 @@ class AutomationsClient
         if ($request->getLimit() != null) {
             $query['limit'] = $request->getLimit();
         }
+        $headers = [];
+        $headers['Accept-Version'] = '2025-08-20';
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
                     path: "automations",
                     method: HttpMethod::GET,
+                    headers: $headers,
                     query: $query,
                 ),
                 $options,
@@ -96,7 +100,7 @@ class AutomationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return AutomationsListResponse::fromJson($json);
+                return JsonDecoder::decodeArray($json, [AutomationsListResponseItem::class]); // @phpstan-ignore-line
             }
         } catch (JsonException $e) {
             throw new IttybitException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -303,15 +307,18 @@ class AutomationsClient
      * @throws IttybitException
      * @throws IttybitApiException
      */
-    public function update(string $id, AutomationsUpdateRequest $request = new AutomationsUpdateRequest(), ?array $options = null): AutomationsUpdateResponse
+    public function update(string $id, AutomationsUpdateRequest $request, ?array $options = null): AutomationsUpdateResponse
     {
         $options = array_merge($this->options, $options ?? []);
+        $headers = [];
+        $headers['Accept-Version'] = '2025-08-20';
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
                     path: "automations/{$id}",
                     method: HttpMethod::PATCH,
+                    headers: $headers,
                     body: $request,
                 ),
                 $options,

@@ -4,115 +4,368 @@ namespace Ittybit\Types;
 
 use Ittybit\Core\Json\JsonSerializableType;
 use Ittybit\Core\Json\JsonProperty;
+use Ittybit\Core\Types\ArrayType;
+use DateTime;
+use Ittybit\Core\Types\Date;
 
 class MediaResponse extends JsonSerializableType
 {
     /**
-     * @var ?MediaResponseMeta $meta
+     * @var string $id
      */
-    #[JsonProperty('meta')]
-    private ?MediaResponseMeta $meta;
+    #[JsonProperty('id')]
+    private string $id;
 
     /**
-     * @var ?MediaResponseData $data
+     * @var string $object
      */
-    #[JsonProperty('data')]
-    private ?MediaResponseData $data;
+    #[JsonProperty('object')]
+    private string $object;
 
     /**
-     * @var ?MediaResponseError $error
+     * @var ?value-of<MediaResponseKind> $kind
      */
-    #[JsonProperty('error')]
-    private ?MediaResponseError $error;
+    #[JsonProperty('kind')]
+    private ?string $kind;
 
     /**
-     * @var ?MediaResponseLinks $links
+     * @var ?string $title
      */
-    #[JsonProperty('links')]
-    private ?MediaResponseLinks $links;
+    #[JsonProperty('title')]
+    private ?string $title;
+
+    /**
+     * @var ?string $alt
+     */
+    #[JsonProperty('alt')]
+    private ?string $alt;
+
+    /**
+     * @var ?int $width
+     */
+    #[JsonProperty('width')]
+    private ?int $width;
+
+    /**
+     * @var ?int $height
+     */
+    #[JsonProperty('height')]
+    private ?int $height;
+
+    /**
+     * @var ?float $duration
+     */
+    #[JsonProperty('duration')]
+    private ?float $duration;
+
+    /**
+     * @var array<MediaResponseFilesItem> $files
+     */
+    #[JsonProperty('files'), ArrayType([MediaResponseFilesItem::class])]
+    private array $files;
+
+    /**
+     * @var array<string, mixed> $urls
+     */
+    #[JsonProperty('urls'), ArrayType(['string' => 'mixed'])]
+    private array $urls;
+
+    /**
+     * @var ?string $background
+     */
+    #[JsonProperty('background')]
+    private ?string $background;
+
+    /**
+     * @var ?array<string, mixed> $metadata
+     */
+    #[JsonProperty('metadata'), ArrayType(['string' => 'mixed'])]
+    private ?array $metadata;
+
+    /**
+     * @var DateTime $created
+     */
+    #[JsonProperty('created'), Date(Date::TYPE_DATETIME)]
+    private DateTime $created;
+
+    /**
+     * @var DateTime $updated
+     */
+    #[JsonProperty('updated'), Date(Date::TYPE_DATETIME)]
+    private DateTime $updated;
 
     /**
      * @param array{
-     *   meta?: ?MediaResponseMeta,
-     *   data?: ?MediaResponseData,
-     *   error?: ?MediaResponseError,
-     *   links?: ?MediaResponseLinks,
+     *   id: string,
+     *   object: string,
+     *   files: array<MediaResponseFilesItem>,
+     *   urls: array<string, mixed>,
+     *   created: DateTime,
+     *   updated: DateTime,
+     *   kind?: ?value-of<MediaResponseKind>,
+     *   title?: ?string,
+     *   alt?: ?string,
+     *   width?: ?int,
+     *   height?: ?int,
+     *   duration?: ?float,
+     *   background?: ?string,
+     *   metadata?: ?array<string, mixed>,
      * } $values
      */
     public function __construct(
-        array $values = [],
+        array $values,
     ) {
-        $this->meta = $values['meta'] ?? null;
-        $this->data = $values['data'] ?? null;
-        $this->error = $values['error'] ?? null;
-        $this->links = $values['links'] ?? null;
+        $this->id = $values['id'];
+        $this->object = $values['object'];
+        $this->kind = $values['kind'] ?? null;
+        $this->title = $values['title'] ?? null;
+        $this->alt = $values['alt'] ?? null;
+        $this->width = $values['width'] ?? null;
+        $this->height = $values['height'] ?? null;
+        $this->duration = $values['duration'] ?? null;
+        $this->files = $values['files'];
+        $this->urls = $values['urls'];
+        $this->background = $values['background'] ?? null;
+        $this->metadata = $values['metadata'] ?? null;
+        $this->created = $values['created'];
+        $this->updated = $values['updated'];
     }
 
     /**
-     * @return ?MediaResponseMeta
+     * @return string
      */
-    public function getMeta(): ?MediaResponseMeta
+    public function getId(): string
     {
-        return $this->meta;
+        return $this->id;
     }
 
     /**
-     * @param ?MediaResponseMeta $value
+     * @param string $value
      */
-    public function setMeta(?MediaResponseMeta $value = null): self
+    public function setId(string $value): self
     {
-        $this->meta = $value;
+        $this->id = $value;
         return $this;
     }
 
     /**
-     * @return ?MediaResponseData
+     * @return string
      */
-    public function getData(): ?MediaResponseData
+    public function getObject(): string
     {
-        return $this->data;
+        return $this->object;
     }
 
     /**
-     * @param ?MediaResponseData $value
+     * @param string $value
      */
-    public function setData(?MediaResponseData $value = null): self
+    public function setObject(string $value): self
     {
-        $this->data = $value;
+        $this->object = $value;
         return $this;
     }
 
     /**
-     * @return ?MediaResponseError
+     * @return ?value-of<MediaResponseKind>
      */
-    public function getError(): ?MediaResponseError
+    public function getKind(): ?string
     {
-        return $this->error;
+        return $this->kind;
     }
 
     /**
-     * @param ?MediaResponseError $value
+     * @param ?value-of<MediaResponseKind> $value
      */
-    public function setError(?MediaResponseError $value = null): self
+    public function setKind(?string $value = null): self
     {
-        $this->error = $value;
+        $this->kind = $value;
         return $this;
     }
 
     /**
-     * @return ?MediaResponseLinks
+     * @return ?string
      */
-    public function getLinks(): ?MediaResponseLinks
+    public function getTitle(): ?string
     {
-        return $this->links;
+        return $this->title;
     }
 
     /**
-     * @param ?MediaResponseLinks $value
+     * @param ?string $value
      */
-    public function setLinks(?MediaResponseLinks $value = null): self
+    public function setTitle(?string $value = null): self
     {
-        $this->links = $value;
+        $this->title = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getAlt(): ?string
+    {
+        return $this->alt;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setAlt(?string $value = null): self
+    {
+        $this->alt = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getWidth(): ?int
+    {
+        return $this->width;
+    }
+
+    /**
+     * @param ?int $value
+     */
+    public function setWidth(?int $value = null): self
+    {
+        $this->width = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getHeight(): ?int
+    {
+        return $this->height;
+    }
+
+    /**
+     * @param ?int $value
+     */
+    public function setHeight(?int $value = null): self
+    {
+        $this->height = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?float
+     */
+    public function getDuration(): ?float
+    {
+        return $this->duration;
+    }
+
+    /**
+     * @param ?float $value
+     */
+    public function setDuration(?float $value = null): self
+    {
+        $this->duration = $value;
+        return $this;
+    }
+
+    /**
+     * @return array<MediaResponseFilesItem>
+     */
+    public function getFiles(): array
+    {
+        return $this->files;
+    }
+
+    /**
+     * @param array<MediaResponseFilesItem> $value
+     */
+    public function setFiles(array $value): self
+    {
+        $this->files = $value;
+        return $this;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function getUrls(): array
+    {
+        return $this->urls;
+    }
+
+    /**
+     * @param array<string, mixed> $value
+     */
+    public function setUrls(array $value): self
+    {
+        $this->urls = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getBackground(): ?string
+    {
+        return $this->background;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setBackground(?string $value = null): self
+    {
+        $this->background = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?array<string, mixed>
+     */
+    public function getMetadata(): ?array
+    {
+        return $this->metadata;
+    }
+
+    /**
+     * @param ?array<string, mixed> $value
+     */
+    public function setMetadata(?array $value = null): self
+    {
+        $this->metadata = $value;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreated(): DateTime
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param DateTime $value
+     */
+    public function setCreated(DateTime $value): self
+    {
+        $this->created = $value;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdated(): DateTime
+    {
+        return $this->updated;
+    }
+
+    /**
+     * @param DateTime $value
+     */
+    public function setUpdated(DateTime $value): self
+    {
+        $this->updated = $value;
         return $this;
     }
 

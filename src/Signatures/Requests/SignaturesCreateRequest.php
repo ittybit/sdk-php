@@ -9,6 +9,11 @@ use Ittybit\Signatures\Types\SignaturesCreateRequestMethod;
 class SignaturesCreateRequest extends JsonSerializableType
 {
     /**
+     * @var '2025-08-20' $acceptVersion Specifies the API Version
+     */
+    private string $acceptVersion;
+
+    /**
      * @var string $filename
      */
     #[JsonProperty('filename')]
@@ -34,6 +39,7 @@ class SignaturesCreateRequest extends JsonSerializableType
 
     /**
      * @param array{
+     *   acceptVersion: '2025-08-20',
      *   filename: string,
      *   folder?: ?string,
      *   expiry?: ?int,
@@ -43,10 +49,28 @@ class SignaturesCreateRequest extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
+        $this->acceptVersion = $values['acceptVersion'];
         $this->filename = $values['filename'];
         $this->folder = $values['folder'] ?? null;
         $this->expiry = $values['expiry'] ?? null;
         $this->method = $values['method'] ?? null;
+    }
+
+    /**
+     * @return '2025-08-20'
+     */
+    public function getAcceptVersion(): string
+    {
+        return $this->acceptVersion;
+    }
+
+    /**
+     * @param '2025-08-20' $value
+     */
+    public function setAcceptVersion(string $value): self
+    {
+        $this->acceptVersion = $value;
+        return $this;
     }
 
     /**

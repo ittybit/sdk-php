@@ -70,12 +70,15 @@ class SignaturesClient
     public function create(SignaturesCreateRequest $request, ?array $options = null): SignaturesCreateResponse
     {
         $options = array_merge($this->options, $options ?? []);
+        $headers = [];
+        $headers['Accept-Version'] = '2025-08-20';
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::Default_->value,
                     path: "signatures",
                     method: HttpMethod::POST,
+                    headers: $headers,
                     body: $request,
                 ),
                 $options,

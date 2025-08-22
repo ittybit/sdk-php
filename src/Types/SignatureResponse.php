@@ -8,111 +8,186 @@ use Ittybit\Core\Json\JsonProperty;
 class SignatureResponse extends JsonSerializableType
 {
     /**
-     * @var ?SignatureResponseMeta $meta
+     * @var string $domain
      */
-    #[JsonProperty('meta')]
-    private ?SignatureResponseMeta $meta;
+    #[JsonProperty('domain')]
+    private string $domain;
 
     /**
-     * @var ?SignatureResponseData $data
+     * @var string $filename
      */
-    #[JsonProperty('data')]
-    private ?SignatureResponseData $data;
+    #[JsonProperty('filename')]
+    private string $filename;
 
     /**
-     * @var ?SignatureResponseError $error
+     * @var ?string $folder
      */
-    #[JsonProperty('error')]
-    private ?SignatureResponseError $error;
+    #[JsonProperty('folder')]
+    private ?string $folder;
 
     /**
-     * @var ?SignatureResponseLinks $links
+     * @var int $expiry
      */
-    #[JsonProperty('links')]
-    private ?SignatureResponseLinks $links;
+    #[JsonProperty('expiry')]
+    private int $expiry;
+
+    /**
+     * @var string $method
+     */
+    #[JsonProperty('method')]
+    private string $method;
+
+    /**
+     * @var string $signature
+     */
+    #[JsonProperty('signature')]
+    private string $signature;
+
+    /**
+     * @var string $url
+     */
+    #[JsonProperty('url')]
+    private string $url;
 
     /**
      * @param array{
-     *   meta?: ?SignatureResponseMeta,
-     *   data?: ?SignatureResponseData,
-     *   error?: ?SignatureResponseError,
-     *   links?: ?SignatureResponseLinks,
+     *   domain: string,
+     *   filename: string,
+     *   expiry: int,
+     *   method: string,
+     *   signature: string,
+     *   url: string,
+     *   folder?: ?string,
      * } $values
      */
     public function __construct(
-        array $values = [],
+        array $values,
     ) {
-        $this->meta = $values['meta'] ?? null;
-        $this->data = $values['data'] ?? null;
-        $this->error = $values['error'] ?? null;
-        $this->links = $values['links'] ?? null;
+        $this->domain = $values['domain'];
+        $this->filename = $values['filename'];
+        $this->folder = $values['folder'] ?? null;
+        $this->expiry = $values['expiry'];
+        $this->method = $values['method'];
+        $this->signature = $values['signature'];
+        $this->url = $values['url'];
     }
 
     /**
-     * @return ?SignatureResponseMeta
+     * @return string
      */
-    public function getMeta(): ?SignatureResponseMeta
+    public function getDomain(): string
     {
-        return $this->meta;
+        return $this->domain;
     }
 
     /**
-     * @param ?SignatureResponseMeta $value
+     * @param string $value
      */
-    public function setMeta(?SignatureResponseMeta $value = null): self
+    public function setDomain(string $value): self
     {
-        $this->meta = $value;
+        $this->domain = $value;
         return $this;
     }
 
     /**
-     * @return ?SignatureResponseData
+     * @return string
      */
-    public function getData(): ?SignatureResponseData
+    public function getFilename(): string
     {
-        return $this->data;
+        return $this->filename;
     }
 
     /**
-     * @param ?SignatureResponseData $value
+     * @param string $value
      */
-    public function setData(?SignatureResponseData $value = null): self
+    public function setFilename(string $value): self
     {
-        $this->data = $value;
+        $this->filename = $value;
         return $this;
     }
 
     /**
-     * @return ?SignatureResponseError
+     * @return ?string
      */
-    public function getError(): ?SignatureResponseError
+    public function getFolder(): ?string
     {
-        return $this->error;
+        return $this->folder;
     }
 
     /**
-     * @param ?SignatureResponseError $value
+     * @param ?string $value
      */
-    public function setError(?SignatureResponseError $value = null): self
+    public function setFolder(?string $value = null): self
     {
-        $this->error = $value;
+        $this->folder = $value;
         return $this;
     }
 
     /**
-     * @return ?SignatureResponseLinks
+     * @return int
      */
-    public function getLinks(): ?SignatureResponseLinks
+    public function getExpiry(): int
     {
-        return $this->links;
+        return $this->expiry;
     }
 
     /**
-     * @param ?SignatureResponseLinks $value
+     * @param int $value
      */
-    public function setLinks(?SignatureResponseLinks $value = null): self
+    public function setExpiry(int $value): self
     {
-        $this->links = $value;
+        $this->expiry = $value;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMethod(): string
+    {
+        return $this->method;
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setMethod(string $value): self
+    {
+        $this->method = $value;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSignature(): string
+    {
+        return $this->signature;
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setSignature(string $value): self
+    {
+        $this->signature = $value;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setUrl(string $value): self
+    {
+        $this->url = $value;
         return $this;
     }
 
